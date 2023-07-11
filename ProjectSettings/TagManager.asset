@@ -8,11 +8,11 @@ TagManager:
   - Default
   - TransparentFX
   - Ignore Raycast
-  - 
+  - Obsticles
   - Water
   - UI
-  - 
-  - 
+  - background
+  - Player
   - 
   - 
   - 

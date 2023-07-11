@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -5,30 +6,39 @@ using UnityEngine;
 public class NewBehaviourScript : MonoBehaviour
 {
     public float moveSpeed;
-
     private bool isMoving;
-
     private Vector2 input;
+    private Animator animator;
 
-    // Start is called before the first frame update
+    private void Awake()
+    {
+        animator = GetComponent<Animator>();
+    }
+
     void Start()
     {
         
     }
 
-    // Update is called once per frame
     void Update()
     {
-        if(!isMoving)
+        animator.SetBool("isMoving", isMoving);
+        if (!isMoving)
         {
+
             input.x = Input.GetAxisRaw("Horizontal");
             input.y = Input.GetAxisRaw("Vertical");
 
-            if(input != Vector2.zero)
+            if (input != Vector2.zero)
             {
                 var targetPos = transform.position;
                 targetPos.x += input.x;
                 targetPos.y += input.y;
+
+                animator.SetFloat("moveX", input.x);
+                animator.SetFloat("moveY", input.y);
+                if (input.x < 0) this.transform.localScale = new Vector3(-1, 1, 1);
+                else this.transform.localScale = new Vector3(1, 1, 1);
 
                 StartCoroutine(Move(targetPos));
             }
