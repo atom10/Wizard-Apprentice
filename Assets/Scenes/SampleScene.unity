@@ -582,6 +582,7 @@ MonoBehaviour:
   customButton: {fileID: 4439408921195397542, guid: 7b2263c22e7877848947b7fefc1e07e5, type: 3}
   optionPanel: {fileID: 2144120549}
   isTalking: 1
+  startupKnotName: main
 --- !u!1 &519420028
 GameObject:
   m_ObjectHideFlags: 0

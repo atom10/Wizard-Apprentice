@@ -14,6 +14,7 @@ public class DialogueManager : MonoBehaviour
     public GameObject customButton;
     public GameObject optionPanel;
     public bool isTalking = false;
+    public string startupKnotName = null;
 
     static Story story;
     TextMeshProUGUI nametag;
@@ -26,6 +27,7 @@ public class DialogueManager : MonoBehaviour
         nametag = textBox.transform.GetChild(0).GetComponent<TextMeshProUGUI>();
         message = textBox.transform.GetChild(1).GetComponent<TextMeshProUGUI>();
         nametag.text = "eduardo";
+        if(startupKnotName != null && startupKnotName != "" ) story.ChoosePathString(startupKnotName);
         tags = new List<string>();
         choiceSelected = null;
         AdvanceDialogue();
