@@ -12,16 +12,11 @@ public class DialogueManager : MonoBehaviour
     public GameObject dialogueBox;
     public GameObject customButton;
 
-    [HideInInspector]
-    public TextAsset inkFile;
-    [HideInInspector]
-    public bool isTalking = false;
-    [HideInInspector]
-    public string startupKnotName = "";
-    [HideInInspector]
-    public string speaker_name = "";
-    [HideInInspector]
-    public Sprite speaker2_icon;
+    TextAsset inkFile;
+    bool is_talking = false;
+    string startupKnotName = "";
+    string speaker_name = "";
+    Sprite speaker2_icon;
 
     GameObject textBox;
     GameObject optionPanel;
@@ -34,11 +29,19 @@ public class DialogueManager : MonoBehaviour
     PlayerController playerController;
 
     void Start() {
-        playerController = GetComponent<PlayerController>();
+    }
+
+    public void setup(PlayerController playerController, TextAsset inkFile, String startupKnotName, String speaker_name, Sprite speaker2_icon)
+    {
+        this.playerController = playerController;
+        this.inkFile = inkFile;
+        this.startupKnotName = startupKnotName;
+        this.speaker_name = speaker_name;
+        this.speaker2_icon = speaker2_icon;
     }
 
     public void Talk() {
-        playerController.can_move = false;
+        playerController.CanMove(false);
         runningDialogueBox = Instantiate(dialogueBox, transform);
         textBox = runningDialogueBox.transform.Find("Text_box").gameObject;
         optionPanel = textBox.transform.Find("Choices").gameObject;
@@ -49,18 +52,18 @@ public class DialogueManager : MonoBehaviour
         if(startupKnotName != null && startupKnotName != "" ) story.ChoosePathString(startupKnotName);
         tags = new List<string>();
         choiceSelected = null;
-        isTalking = true;
+        is_talking = true;
         runningDialogueBox.transform.Find("speaker_2").gameObject.GetComponent<Image>().sprite=speaker2_icon;
         AdvanceDialogue();
     }
 
+    public bool isTalking()
+    {
+        return is_talking;
+    }
+
     private void Update() {
-        if(Input.GetKeyDown(KeyCode.X))
-        {
-            var num = optionPanel.transform.childCount;
-            Debug.Log(num);
-        }
-        if(Input.GetKeyDown(KeyCode.E) && isTalking && optionPanel.transform.childCount == 0) {
+        if(Input.GetKeyDown(KeyCode.E) && is_talking && optionPanel.transform.childCount == 0) {
             if (story.canContinue) {
                 AdvanceDialogue();
             } else {
@@ -72,8 +75,8 @@ public class DialogueManager : MonoBehaviour
     private void FinishDialogue() {
         Debug.Log("End of Dialogue!");
         Destroy(runningDialogueBox);
-        isTalking = false;
-        playerController.can_move = true;
+        is_talking = false;
+        playerController.CanMove(true);
     }
 
     void AdvanceDialogue() {

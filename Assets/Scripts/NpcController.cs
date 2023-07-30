@@ -1,5 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
+using UnityEditor;
+using UnityEditor.VersionControl;
 using UnityEngine;
 
 public class NpcController : MonoBehaviour, Interact
@@ -9,12 +11,13 @@ public class NpcController : MonoBehaviour, Interact
     public string ink_knot_name;
     public Sprite icon;
 
-    public void Interact()
+    public void Interact(GameObject player)
     {
-        //Debug.Log("Hello my name is " + firstname);
-        //var dialogue_box = GameObject.Find("dialogue_box");
-        //dialogue_box.SetActive(true);
-        
+        GameObject managers = GameObject.Find("Managers");
+        DialogueManager dialogueManager = managers.GetComponent<DialogueManager>();
+
+        dialogueManager.setup(player.GetComponent<PlayerController>(), ink_file, ink_knot_name, firstname, icon);
+        if (!dialogueManager.isTalking()) dialogueManager.Talk();
     }
 
     void Start()
