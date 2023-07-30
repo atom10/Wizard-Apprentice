@@ -9,33 +9,59 @@ using Unity.VisualScripting;
 
 public class DialogueManager : MonoBehaviour
 {
-    public TextAsset inkFile;
-    public GameObject textBox;
+    public GameObject dialogueBox;
     public GameObject customButton;
-    public GameObject optionPanel;
-    public bool isTalking = false;
-    public string startupKnotName = null;
 
+    [HideInInspector]
+    public TextAsset inkFile;
+    [HideInInspector]
+    public bool isTalking = false;
+    [HideInInspector]
+    public string startupKnotName = "";
+    [HideInInspector]
+    public string speaker_name = "";
+    [HideInInspector]
+    public Sprite speaker2_icon;
+
+    GameObject textBox;
+    GameObject optionPanel;
     static Story story;
     TextMeshProUGUI nametag;
     TextMeshProUGUI message;
     List<string> tags;
     static Choice choiceSelected;
+    private GameObject runningDialogueBox;
+    PlayerController playerController;
 
     void Start() {
+        playerController = GetComponent<PlayerController>();
+    }
+
+    public void Talk() {
+        playerController.can_move = false;
+        runningDialogueBox = Instantiate(dialogueBox, transform);
+        textBox = runningDialogueBox.transform.Find("Text_box").gameObject;
+        optionPanel = textBox.transform.Find("Choices").gameObject;
         story = new Story(inkFile.text);
         nametag = textBox.transform.GetChild(0).GetComponent<TextMeshProUGUI>();
         message = textBox.transform.GetChild(1).GetComponent<TextMeshProUGUI>();
-        nametag.text = "eduardo";
+        nametag.text = speaker_name;
         if(startupKnotName != null && startupKnotName != "" ) story.ChoosePathString(startupKnotName);
         tags = new List<string>();
         choiceSelected = null;
+        isTalking = true;
+        runningDialogueBox.transform.Find("speaker_2").gameObject.GetComponent<Image>().sprite=speaker2_icon;
         AdvanceDialogue();
     }
 
     private void Update() {
-        if(Input.GetKeyDown(KeyCode.E)) {
-            if(story.canContinue) {
+        if(Input.GetKeyDown(KeyCode.X))
+        {
+            var num = optionPanel.transform.childCount;
+            Debug.Log(num);
+        }
+        if(Input.GetKeyDown(KeyCode.E) && isTalking && optionPanel.transform.childCount == 0) {
+            if (story.canContinue) {
                 AdvanceDialogue();
             } else {
                 FinishDialogue();
@@ -45,6 +71,9 @@ public class DialogueManager : MonoBehaviour
 
     private void FinishDialogue() {
         Debug.Log("End of Dialogue!");
+        Destroy(runningDialogueBox);
+        isTalking = false;
+        playerController.can_move = true;
     }
 
     void AdvanceDialogue() {
@@ -52,7 +81,8 @@ public class DialogueManager : MonoBehaviour
         ParseTags();
         StopAllCoroutines();
         StartCoroutine(TypeSentence(currentSentence));
-        for (int i = 0; i < optionPanel.transform.childCount; i++) {
+        int number_of_childs = optionPanel.transform.childCount;
+        for (int i = 0; i < number_of_childs; i++) {
             Destroy(optionPanel.transform.GetChild(i).gameObject);
         }
         if (story.currentChoices.Count != 0) {
@@ -66,7 +96,6 @@ public class DialogueManager : MonoBehaviour
             message.text += letter;
             yield return null;
         }
-        //CharacterScript tempSpeaker = GameObject.FindObjectOfType<CharacterScript>();
         yield return null;
     }
 
@@ -82,7 +111,6 @@ public class DialogueManager : MonoBehaviour
             temp.GetComponent<Button>().onClick.AddListener(() => { temp.GetComponent<Selectable>().Decide(); });
         }
         optionPanel.SetActive(true);
-        Debug.Log("activated panel");
         yield return new WaitUntil(() => { return choiceSelected != null; });
         AdvanceFromDecision();
     }
@@ -94,8 +122,7 @@ public class DialogueManager : MonoBehaviour
 
     void AdvanceFromDecision() {
         optionPanel.SetActive(false);
-        Debug.Log("deactivated panel");
-        choiceSelected = null; // Forgot to reset the choiceSelected. Otherwise, it would select an option without player intervention.
+        choiceSelected = null;
         AdvanceDialogue();
     }
 
@@ -107,7 +134,7 @@ public class DialogueManager : MonoBehaviour
             try {
                 param = t.Split(' ')[1];
             } catch(Exception e) {
-                Debug.Log(e);
+                Debug.LogException(e);
             }
 
             switch(prefix.ToLower()) {

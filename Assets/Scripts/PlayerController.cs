@@ -1,50 +1,64 @@
 using System;
 using System.Collections;
 using System.Collections.Generic;
+using Unity.VisualScripting;
 using UnityEngine;
 
-public class NewBehaviourScript : MonoBehaviour
+public class PlayerController : MonoBehaviour
 {
     public float moveSpeed;
-    private bool isMoving;
-    private Vector2 input;
-    private Animator animator;
     public LayerMask solidObjectsLayer;
     public LayerMask interactableObjectsLayer;
 
-    private void Awake()
-    {
+    [HideInInspector]
+    public bool can_move = true;
+
+    private bool isMoving;
+    private Vector2 input;
+    private Animator animator;
+
+    private void Awake() {
         animator = GetComponent<Animator>();
     }
 
-    void Start()
-    {
-        
-    }
+    void Start() {}
 
     void Update()
     {
         animator.SetBool("isMoving", isMoving);
+        if (can_move)
+        {
+            if (!isMoving)
+            {
+                input.x = Input.GetAxisRaw("Horizontal");
+                input.y = Input.GetAxisRaw("Vertical");
+                if (input != Vector2.zero)
+                {
+                    var targetPos = transform.position;
+                    targetPos.x += input.x;
+                    targetPos.y += input.y;
+                    animator.SetFloat("moveX", input.x);
+                    animator.SetFloat("moveY", input.y);
+                    if (input.x < 0) this.transform.localScale = new Vector3(-1, 1, 1);
+                    else this.transform.localScale = new Vector3(1, 1, 1);
+                    if (IsWalkable(targetPos))
+                        StartCoroutine(Move(targetPos));
+                }
+            }
 
-        if (!isMoving) {
-            input.x = Input.GetAxisRaw("Horizontal");
-            input.y = Input.GetAxisRaw("Vertical");
-            if (input != Vector2.zero) {
-                var targetPos = transform.position;
-                targetPos.x += input.x;
-                targetPos.y += input.y;
-                animator.SetFloat("moveX", input.x);
-                animator.SetFloat("moveY", input.y);
-                if (input.x < 0) this.transform.localScale = new Vector3(-1, 1, 1);
-                else this.transform.localScale = new Vector3(1, 1, 1);
-                if(IsWalkable(targetPos))
-                    StartCoroutine(Move(targetPos));
+            if (Input.GetKeyDown(KeyCode.E)) {
+                Interact();
+            }
+
+            if (Input.GetKeyDown(KeyCode.I)) {
+                OpenInventory();
             }
         }
+    }
 
-        if(Input.GetKeyDown(KeyCode.E)) {
-            Interact();
-        }
+    private void OpenInventory()
+    {
+        throw new NotImplementedException();
     }
 
     void Interact() {
@@ -52,12 +66,26 @@ public class NewBehaviourScript : MonoBehaviour
         var interactPos = transform.position + facingDir;
 
         Debug.DrawLine(transform.position, interactPos, Color.red, 1f);
-        //Debug.Log(transform.position + " - " + interactPos);
 
         var collider = Physics2D.OverlapCircle(interactPos, 0.2f, interactableObjectsLayer);
         if(collider != null)
         {
             collider.GetComponent<Interact>()?.Interact();
+
+            NpcController npcController = collider.GetComponent<NpcController>();
+            if(npcController != null) {
+                DialogueManager dialogueManager = transform.GetComponent<DialogueManager>();
+                if (dialogueManager != null)
+                {
+                    dialogueManager.inkFile = npcController.ink_file;
+                    dialogueManager.startupKnotName = npcController.ink_knot_name;
+                    dialogueManager.speaker_name = npcController.firstname;
+                    dialogueManager.speaker2_icon = npcController.icon;
+                    if (!dialogueManager.isTalking) dialogueManager.Talk();
+                } else {
+                    Debug.Log("Player has no dialogue managaer!");
+                }
+            }
         }
     }
 
