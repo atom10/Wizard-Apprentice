@@ -7,25 +7,39 @@ using UnityEngine;
 
 public class PlayerController : MonoBehaviour
 {
+    public float health = 50;
+    public float max_health = 100;
+
     public float moveSpeed;
     public LayerMask solidObjectsLayer;
     public LayerMask interactableObjectsLayer;
+    public GameObject health_bar_fill;
 
     bool can_move = true;
     private bool isMoving;
     private Vector2 input;
     private Animator animator;
     bool just_interacted = false;
+    List<Item_entry> inventory = new List<Item_entry>();
 
     private void Awake() {
         animator = GetComponent<Animator>();
+        Item_entry example_item = new Item_entry();
+        example_item.item = AssetDatabase.LoadAssetAtPath<Item>("Assets/items/makaron ze szpinakiem.asset");
+        example_item.amount = 5;
+        inventory.Add(example_item);
     }
 
     void Start() {
+        
     }
 
     void Update()
     {
+        if(health_bar_fill != null)
+        {
+            health_bar_fill.transform.localScale = new Vector3(health / max_health, 1, 1);
+        }
         animator.SetBool("isMoving", isMoving);
         if (can_move)
         {
@@ -63,10 +77,52 @@ public class PlayerController : MonoBehaviour
         }
     }
 
+    public ref List<Item_entry> GetInventoryContainer()
+    {
+        return ref inventory;
+    }
+
     private void OpenInventory(){
         GameObject managers = GameObject.Find("Managers");
         InventoryManager inventoryManager = managers.GetComponent<InventoryManager>();
         inventoryManager.OpenInventory(this);
+    }
+
+    public void UseItem(Item item)
+    {
+        int index = inventory.FindIndex(0, (Item_entry entry) => { return entry.item == item; });
+        if (index >= 0)
+        {
+            Item_entry entry = inventory[index];
+            entry.amount -= 1;
+            if (entry.amount <= 0) inventory.RemoveAt(index);
+            else inventory[index] = entry;
+        }
+
+        switch (item.type)
+        {
+            case Item_types.werable:
+                break;
+            case Item_types.consumable:
+                for(int a=0; a<item.effects.Count; ++a)
+                {
+                    switch(item.effects[a])
+                    {
+                        case what_is_affected.health:
+                            health += item.effect_amount[a];
+                            if (health > max_health) health = max_health;
+                            Debug.Log("Now health is " + health);
+                            break;
+                    }
+                }
+                break;
+            case Item_types.quest:
+                break;
+            case Item_types.material:
+                break;
+            case Item_types.throwable:
+                break;
+        }
     }
 
     void Interact() {
