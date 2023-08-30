@@ -1,10 +1,10 @@
 using System;
 using System.Collections;
 using System.Collections.Generic;
-using Unity.VisualScripting;
-using UnityEditor;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
+[Serializable]
 public class PlayerController : MonoBehaviour
 {
     public float health = 50;
@@ -20,23 +20,24 @@ public class PlayerController : MonoBehaviour
     private Vector2 input;
     private Animator animator;
     bool just_interacted = false;
+    [SerializeField]
     List<Item_entry> inventory = new List<Item_entry>();
 
-    private void Awake() {
+    private void Awake()
+    {
         animator = GetComponent<Animator>();
-        Item_entry example_item = new Item_entry();
-        example_item.item = AssetDatabase.LoadAssetAtPath<Item>("Assets/items/makaron ze szpinakiem.asset");
-        example_item.amount = 5;
-        inventory.Add(example_item);
     }
 
-    void Start() {
-        
+    public void ChangeScene(string scene)
+    {
+        PersistanceController persistanceController = PersistanceController.GetInstance();
+        persistanceController.RememberMe(this, scene);
+        SceneManager.LoadScene(scene);
     }
 
     void Update()
     {
-        if(health_bar_fill != null)
+        if (health_bar_fill != null)
         {
             health_bar_fill.transform.localScale = new Vector3(health / max_health, 1, 1);
         }
@@ -61,20 +62,34 @@ public class PlayerController : MonoBehaviour
                 }
             }
 
-            if(just_interacted)
+            if (just_interacted)
             {
                 if (Input.GetKeyDown(KeyCode.E)) return;
                 just_interacted = false;
             }
 
-            if (Input.GetKeyDown(KeyCode.E)) {
+            if (Input.GetKeyDown(KeyCode.E))
+            {
                 Interact();
             }
 
-            if (Input.GetKeyDown(KeyCode.I)) {
+            if (Input.GetKeyDown(KeyCode.I))
+            {
                 OpenInventory();
             }
+
+            if (Input.GetKeyDown(KeyCode.Escape))
+            {
+                Pause();
+            }
         }
+    }
+
+    private void Pause()
+    {
+        GameObject managers = GameObject.Find("Managers");
+        PauseScreenController pauseScreenController = managers.GetComponent<PauseScreenController>();
+        pauseScreenController.ShowPauseScreen(this);
     }
 
     public ref List<Item_entry> GetInventoryContainer()
@@ -82,7 +97,8 @@ public class PlayerController : MonoBehaviour
         return ref inventory;
     }
 
-    private void OpenInventory(){
+    private void OpenInventory()
+    {
         GameObject managers = GameObject.Find("Managers");
         InventoryManager inventoryManager = managers.GetComponent<InventoryManager>();
         inventoryManager.OpenInventory(this);
@@ -104,9 +120,9 @@ public class PlayerController : MonoBehaviour
             case Item_types.werable:
                 break;
             case Item_types.consumable:
-                for(int a=0; a<item.effects.Count; ++a)
+                for (int a = 0; a < item.effects.Count; ++a)
                 {
-                    switch(item.effects[a])
+                    switch (item.effects[a])
                     {
                         case what_is_affected.health:
                             health += item.effect_amount[a];
@@ -125,21 +141,26 @@ public class PlayerController : MonoBehaviour
         }
     }
 
-    void Interact() {
+    void Interact()
+    {
         var facingDir = new Vector3(animator.GetFloat("moveX"), animator.GetFloat("moveY"));
         var interactPos = transform.position + facingDir;
         Debug.DrawLine(transform.position, interactPos, Color.red, 1f);
         var collider = Physics2D.OverlapCircle(interactPos, 0.2f, interactableObjectsLayer);
-        if(collider != null){
+        if (collider != null)
+        {
             collider.GetComponent<Interact>()?.Interact(gameObject);
         }
     }
 
     bool IsWalkable(Vector3 targetPos)
     {
-        if(Physics2D.OverlapCircle(targetPos, 0.2f, solidObjectsLayer | interactableObjectsLayer) != null) {
+        if (Physics2D.OverlapCircle(targetPos, 0.2f, solidObjectsLayer | interactableObjectsLayer) != null)
+        {
             return false;
-        } else {
+        }
+        else
+        {
             return true;
         }
     }
@@ -148,7 +169,7 @@ public class PlayerController : MonoBehaviour
     {
         isMoving = true;
 
-        while((targetPos - transform.position).sqrMagnitude > Mathf.Epsilon)
+        while ((targetPos - transform.position).sqrMagnitude > Mathf.Epsilon)
         {
             transform.position = Vector3.MoveTowards(transform.position, targetPos, moveSpeed * Time.deltaTime);
             yield return null;
@@ -162,6 +183,15 @@ public class PlayerController : MonoBehaviour
     {
         this.can_move = can_move;
         just_interacted = true;
-        
+    }
+
+    public void setInventory(List<Item_entry> inventory)
+    {
+        this.inventory = inventory;
+    }
+
+    public List<Item_entry> getInventory()
+    {
+        return inventory;
     }
 }

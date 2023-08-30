@@ -6,6 +6,7 @@ using UnityEngine.UI;
 
 public class ChestController : MonoBehaviour, Interact
 {
+    public int id;
     public List<Item> items;
     public List<int> amount;
     public GameObject ChestBoxPrefab;
@@ -17,26 +18,35 @@ public class ChestController : MonoBehaviour, Interact
     GameObject selectedPlayerItem;
     List<Item_entry> playerItems;
 
+    public void OnDestroy()
+    {
+        PersistanceController persistanceController = PersistanceController.GetInstance();
+        persistanceController.RememberMe(this);
+    }
+
     public void Interact(GameObject player)
     {
         PlayerController playerController = player.GetComponent<PlayerController>();
         playerItems = playerController.GetInventoryContainer();
         GameObject chestBox = Instantiate(ChestBoxPrefab);
         chestBox.GetComponent<Canvas>().worldCamera = Camera.main;
-        chestBox.transform.Find("Close").gameObject.GetComponent<Button>().onClick.AddListener(() => {
+        chestBox.transform.Find("Close").gameObject.GetComponent<Button>().onClick.AddListener(() =>
+        {
             Destroy(chestBox);
         });
 
-        chestBox.transform.Find("moveToInventory").gameObject.GetComponent<Button>().onClick.AddListener(() => {
+        chestBox.transform.Find("moveToInventory").gameObject.GetComponent<Button>().onClick.AddListener(() =>
+        {
             if (selectedChestItem != null)
             {
-                if (playerItems.Exists((ie) => {return ie.item.name == items[selectedChestItemIndex].name;}))
+                if (playerItems.Exists((ie) => { return ie.item.name == items[selectedChestItemIndex].name; }))
                 {
                     int index = playerItems.FindIndex((Item_entry ie) => { return ie.item == items[selectedChestItemIndex]; });
                     Item_entry copy = playerItems[index];
                     copy.amount = playerItems[index].amount + amount[selectedChestItemIndex];
                     playerItems[index] = copy;
-                } else
+                }
+                else
                 {
                     Item_entry new_item = new Item_entry(items[selectedChestItemIndex], amount[selectedChestItemIndex]);
                     playerItems.Add(new_item);
@@ -47,14 +57,16 @@ public class ChestController : MonoBehaviour, Interact
             }
         });
 
-        chestBox.transform.Find("moveToChest").gameObject.GetComponent<Button>().onClick.AddListener(() => {
-            if(selectedPlayerItem != null)
+        chestBox.transform.Find("moveToChest").gameObject.GetComponent<Button>().onClick.AddListener(() =>
+        {
+            if (selectedPlayerItem != null)
             {
                 if (items.Contains(playerItems[selectedPlayerItemIndex].item))
                 {
                     int index = items.IndexOf(playerItems[selectedPlayerItemIndex].item);
                     amount[index] += playerItems[selectedPlayerItemIndex].amount;
-                } else
+                }
+                else
                 {
                     items.Add(playerItems[selectedPlayerItemIndex].item);
                     amount.Add(playerItems[selectedPlayerItemIndex].amount);
@@ -71,7 +83,7 @@ public class ChestController : MonoBehaviour, Interact
         GameObject chestItemsPanel = chestBox.transform.Find("chestPanel").gameObject;
         GameObject playerItemsPanel = chestBox.transform.Find("inventoryPanel").gameObject;
 
-        for(int i=0; i<playerItemsPanel.transform.childCount; ++i)
+        for (int i = 0; i < playerItemsPanel.transform.childCount; ++i)
         {
             Destroy(playerItemsPanel.transform.GetChild(i).gameObject);
         }
@@ -81,15 +93,16 @@ public class ChestController : MonoBehaviour, Interact
         }
 
         //chest
-        for (int i=0; i<items.Count; ++i )
+        for (int i = 0; i < items.Count; ++i)
         {
             GameObject instance = Instantiate(ChestItemPrefab, chestBox.transform.Find("chestPanel"));
             instance.GetComponent<SimpleValueStorage>().number = i;
-            if(items[i].icon != null) instance.transform.Find("icon").GetComponent<Image>().sprite = items[i].icon;
+            if (items[i].icon != null) instance.transform.Find("icon").GetComponent<Image>().sprite = items[i].icon;
             instance.transform.Find("name").GetComponent<TextMeshProUGUI>().text = items[i].name;
             instance.transform.Find("count").GetComponent<TextMeshProUGUI>().text = amount[i].ToString();
 
-            instance.GetComponent<Button>().onClick.AddListener(() => {
+            instance.GetComponent<Button>().onClick.AddListener(() =>
+            {
                 if (selectedChestItem != null) selectedChestItem.GetComponent<Image>().color = Color.white;
                 selectedChestItemIndex = instance.GetComponent<SimpleValueStorage>().number;
                 selectedChestItem = instance;
@@ -106,12 +119,19 @@ public class ChestController : MonoBehaviour, Interact
             instance.transform.Find("name").GetComponent<TextMeshProUGUI>().text = playerItems[i].item.name;
             instance.transform.Find("count").GetComponent<TextMeshProUGUI>().text = playerItems[i].amount.ToString();
 
-            instance.GetComponent<Button>().onClick.AddListener(() => {
+            instance.GetComponent<Button>().onClick.AddListener(() =>
+            {
                 if (selectedPlayerItem != null) selectedPlayerItem.GetComponent<Image>().color = Color.white;
                 selectedPlayerItemIndex = instance.GetComponent<SimpleValueStorage>().number;
                 selectedPlayerItem = instance;
                 instance.GetComponent<Image>().color = Color.yellow;
             });
         }
+    }
+
+    public void SetContent(List<Item> items, List<int> amount)
+    {
+        this.items = items;
+        this.amount = amount;
     }
 }

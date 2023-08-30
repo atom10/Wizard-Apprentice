@@ -5,7 +5,8 @@ using UnityEngine;
 using UnityEngine.UIElements;
 
 [CreateAssetMenu]
-public class Item : ScriptableObject, Interact {
+public class Item : ScriptableObject, Interact
+{
     public string item_name;
     public Sprite icon;
     public Item_types type;
@@ -38,6 +39,7 @@ public enum what_is_affected
     shield
 }
 
+[Serializable]
 public struct Item_entry
 {
     public Item item;
