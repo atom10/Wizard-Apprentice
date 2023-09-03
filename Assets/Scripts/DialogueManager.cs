@@ -1,5 +1,4 @@
 ﻿using System.Collections;
-using System.Collections;
 using System;
 using System.Collections.Generic;
 using UnityEngine;
@@ -27,6 +26,8 @@ public class DialogueManager : MonoBehaviour
     static Choice choiceSelected;
     private GameObject runningDialogueBox;
     PlayerController playerController;
+
+    Dictionary<int, List<Tuple<string, int>>> choiceSkillRequirements = new Dictionary<int, List<Tuple<string, int>>>();
 
     void Start()
     {
@@ -56,7 +57,7 @@ public class DialogueManager : MonoBehaviour
         choiceSelected = null;
         is_talking = true;
         runningDialogueBox.transform.Find("speaker_2").gameObject.GetComponent<Image>().sprite = speaker2_icon;
-        AdvanceDialogue();
+        //AdvanceDialogue();
     }
 
     public bool isTalking()
@@ -113,10 +114,28 @@ public class DialogueManager : MonoBehaviour
         for (int i = 0; i < _choices.Count; i++)
         {
             GameObject temp = Instantiate(customButton, optionPanel.transform);
-            temp.transform.GetChild(0).GetComponent<TextMeshProUGUI>().text = _choices[i].text;
+            TextMeshProUGUI text = temp.transform.GetChild(0).GetComponent<TextMeshProUGUI>();
+            text.text = _choices[i].text;
             temp.AddComponent<Selectable>();
             temp.GetComponent<Selectable>().element = _choices[i];
             temp.GetComponent<Button>().onClick.AddListener(() => { temp.GetComponent<Selectable>().Decide(); });
+            if (choiceSkillRequirements.ContainsKey(i))
+                foreach (Tuple<string, int> requirement in choiceSkillRequirements[i])
+                {
+                    switch (requirement.Item1)
+                    {
+                        case "charisma":
+                            if(playerController.charisma < requirement.Item2)
+                            {
+                                text.text += " (charisma " + playerController.charisma + "/" + requirement.Item2 + ")";
+                                text.color = Color.gray;
+                                temp.GetComponent<Button>().enabled = false;
+                            }
+                            break;
+                        default:
+                            break;
+                    }
+                }
         }
         optionPanel.SetActive(true);
         yield return new WaitUntil(() => { return choiceSelected != null; });
@@ -138,25 +157,25 @@ public class DialogueManager : MonoBehaviour
 
     void ParseTags()
     {
+        choiceSkillRequirements = new Dictionary<int, List<Tuple<string, int>>>();
         tags = story.currentTags;
         foreach (string t in tags)
         {
-            string prefix = t.Split(' ')[0];
-            string param = "";
-            try
-            {
-                param = t.Split(' ')[1];
-            }
-            catch (Exception e)
-            {
-                Debug.LogException(e);
-            }
-
-            switch (prefix.ToLower())
-            {
-                case "color":
-                    SetTextColor(param);
+            string[] words = t.Split('-');
+            switch (words[0]) {
+                case "option":
+                    int wchich_one = Int32.Parse(words[1]);
+                    switch (words[2])
+                    {
+                        case "requiresSkill":
+                            if(!choiceSkillRequirements.ContainsKey(wchich_one)) choiceSkillRequirements[wchich_one] = new List<Tuple<string, int>>();
+                            choiceSkillRequirements[wchich_one].Add(new Tuple<string, int>(words[3], int.Parse(words[4])));
+                            break;
+                        default:
+                            break;
+                    }
                     break;
+                default: break;
             }
         }
     }

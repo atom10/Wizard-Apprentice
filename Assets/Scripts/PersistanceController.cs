@@ -80,6 +80,7 @@ public class PersistanceController
         player_packet.rotation = controller.gameObject.transform.rotation;
         player_packet.scale = controller.gameObject.transform.localScale;
         player_packet.sprite = controller.gameObject.GetComponent<SpriteRenderer>().sprite;
+        player_packet.charisma = controller.charisma;
         if (new_scene_name == "") currentSave.sceneName = controller.gameObject.scene.name;
         else currentSave.sceneName = new_scene_name;
         player_packet.health = controller.health;
@@ -174,6 +175,7 @@ public class PersistanceController
             pc = player.GetComponent<PlayerController>();
         }
         pc.health = currentSave.playerDataPacket.health;
+        pc.charisma = currentSave.playerDataPacket.charisma;
         pc.setInventory(currentSave.playerDataPacket.inventory);
         if (currentSave.sceneName == SceneManager.GetActiveScene().name)
         {
@@ -218,7 +220,8 @@ public class PlayerDataPacket
     public Vector3 scale;
     public Sprite sprite;
     public List<Item_entry> inventory = new List<Item_entry>();
-    public float health;
+    public float health = 100;
+    public int charisma = 10;
 }
 
 [Serializable]

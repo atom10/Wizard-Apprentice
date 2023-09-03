@@ -16,12 +16,15 @@ public class PlayerController : MonoBehaviour
     public GameObject health_bar_fill;
 
     bool can_move = true;
-    private bool isMoving;
-    private Vector2 input;
-    private Animator animator;
+    bool isMoving;
+    Vector2 input;
+    Animator animator;
     bool just_interacted = false;
     [SerializeField]
     List<Item_entry> inventory = new List<Item_entry>();
+
+    [HideInInspector]
+    public int charisma;
 
     private void Awake()
     {
