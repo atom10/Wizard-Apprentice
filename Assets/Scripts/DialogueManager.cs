@@ -14,8 +14,6 @@ public class DialogueManager : MonoBehaviour
     TextAsset inkFile;
     bool is_talking = false;
     string startupKnotName = "";
-    string speaker_name = "";
-    Sprite speaker2_icon;
 
     GameObject textBox;
     GameObject optionPanel;
@@ -26,20 +24,15 @@ public class DialogueManager : MonoBehaviour
     static Choice choiceSelected;
     private GameObject runningDialogueBox;
     PlayerController playerController;
-
+    NpcController npcController;
     Dictionary<int, List<Tuple<string, int>>> choiceSkillRequirements = new Dictionary<int, List<Tuple<string, int>>>();
 
-    void Start()
-    {
-    }
-
-    public void setup(PlayerController playerController, TextAsset inkFile, String startupKnotName, String speaker_name, Sprite speaker2_icon)
+    public void setup(PlayerController playerController, NpcController npcController)
     {
         this.playerController = playerController;
-        this.inkFile = inkFile;
-        this.startupKnotName = startupKnotName;
-        this.speaker_name = speaker_name;
-        this.speaker2_icon = speaker2_icon;
+        this.inkFile = npcController.ink_file;
+        this.startupKnotName = npcController.ink_knot_name;
+        this.npcController = npcController;
     }
 
     public void Talk()
@@ -51,13 +44,12 @@ public class DialogueManager : MonoBehaviour
         story = new Story(inkFile.text);
         nametag = textBox.transform.GetChild(0).GetComponent<TextMeshProUGUI>();
         message = textBox.transform.GetChild(1).GetComponent<TextMeshProUGUI>();
-        nametag.text = speaker_name;
+        nametag.text = npcController.firstname;
         if (startupKnotName != null && startupKnotName != "") story.ChoosePathString(startupKnotName);
         tags = new List<string>();
-        choiceSelected = null;
         is_talking = true;
-        runningDialogueBox.transform.Find("speaker_2").gameObject.GetComponent<Image>().sprite = speaker2_icon;
-        //AdvanceDialogue();
+        runningDialogueBox.transform.Find("speaker_2").gameObject.GetComponent<Image>().sprite = npcController.avatar;
+        AdvanceDialogue();
     }
 
     public bool isTalking()
@@ -116,7 +108,6 @@ public class DialogueManager : MonoBehaviour
             GameObject temp = Instantiate(customButton, optionPanel.transform);
             TextMeshProUGUI text = temp.transform.GetChild(0).GetComponent<TextMeshProUGUI>();
             text.text = _choices[i].text;
-            temp.AddComponent<Selectable>();
             temp.GetComponent<Selectable>().element = _choices[i];
             temp.GetComponent<Button>().onClick.AddListener(() => { temp.GetComponent<Selectable>().Decide(); });
             if (choiceSkillRequirements.ContainsKey(i))
@@ -139,6 +130,7 @@ public class DialogueManager : MonoBehaviour
         }
         optionPanel.SetActive(true);
         yield return new WaitUntil(() => { return choiceSelected != null; });
+        ExecuteTags(true);
         AdvanceFromDecision();
     }
 
@@ -157,19 +149,78 @@ public class DialogueManager : MonoBehaviour
 
     void ParseTags()
     {
-        choiceSkillRequirements = new Dictionary<int, List<Tuple<string, int>>>();
         tags = story.currentTags;
+        ExecuteTags();
+    }
+
+    void ExecuteTags(bool postDecision = false)
+    {
+        if(!postDecision) choiceSkillRequirements = new Dictionary<int, List<Tuple<string, int>>>();
+        if (postDecision) Debug.Log("Parsuje wybory po decyzji");
+        else Debug.Log("Parsuje wybory przed decyzją");
         foreach (string t in tags)
         {
             string[] words = t.Split('-');
-            switch (words[0]) {
+            switch (words[0])
+            {
                 case "option":
-                    int wchich_one = Int32.Parse(words[1]);
+                    int wchich_one = int.Parse(words[1]);
                     switch (words[2])
                     {
+                        //#option-1-requiresSkill-charisma-20
                         case "requiresSkill":
-                            if(!choiceSkillRequirements.ContainsKey(wchich_one)) choiceSkillRequirements[wchich_one] = new List<Tuple<string, int>>();
-                            choiceSkillRequirements[wchich_one].Add(new Tuple<string, int>(words[3], int.Parse(words[4])));
+                            if (!choiceSkillRequirements.ContainsKey(wchich_one)) choiceSkillRequirements[wchich_one] = new List<Tuple<string, int>>();
+                            if(!postDecision) choiceSkillRequirements[wchich_one].Add(new Tuple<string, int>(words[3], int.Parse(words[4])));
+                            break;
+                        //# option-1-changesInkFile-Dialogues/sukmadik  (affects next dialogue)
+                        case "changesInkFile":
+                            if (postDecision)
+                            {
+                                if (choiceSelected.index == wchich_one)
+                                {
+                                    npcController.ink_file = Resources.Load(words[3]) as TextAsset;
+                                    Debug.Log("Parsowansko1");
+                                }
+                            }
+                            break;
+                        //# option-1-changesInkKnot-drugSelling  (affects next dialogue)
+                        case "changesInkKnot":
+                            if (postDecision)
+                                if (choiceSelected.index == wchich_one)
+                                    npcController.ink_knot_name = words[3];
+                            break;
+                        //# option-1-advanceTime-20
+                        case "advanceTime":
+                            if (postDecision)
+                            {
+                                if (choiceSelected.index == wchich_one)
+                                {
+                                    PersistanceController persistanceController = PersistanceController.GetInstance();
+                                    persistanceController.AdvanceTime(int.Parse(words[3]));
+                                }
+                            }
+                            break;
+                        //# option-1-addItem-Items/pierogi-20
+                        case "addItem":
+                            if (postDecision)
+                            {
+                                if (choiceSelected.index == wchich_one)
+                                {
+                                    Item addItem = Resources.Load(words[3]) as Item;
+                                    playerController.AddItem(addItem, int.Parse(words[4]));
+                                }
+                            }
+                            break;
+                        //# option-1-removeItem-Items/pierogi-20
+                        case "removeItem":
+                            if (postDecision)
+                            {
+                                if (choiceSelected.index == wchich_one)
+                                {
+                                    Item removeItem = Resources.Load(words[3]) as Item;
+                                    playerController.RemoveItem(removeItem, int.Parse(words[4]));
+                                }
+                            }
                             break;
                         default:
                             break;
@@ -177,27 +228,6 @@ public class DialogueManager : MonoBehaviour
                     break;
                 default: break;
             }
-        }
-    }
-    void SetTextColor(string _color)
-    {
-        switch (_color)
-        {
-            case "red":
-                message.color = Color.red;
-                break;
-            case "blue":
-                message.color = Color.cyan;
-                break;
-            case "green":
-                message.color = Color.green;
-                break;
-            case "white":
-                message.color = Color.white;
-                break;
-            default:
-                Debug.Log($"{_color} is not available as a text color");
-                break;
         }
     }
 }

@@ -14,6 +14,7 @@ public class PlayerController : MonoBehaviour
     public LayerMask solidObjectsLayer;
     public LayerMask interactableObjectsLayer;
     public GameObject health_bar_fill;
+    public GameObject mapPrefab;
 
     bool can_move = true;
     bool isMoving;
@@ -21,7 +22,9 @@ public class PlayerController : MonoBehaviour
     Animator animator;
     bool just_interacted = false;
     [SerializeField]
+    [HideInInspector]
     List<Item_entry> inventory = new List<Item_entry>();
+    GameObject map;
 
     [HideInInspector]
     public int charisma;
@@ -67,13 +70,20 @@ public class PlayerController : MonoBehaviour
 
             if (just_interacted)
             {
-                if (Input.GetKeyDown(KeyCode.E)) return;
+                if (Input.GetKeyDown(KeyCode.E) || Input.GetKeyDown(KeyCode.M)) return;
                 just_interacted = false;
             }
 
             if (Input.GetKeyDown(KeyCode.E))
             {
-                Interact();
+                var facingDir = new Vector3(animator.GetFloat("moveX"), animator.GetFloat("moveY"));
+                var interactPos = transform.position + facingDir;
+                Debug.DrawLine(transform.position, interactPos, Color.red, 1f);
+                var collider = Physics2D.OverlapCircle(interactPos, 0.2f, interactableObjectsLayer);
+                if (collider != null)
+                {
+                    collider.GetComponent<Interact>()?.Interact(gameObject);
+                }
             }
 
             if (Input.GetKeyDown(KeyCode.I))
@@ -84,6 +94,20 @@ public class PlayerController : MonoBehaviour
             if (Input.GetKeyDown(KeyCode.Escape))
             {
                 Pause();
+            }
+
+            if (Input.GetKeyDown(KeyCode.M))
+            {
+                if (map == null)
+                {
+                    map = Instantiate(mapPrefab);
+                    Canvas canvas = map.GetComponent<Canvas>();
+                    canvas.worldCamera = Camera.main;
+                } else
+                {
+                    Destroy(map);
+                }
+                just_interacted = true;
             }
         }
     }
@@ -144,18 +168,6 @@ public class PlayerController : MonoBehaviour
         }
     }
 
-    void Interact()
-    {
-        var facingDir = new Vector3(animator.GetFloat("moveX"), animator.GetFloat("moveY"));
-        var interactPos = transform.position + facingDir;
-        Debug.DrawLine(transform.position, interactPos, Color.red, 1f);
-        var collider = Physics2D.OverlapCircle(interactPos, 0.2f, interactableObjectsLayer);
-        if (collider != null)
-        {
-            collider.GetComponent<Interact>()?.Interact(gameObject);
-        }
-    }
-
     bool IsWalkable(Vector3 targetPos)
     {
         if (Physics2D.OverlapCircle(targetPos, 0.2f, solidObjectsLayer | interactableObjectsLayer) != null)
@@ -196,5 +208,29 @@ public class PlayerController : MonoBehaviour
     public List<Item_entry> getInventory()
     {
         return inventory;
+    }
+
+    public void AddItem(Item item, int amount)
+    {
+        int index = inventory.FindIndex((Item_entry ie) => { return ie.item.name == item.name; });
+        if (index >= 0)
+        {
+            Item_entry copy = inventory[index];
+            copy.amount += amount;
+            inventory[index] = copy;
+        }
+        else inventory.Add(new Item_entry(item, amount));
+    }
+
+    public void RemoveItem(Item item, int amount)
+    {
+        int index = inventory.FindIndex((Item_entry ie) => { return ie.item.name == item.name; });
+        if (index >= 0)
+        {
+            Item_entry copy = inventory[index];
+            copy.amount -= amount;
+            if(copy.amount <= 0) inventory.RemoveAt(index);
+            else inventory[index] = copy;
+        }
     }
 }

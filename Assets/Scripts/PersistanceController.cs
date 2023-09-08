@@ -195,6 +195,18 @@ public class PersistanceController
             }
         }
     }
+
+    public void AdvanceTime(int hours)
+    {
+        int days = hours / 24;
+        currentSave.hour += hours % (days * 24);
+        currentSave.day += days;
+        if(currentSave.hour >= 24)
+        {
+            currentSave.hour = currentSave.hour - 24;
+            currentSave.day++;
+        }
+    }
 }
 
 [Serializable]
@@ -240,6 +252,8 @@ public class SaveFilePacket
     public List<NpcDataPacket> npcDataPackets = new List<NpcDataPacket>();
     public List<ChestDataPacket> chestDataPackets = new List<ChestDataPacket>();
     public PlayerDataPacket playerDataPacket = new PlayerDataPacket();
+    public int day = 0;
+    public int hour = 0;
 }
 
 [Serializable]

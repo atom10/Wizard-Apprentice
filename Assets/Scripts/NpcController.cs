@@ -18,7 +18,7 @@ public class NpcController : MonoBehaviour, Interact
     {
         GameObject managers = GameObject.Find("Managers");
         DialogueManager dialogueManager = managers.GetComponent<DialogueManager>();
-        dialogueManager.setup(player.GetComponent<PlayerController>(), ink_file, ink_knot_name, firstname, avatar);
+        dialogueManager.setup(player.GetComponent<PlayerController>(), this);
         if (!dialogueManager.isTalking()) dialogueManager.Talk();
     }
 

@@ -27,7 +27,7 @@ public class InventoryManager : MonoBehaviour
         }
 
         List<Item_entry> player_inventory = playerController.GetInventoryContainer();
-        GameObject item_list = inventoryBox.transform.Find("Item_list").gameObject;
+        GameObject item_list = inventoryBox.transform.Find("Item_list").Find("Viewport").Find("Content").gameObject;
         for (int a = 0; a < item_list.transform.childCount; ++a)
         {
             Destroy(item_list.transform.GetChild(a).gameObject);

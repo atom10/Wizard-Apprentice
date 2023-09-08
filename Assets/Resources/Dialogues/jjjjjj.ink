@@ -2,7 +2,7 @@ Hello there!
 -> main
 
 === main ===
-How are you feeling today? #option-1-requiresSkill-charisma-20
+How are you feeling today? #option-1-requiresSkill-charisma-20 #option-0-changesInkFile-Dialogues/sukmadik
 + [Happy]
     That makes me feel <color=\#F8FF30>happy</color> as well!
 + [Sad]

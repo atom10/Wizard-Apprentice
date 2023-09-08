@@ -129,5 +129,6 @@ MonoBehaviour:
     serializedVersion: 2
     m_Bits: 256
   health_bar_fill: {fileID: 0}
-  items: []
-  item_amount: 
+  mapPrefab: {fileID: 8421656513667592583, guid: db87f7c4b1b6a1941bd429fec9fe4e1f, type: 3}
+  inventory: []
+  charisma: 0

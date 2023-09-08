@@ -30,9 +30,11 @@ public class ChestController : MonoBehaviour, Interact
         playerItems = playerController.GetInventoryContainer();
         GameObject chestBox = Instantiate(ChestBoxPrefab);
         chestBox.GetComponent<Canvas>().worldCamera = Camera.main;
+        playerController.CanMove(false);
         chestBox.transform.Find("Close").gameObject.GetComponent<Button>().onClick.AddListener(() =>
         {
             Destroy(chestBox);
+            playerController.CanMove(true);
         });
 
         chestBox.transform.Find("moveToInventory").gameObject.GetComponent<Button>().onClick.AddListener(() =>
@@ -80,8 +82,8 @@ public class ChestController : MonoBehaviour, Interact
 
     void DrawItems(GameObject chestBox)
     {
-        GameObject chestItemsPanel = chestBox.transform.Find("chestPanel").gameObject;
-        GameObject playerItemsPanel = chestBox.transform.Find("inventoryPanel").gameObject;
+        GameObject chestItemsPanel = chestBox.transform.Find("chestPanel").Find("Viewport").Find("Content").gameObject;
+        GameObject playerItemsPanel = chestBox.transform.Find("inventoryPanel").Find("Viewport").Find("Content").gameObject;
 
         for (int i = 0; i < playerItemsPanel.transform.childCount; ++i)
         {
@@ -95,7 +97,7 @@ public class ChestController : MonoBehaviour, Interact
         //chest
         for (int i = 0; i < items.Count; ++i)
         {
-            GameObject instance = Instantiate(ChestItemPrefab, chestBox.transform.Find("chestPanel"));
+            GameObject instance = Instantiate(ChestItemPrefab, chestBox.transform.Find("chestPanel").Find("Viewport").Find("Content"));
             instance.GetComponent<SimpleValueStorage>().number = i;
             if (items[i].icon != null) instance.transform.Find("icon").GetComponent<Image>().sprite = items[i].icon;
             instance.transform.Find("name").GetComponent<TextMeshProUGUI>().text = items[i].name;
@@ -113,7 +115,7 @@ public class ChestController : MonoBehaviour, Interact
         //Player
         for (int i = 0; i < playerItems.Count; ++i)
         {
-            GameObject instance = Instantiate(ChestItemPrefab, chestBox.transform.Find("inventoryPanel"));
+            GameObject instance = Instantiate(ChestItemPrefab, chestBox.transform.Find("inventoryPanel").Find("Viewport").Find("Content"));
             instance.GetComponent<SimpleValueStorage>().number = i;
             if (playerItems[i].item.icon != null) instance.transform.Find("icon").GetComponent<Image>().sprite = playerItems[i].item.icon;
             instance.transform.Find("name").GetComponent<TextMeshProUGUI>().text = playerItems[i].item.name;
