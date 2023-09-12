@@ -1934,6 +1934,26 @@ PrefabInstance:
     m_AddedGameObjects: []
     m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 611bfdf9df170a448a2fcbe35134400a, type: 3}
+--- !u!1 &1408605894 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 246777465830402197, guid: 61a22d280c5fe184daf1b3f2b999de27, type: 3}
+  m_PrefabInstance: {fileID: 6686974778648120441}
+  m_PrefabAsset: {fileID: 0}
+--- !u!114 &1408605900
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1408605894}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 80a1912993a58a1479ebc384dd38204a, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  alchemyTablePrefab: {fileID: 3706984597640181635, guid: f96dfcd60f76cb74f8b798b14f4c5bf4, type: 3}
+  recipePrefab: {fileID: 926744566006125940, guid: fd36ba3599d38a548a6c622a6b7349fa, type: 3}
+  ingedientPrefab: {fileID: 3480064862900692135, guid: f114f643cd0563243b5c1579231d7cdf, type: 3}
 --- !u!1001 &472076480387709613
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -2058,5 +2078,8 @@ PrefabInstance:
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
-    m_AddedComponents: []
+    m_AddedComponents:
+    - targetCorrespondingSourceObject: {fileID: 246777465830402197, guid: 61a22d280c5fe184daf1b3f2b999de27, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 1408605900}
   m_SourcePrefab: {fileID: 100100000, guid: 61a22d280c5fe184daf1b3f2b999de27, type: 3}

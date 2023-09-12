@@ -147,7 +147,7 @@ public class PersistanceController
             NpcController matchingNpc = Array.Find(npcControllers, (NpcController nc) => { return nc.id == sfcs.id; });
             if (matchingNpc == null)
             {
-                GameObject npc = UnityEngine.Object.Instantiate(Resources.Load("NPCTemplate")) as GameObject;
+                GameObject npc = UnityEngine.Object.Instantiate(Resources.Load("Prefabs/NPCTemplate")) as GameObject;
                 matchingNpc = npc.GetComponent<NpcController>();
                 matchingNpc.id = sfcs.id;
             }
@@ -171,7 +171,7 @@ public class PersistanceController
             pc = playerControllers[0];
         else
         {
-            GameObject player = UnityEngine.Object.Instantiate(Resources.Load("PlayerTemplate")) as GameObject;
+            GameObject player = UnityEngine.Object.Instantiate(Resources.Load("Prefabs/PlayerTemplate")) as GameObject;
             pc = player.GetComponent<PlayerController>();
         }
         pc.health = currentSave.playerDataPacket.health;

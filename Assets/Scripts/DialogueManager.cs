@@ -48,6 +48,7 @@ public class DialogueManager : MonoBehaviour
         if (startupKnotName != null && startupKnotName != "") story.ChoosePathString(startupKnotName);
         tags = new List<string>();
         is_talking = true;
+        //runningDialogueBox.transform.Find("speaker_1").gameObject.GetComponent<Image>().sprite = playerController.avatar;
         runningDialogueBox.transform.Find("speaker_2").gameObject.GetComponent<Image>().sprite = npcController.avatar;
         AdvanceDialogue();
     }
@@ -68,7 +69,6 @@ public class DialogueManager : MonoBehaviour
 
     private void FinishDialogue()
     {
-        Debug.Log("End of Dialogue!");
         Destroy(runningDialogueBox);
         is_talking = false;
         playerController.CanMove(true);
@@ -179,7 +179,6 @@ public class DialogueManager : MonoBehaviour
                                 if (choiceSelected.index == wchich_one)
                                 {
                                     npcController.ink_file = Resources.Load(words[3]) as TextAsset;
-                                    Debug.Log("Parsowansko1");
                                 }
                             }
                             break;
@@ -219,6 +218,47 @@ public class DialogueManager : MonoBehaviour
                                 {
                                     Item removeItem = Resources.Load(words[3]) as Item;
                                     playerController.RemoveItem(removeItem, int.Parse(words[4]));
+                                }
+                            }
+                            break;
+                        //# option-1-changeScene-DomSpokojnejAgonii
+                        case "changeScene":
+                            if (postDecision)
+                            {
+                                if (choiceSelected.index == wchich_one)
+                                {
+                                    FinishDialogue();
+                                    playerController.ChangeScene(words[3]);
+                                }
+                            }
+                            break;
+                        //# option-1-changePlayerSprite-Images/UwU
+                        case "changePlayerSprite":
+                            if (postDecision)
+                            {
+                                if (choiceSelected.index == wchich_one)
+                                {
+                                    runningDialogueBox.transform.Find("speaker_1").gameObject.GetComponent<Image>().sprite = Resources.Load(words[3]) as Sprite;
+                                }
+                            }
+                            break;
+                        //# option-1-changeNpcSprite-Images/UsmiechnietaBara
+                        case "changeNpcSprite":
+                            if (postDecision)
+                            {
+                                if (choiceSelected.index == wchich_one)
+                                {
+                                    runningDialogueBox.transform.Find("speaker_2").gameObject.GetComponent<Image>().sprite = Resources.Load(words[3]) as Sprite;
+                                }
+                            }
+                            break;
+                        //# option-1-openAlchemyTable
+                        case "openAlchemyTable":
+                            if (postDecision)
+                            {
+                                if (choiceSelected.index == wchich_one)
+                                {
+                                    GameObject.Find("Managers").GetComponent<AlchemyController>().OpenAlchemyTable(playerController);
                                 }
                             }
                             break;

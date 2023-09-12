@@ -28,7 +28,8 @@ public enum Item_types
     consumable,
     quest,
     material,
-    throwable
+    throwable,
+    other
 }
 
 public enum what_is_affected

@@ -1,0 +1,20 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ce45ab13339648c4f9d1caccc8fa0c44, type: 3}
+  m_Name: Tost
+  m_EditorClassIdentifier: 
+  result: {fileID: 11400000, guid: dca8901470097fe4999e0374bf801343, type: 2}
+  ingredients:
+  - {fileID: 11400000, guid: b998f49bb73f0994d976d283d22162a9, type: 2}
+  - {fileID: 11400000, guid: 14ad982b289f3d04186166c25a4bc8ca, type: 2}
+  - {fileID: 11400000, guid: 0fc8dbae0e83a534b86227b4f43eb7fd, type: 2}
+  amount: 020000000100000001000000
