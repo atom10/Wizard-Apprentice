@@ -28,6 +28,9 @@ public class PlayerController : MonoBehaviour
 
     [HideInInspector]
     public int charisma;
+    public int relation_magnus;
+    public int relation_queen;
+    public int relation_villagers;
 
     private void Awake()
     {

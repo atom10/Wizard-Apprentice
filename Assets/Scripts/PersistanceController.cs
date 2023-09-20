@@ -84,6 +84,9 @@ public class PersistanceController
         if (new_scene_name == "") currentSave.sceneName = controller.gameObject.scene.name;
         else currentSave.sceneName = new_scene_name;
         player_packet.health = controller.health;
+        player_packet.relation_magnus = controller.relation_magnus;
+        player_packet.relation_queen = controller.relation_queen;
+        player_packet.relation_villagers = controller.relation_villagers;
     }
     public void RememberMe(ChestController controller)
     {
@@ -176,6 +179,9 @@ public class PersistanceController
         }
         pc.health = currentSave.playerDataPacket.health;
         pc.charisma = currentSave.playerDataPacket.charisma;
+        pc.relation_magnus = currentSave.playerDataPacket.relation_magnus;
+        pc.relation_queen = currentSave.playerDataPacket.relation_queen;
+        pc.relation_villagers = currentSave.playerDataPacket.relation_villagers;
         pc.setInventory(currentSave.playerDataPacket.inventory);
         if (currentSave.sceneName == SceneManager.GetActiveScene().name)
         {
@@ -234,6 +240,9 @@ public class PlayerDataPacket
     public List<Item_entry> inventory = new List<Item_entry>();
     public float health = 100;
     public int charisma = 10;
+    public int relation_magnus = 0;
+    public int relation_queen = 0;
+    public int relation_villagers = 0;
 }
 
 [Serializable]

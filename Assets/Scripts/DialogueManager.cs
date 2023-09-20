@@ -25,7 +25,7 @@ public class DialogueManager : MonoBehaviour
     private GameObject runningDialogueBox;
     PlayerController playerController;
     NpcController npcController;
-    Dictionary<int, List<Tuple<string, int>>> choiceSkillRequirements = new Dictionary<int, List<Tuple<string, int>>>();
+    Dictionary<int, List<Tuple<string, int>>> choiceRequirements = new Dictionary<int, List<Tuple<string, int>>>();
 
     public void setup(PlayerController playerController, NpcController npcController)
     {
@@ -110,8 +110,8 @@ public class DialogueManager : MonoBehaviour
             text.text = _choices[i].text;
             temp.GetComponent<Selectable>().element = _choices[i];
             temp.GetComponent<Button>().onClick.AddListener(() => { temp.GetComponent<Selectable>().Decide(); });
-            if (choiceSkillRequirements.ContainsKey(i))
-                foreach (Tuple<string, int> requirement in choiceSkillRequirements[i])
+            if (choiceRequirements.ContainsKey(i))
+                foreach (Tuple<string, int> requirement in choiceRequirements[i])
                 {
                     switch (requirement.Item1)
                     {
@@ -119,6 +119,30 @@ public class DialogueManager : MonoBehaviour
                             if(playerController.charisma < requirement.Item2)
                             {
                                 text.text += " (charisma " + playerController.charisma + "/" + requirement.Item2 + ")";
+                                text.color = Color.gray;
+                                temp.GetComponent<Button>().enabled = false;
+                            }
+                            break;
+                        case "Magnus":
+                            if (playerController.relation_magnus < requirement.Item2)
+                            {
+                                text.text += " (relation to Magnus " + playerController.relation_magnus + "/" + requirement.Item2 + ")";
+                                text.color = Color.gray;
+                                temp.GetComponent<Button>().enabled = false;
+                            }
+                            break;
+                        case "Queen":
+                            if (playerController.relation_queen < requirement.Item2)
+                            {
+                                text.text += " (relation to queen " + playerController.relation_queen + "/" + requirement.Item2 + ")";
+                                text.color = Color.gray;
+                                temp.GetComponent<Button>().enabled = false;
+                            }
+                            break;
+                        case "Villagers":
+                            if (playerController.relation_villagers < requirement.Item2)
+                            {
+                                text.text += " (relation to villagers " + playerController.relation_villagers + "/" + requirement.Item2 + ")";
                                 text.color = Color.gray;
                                 temp.GetComponent<Button>().enabled = false;
                             }
@@ -155,7 +179,7 @@ public class DialogueManager : MonoBehaviour
 
     void ExecuteTags(bool postDecision = false)
     {
-        if(!postDecision) choiceSkillRequirements = new Dictionary<int, List<Tuple<string, int>>>();
+        if(!postDecision) choiceRequirements = new Dictionary<int, List<Tuple<string, int>>>();
         if (postDecision) Debug.Log("Parsuje wybory po decyzji");
         else Debug.Log("Parsuje wybory przed decyzją");
         foreach (string t in tags)
@@ -165,12 +189,16 @@ public class DialogueManager : MonoBehaviour
             {
                 case "option":
                     int wchich_one = int.Parse(words[1]);
+                    if (!choiceRequirements.ContainsKey(wchich_one)) choiceRequirements[wchich_one] = new List<Tuple<string, int>>();
                     switch (words[2])
                     {
                         //#option-1-requiresSkill-charisma-20
                         case "requiresSkill":
-                            if (!choiceSkillRequirements.ContainsKey(wchich_one)) choiceSkillRequirements[wchich_one] = new List<Tuple<string, int>>();
-                            if(!postDecision) choiceSkillRequirements[wchich_one].Add(new Tuple<string, int>(words[3], int.Parse(words[4])));
+                            if(!postDecision) choiceRequirements[wchich_one].Add(new Tuple<string, int>(words[3], int.Parse(words[4])));
+                            break;
+                        //#option-1-requiresRelation-Magnus-20 (Magnus/Queen/Villagers)
+                        case "requiresRelation":
+                            if (!postDecision) choiceRequirements[wchich_one].Add(new Tuple<string, int>(words[3], int.Parse(words[4])));
                             break;
                         //# option-1-changesInkFile-Dialogues/sukmadik  (affects next dialogue)
                         case "changesInkFile":
