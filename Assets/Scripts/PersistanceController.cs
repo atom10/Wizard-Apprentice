@@ -6,12 +6,15 @@ using System;
 using UnityEngine.SceneManagement;
 using UnityEngine.TextCore.Text;
 using TextAsset = UnityEngine.TextAsset;
+using Unity.Mathematics;
+using TMPro;
 
 public class PersistanceController
 {
     static PersistanceController instance;
     string path = Application.persistentDataPath;
     public SaveFilePacket currentSave = new SaveFilePacket();
+    public TextMeshProUGUI timeHUD;
 
     public static PersistanceController GetInstance()
     {
@@ -201,7 +204,6 @@ public class PersistanceController
             }
         }
     }
-
     public void AdvanceTime(int hours)
     {
         int days = hours / 24;
@@ -212,6 +214,34 @@ public class PersistanceController
             currentSave.hour = currentSave.hour - 24;
             currentSave.day++;
         }
+        if(timeHUD != null)
+        {
+            timeHUD.text = currentSave.hour + ":00  Day " + (currentSave.day + 1);
+        }
+    }
+    public void SetEventFlag(int index, bool flag)
+    {
+        if (index > 1024) return;
+        ref List<ulong> flags = ref currentSave.eventFlags;
+        int listIndex = index / 64;
+        int elementInChunk = index % 64;
+        while (currentSave.eventFlags.Count * 64 < listIndex) currentSave.eventFlags.Add(0);
+        ulong temp = flags[listIndex];
+        if(flag) temp |= (ulong.MinValue + 1) << elementInChunk;
+        else temp &= ~((ulong.MinValue + 1) << elementInChunk);
+        flags[listIndex] = temp;
+    }
+
+    public bool CheckEventFlag(int index)
+    {
+        if (index > 1024) return false;
+        ref List<ulong> flags = ref currentSave.eventFlags;
+        int listIndex = index / 64;
+        int elementInChunk = index % 64;
+        while (currentSave.eventFlags.Count * 64 < listIndex) currentSave.eventFlags.Add(0);
+        ulong temp = flags[listIndex];
+        return (temp & ((ulong.MinValue + 1) << elementInChunk)) > 0;
+
     }
 }
 
@@ -263,6 +293,7 @@ public class SaveFilePacket
     public PlayerDataPacket playerDataPacket = new PlayerDataPacket();
     public int day = 0;
     public int hour = 0;
+    public List<ulong> eventFlags = new List<ulong>();
 }
 
 [Serializable]

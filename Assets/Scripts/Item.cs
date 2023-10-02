@@ -1,11 +1,12 @@
 using System;
 using System.Collections;
 using System.Collections.Generic;
+using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.UIElements;
 
 [CreateAssetMenu]
-public class Item : ScriptableObject, Interact
+public class Item : ScriptableObject
 {
     public string item_name;
     public Sprite icon;
@@ -15,11 +16,6 @@ public class Item : ScriptableObject, Interact
     public List<what_is_affected> effects;
     public List<float> effect_amount;
     public uint effect_duration;
-
-    public void Interact(GameObject player)
-    {
-        throw new System.NotImplementedException();
-    }
 }
 
 public enum Item_types

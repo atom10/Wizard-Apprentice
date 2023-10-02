@@ -25,7 +25,10 @@ public class DialogueManager : MonoBehaviour
     private GameObject runningDialogueBox;
     PlayerController playerController;
     NpcController npcController;
-    Dictionary<int, List<Tuple<string, int>>> choiceRequirements = new Dictionary<int, List<Tuple<string, int>>>();
+    Dictionary<int, List<Tuple<string, int>>> choiceGenericRequirements = new Dictionary<int, List<Tuple<string, int>>>(); //(requirementName, value)
+    Dictionary<int, List<Tuple<string, int>>> choiceItemRequirements = new Dictionary<int, List<Tuple<string, int>>>(); //(resourcePath, amount)
+    Dictionary<int, List<Tuple<int, int>>> choiceHourRequirements = new Dictionary<int, List<Tuple<int, int>>>(); //(from, to)
+    Dictionary<int, string> alternativeKnot = new Dictionary<int, string>();
 
     public void setup(PlayerController playerController, NpcController npcController)
     {
@@ -34,7 +37,6 @@ public class DialogueManager : MonoBehaviour
         this.startupKnotName = npcController.ink_knot_name;
         this.npcController = npcController;
     }
-
     public void Talk()
     {
         playerController.CanMove(false);
@@ -52,12 +54,10 @@ public class DialogueManager : MonoBehaviour
         runningDialogueBox.transform.Find("speaker_2").gameObject.GetComponent<Image>().sprite = npcController.avatar;
         AdvanceDialogue();
     }
-
     public bool isTalking()
     {
         return is_talking;
     }
-
     private void Update()
     {
         if (Input.GetKeyDown(KeyCode.E) && is_talking && optionPanel.transform.childCount == 0)
@@ -66,14 +66,12 @@ public class DialogueManager : MonoBehaviour
             else FinishDialogue();
         }
     }
-
     private void FinishDialogue()
     {
         Destroy(runningDialogueBox);
         is_talking = false;
         playerController.CanMove(true);
     }
-
     void AdvanceDialogue()
     {
         string currentSentence = story.Continue();
@@ -86,7 +84,6 @@ public class DialogueManager : MonoBehaviour
         if (story.currentChoices.Count != 0)
             StartCoroutine(ShowChoices());
     }
-
     IEnumerator TypeSentence(string sentence)
     {
         message.text = "";
@@ -97,21 +94,20 @@ public class DialogueManager : MonoBehaviour
         }
         yield return null;
     }
-
     IEnumerator ShowChoices()
     {
-        Debug.Log("There are choices need to be made here!");
         List<Choice> _choices = story.currentChoices;
-
+        Dictionary<int, bool> choiceDisabledButHadAlternateRoute = new Dictionary<int, bool>();
         for (int i = 0; i < _choices.Count; i++)
         {
             GameObject temp = Instantiate(customButton, optionPanel.transform);
             TextMeshProUGUI text = temp.transform.GetChild(0).GetComponent<TextMeshProUGUI>();
+            string originalText = text.text;
             text.text = _choices[i].text;
             temp.GetComponent<Selectable>().element = _choices[i];
             temp.GetComponent<Button>().onClick.AddListener(() => { temp.GetComponent<Selectable>().Decide(); });
-            if (choiceRequirements.ContainsKey(i))
-                foreach (Tuple<string, int> requirement in choiceRequirements[i])
+            if (choiceGenericRequirements.ContainsKey(i))
+                foreach (Tuple<string, int> requirement in choiceGenericRequirements[i])
                 {
                     switch (requirement.Item1)
                     {
@@ -147,13 +143,74 @@ public class DialogueManager : MonoBehaviour
                                 temp.GetComponent<Button>().enabled = false;
                             }
                             break;
+                        case "requiresFlag":
+                            if (!PersistanceController.GetInstance().CheckEventFlag(requirement.Item2))
+                            {
+                                text.color = Color.gray;
+                                temp.GetComponent<Button>().enabled = false;
+                            }
+                            break;
+                        case "beforeDay":
+                            if(PersistanceController.GetInstance().currentSave.day >= requirement.Item2)
+                            {
+                                text.text += " (too late)";
+                                text.color = Color.gray;
+                                temp.GetComponent<Button>().enabled = false;
+                            }
+                            break;
+                        case "afterDay":
+                            if (PersistanceController.GetInstance().currentSave.day <= requirement.Item2)
+                            {
+                                text.text += " (too early)";
+                                text.color = Color.gray;
+                                temp.GetComponent<Button>().enabled = false;
+                            }
+                            break;
                         default:
                             break;
                     }
                 }
+            if (choiceItemRequirements.ContainsKey(i))
+            {
+                foreach (Tuple<string, int> requirement in choiceItemRequirements[i])
+                {
+                    Item item = Resources.Load<Item>(requirement.Item1);
+                    List<Item_entry> inventory = playerController.GetInventoryContainer();
+                    int index = inventory.FindIndex((Item_entry item_entry) => { return item_entry.item == item; });
+                    if (index != -1)
+                    {
+                        if (inventory[index].amount >= requirement.Item2) continue;
+                    }
+                    text.text += " (" + item.name + " " + (index == -1 ? 0 : inventory[index].amount) + "/" + requirement.Item2 + ")";
+                    text.color = Color.gray;
+                    temp.GetComponent<Button>().enabled = false;
+                }
+            }
+            if (choiceHourRequirements.ContainsKey(i)) {
+                bool requiremrntMet = false;
+                int hour = PersistanceController.GetInstance().currentSave.hour;
+                foreach (Tuple<int, int> requirement in choiceHourRequirements[i])
+                {
+                    if (requirement.Item1 <= hour && hour <= requirement.Item2)
+                        requiremrntMet = true;
+                }
+                if(!requiremrntMet)
+                {
+                    text.text += " (Can't tell right now)";
+                    text.color = Color.gray;
+                    temp.GetComponent<Button>().enabled = false;
+                }
+            }
+            if (alternativeKnot.ContainsKey(i) && text.enabled == false)
+            {
+                text.text = originalText;
+                text.enabled = true;
+                choiceDisabledButHadAlternateRoute[i] = true;
+            }
         }
         optionPanel.SetActive(true);
         yield return new WaitUntil(() => { return choiceSelected != null; });
+        if (choiceDisabledButHadAlternateRoute.ContainsKey(choiceSelected.index)) story.ChoosePathString(alternativeKnot[choiceSelected.index]);
         ExecuteTags(true);
         AdvanceFromDecision();
     }
@@ -179,28 +236,35 @@ public class DialogueManager : MonoBehaviour
 
     void ExecuteTags(bool postDecision = false)
     {
-        if(!postDecision) choiceRequirements = new Dictionary<int, List<Tuple<string, int>>>();
-        if (postDecision) Debug.Log("Parsuje wybory po decyzji");
-        else Debug.Log("Parsuje wybory przed decyzją");
+        if (!postDecision)
+        {
+            choiceGenericRequirements = choiceItemRequirements = new Dictionary<int, List<Tuple<string, int>>>(); //Clean old requirements before parsing
+            choiceHourRequirements = new Dictionary<int, List<Tuple<int, int>>>();
+        }
         foreach (string t in tags)
         {
             string[] words = t.Split('-');
             switch (words[0])
             {
+                //Option cases
                 case "option":
                     int wchich_one = int.Parse(words[1]);
-                    if (!choiceRequirements.ContainsKey(wchich_one)) choiceRequirements[wchich_one] = new List<Tuple<string, int>>();
+                    if (!choiceGenericRequirements.ContainsKey(wchich_one))
+                    {
+                        choiceGenericRequirements[wchich_one] = choiceItemRequirements[wchich_one] = new List<Tuple<string, int>>();
+                        choiceHourRequirements[wchich_one] = new List<Tuple<int, int>>();
+                    }
                     switch (words[2])
                     {
-                        //#option-1-requiresSkill-charisma-20
+                        //#option-1-requiresSkill-charisma-20 (only charisma for now ¯\_(ツ)_/¯ )
                         case "requiresSkill":
-                            if(!postDecision) choiceRequirements[wchich_one].Add(new Tuple<string, int>(words[3], int.Parse(words[4])));
+                            if(!postDecision) choiceGenericRequirements[wchich_one].Add(new Tuple<string, int>(words[3], int.Parse(words[4])));
                             break;
                         //#option-1-requiresRelation-Magnus-20 (Magnus/Queen/Villagers)
                         case "requiresRelation":
-                            if (!postDecision) choiceRequirements[wchich_one].Add(new Tuple<string, int>(words[3], int.Parse(words[4])));
+                            if (!postDecision) choiceGenericRequirements[wchich_one].Add(new Tuple<string, int>(words[3], int.Parse(words[4])));
                             break;
-                        //# option-1-changesInkFile-Dialogues/sukmadik  (affects next dialogue)
+                        //# option-1-changesInkFile-Dialogues/sukmadik  (affects next dialogue chain)
                         case "changesInkFile":
                             if (postDecision)
                             {
@@ -210,7 +274,7 @@ public class DialogueManager : MonoBehaviour
                                 }
                             }
                             break;
-                        //# option-1-changesInkKnot-drugSelling  (affects next dialogue)
+                        //# option-1-changesInkKnot-drugSelling  (affects next dialogue chain)
                         case "changesInkKnot":
                             if (postDecision)
                                 if (choiceSelected.index == wchich_one)
@@ -247,6 +311,9 @@ public class DialogueManager : MonoBehaviour
                                     Item removeItem = Resources.Load(words[3]) as Item;
                                     playerController.RemoveItem(removeItem, int.Parse(words[4]));
                                 }
+                            } else
+                            {
+                                choiceItemRequirements[wchich_one].Add(new Tuple<string, int>(words[3], int.Parse(words[4])));
                             }
                             break;
                         //# option-1-changeScene-DomSpokojnejAgonii
@@ -289,6 +356,37 @@ public class DialogueManager : MonoBehaviour
                                     GameObject.Find("Managers").GetComponent<AlchemyController>().OpenAlchemyTable(playerController);
                                 }
                             }
+                            break;
+                        //# option-1-requiresFlag-124
+                        case "requiresFlag":
+                            if (!postDecision) choiceGenericRequirements[wchich_one].Add(new Tuple<string, int>(words[2], int.Parse(words[3])));
+                            break;
+                        //# option-1-setsFlag-124-true (true/false)
+                        case "setsFlag":
+                            //Może i mało czytelne ale za to podatne na błędy
+                            if (postDecision) PersistanceController.GetInstance().SetEventFlag(wchich_one, words[4] == "true" ? true : false);
+                            break;
+                        //# option-1-requiresTime-beforeDay-3 (beforeDay/afterDay)
+                        //# option-1-requiresTime-betweenHours-12-16 (can be used multiple times for different ranges eq. 2-5 7-11)
+                        case "requiresTime":
+                            switch (words[3])
+                            {
+                                case "beforeDay":
+                                    if (!postDecision) choiceGenericRequirements[wchich_one].Add(new Tuple<string, int>("beforeDay", int.Parse(words[4])));
+                                    break;
+                                case "afterDay":
+                                    if (!postDecision) choiceGenericRequirements[wchich_one].Add(new Tuple<string, int>("afterDay", int.Parse(words[4])));
+                                    break;
+                                case "betweenHours":
+                                    if (!postDecision) choiceHourRequirements[wchich_one].Add(new Tuple<int, int>(int.Parse(words[4]), int.Parse(words[5])));
+                                    break;
+                                default:
+                                    break;
+                            }
+                            break;
+                        //# option-1-alternativeKnotName-gtfo (knot to be loaded when requirements are not met)
+                        case "alternativeKnotName":
+                            alternativeKnot[wchich_one] = words[3];
                             break;
                         default:
                             break;
