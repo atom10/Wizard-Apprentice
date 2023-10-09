@@ -15,6 +15,7 @@ public class PlayerController : MonoBehaviour
     public LayerMask interactableObjectsLayer;
     public GameObject health_bar_fill;
     public GameObject mapPrefab;
+    public Sprite avatar;
 
     bool can_move = true;
     bool isMoving;

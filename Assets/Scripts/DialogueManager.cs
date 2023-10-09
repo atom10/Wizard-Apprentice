@@ -50,7 +50,7 @@ public class DialogueManager : MonoBehaviour
         if (startupKnotName != null && startupKnotName != "") story.ChoosePathString(startupKnotName);
         tags = new List<string>();
         is_talking = true;
-        //runningDialogueBox.transform.Find("speaker_1").gameObject.GetComponent<Image>().sprite = playerController.avatar;
+        runningDialogueBox.transform.Find("speaker_1").gameObject.GetComponent<Image>().sprite = playerController.avatar;
         runningDialogueBox.transform.Find("speaker_2").gameObject.GetComponent<Image>().sprite = npcController.avatar;
         AdvanceDialogue();
     }
@@ -102,17 +102,18 @@ public class DialogueManager : MonoBehaviour
         {
             GameObject temp = Instantiate(customButton, optionPanel.transform);
             TextMeshProUGUI text = temp.transform.GetChild(0).GetComponent<TextMeshProUGUI>();
-            string originalText = text.text;
             text.text = _choices[i].text;
+            string originalText = text.text;
             temp.GetComponent<Selectable>().element = _choices[i];
             temp.GetComponent<Button>().onClick.AddListener(() => { temp.GetComponent<Selectable>().Decide(); });
             if (choiceGenericRequirements.ContainsKey(i))
+            {
                 foreach (Tuple<string, int> requirement in choiceGenericRequirements[i])
                 {
                     switch (requirement.Item1)
                     {
                         case "charisma":
-                            if(playerController.charisma < requirement.Item2)
+                            if (playerController.charisma < requirement.Item2)
                             {
                                 text.text += " (charisma " + playerController.charisma + "/" + requirement.Item2 + ")";
                                 text.color = Color.gray;
@@ -151,7 +152,7 @@ public class DialogueManager : MonoBehaviour
                             }
                             break;
                         case "beforeDay":
-                            if(PersistanceController.GetInstance().currentSave.day >= requirement.Item2)
+                            if (PersistanceController.GetInstance().currentSave.day >= requirement.Item2)
                             {
                                 text.text += " (too late)";
                                 text.color = Color.gray;
@@ -170,11 +171,14 @@ public class DialogueManager : MonoBehaviour
                             break;
                     }
                 }
+            }
             if (choiceItemRequirements.ContainsKey(i))
             {
                 foreach (Tuple<string, int> requirement in choiceItemRequirements[i])
                 {
+                    Debug.Log("Item required: " + requirement.Item1);
                     Item item = Resources.Load<Item>(requirement.Item1);
+                    if(item == null) { Debug.Log("Wymagany przedmiot nie znaleziony w zasobach gry"); }
                     List<Item_entry> inventory = playerController.GetInventoryContainer();
                     int index = inventory.FindIndex((Item_entry item_entry) => { return item_entry.item == item; });
                     if (index != -1)
@@ -188,6 +192,7 @@ public class DialogueManager : MonoBehaviour
             }
             if (choiceHourRequirements.ContainsKey(i)) {
                 bool requiremrntMet = false;
+                if (choiceHourRequirements[i].Count == 0) requiremrntMet = true;
                 int hour = PersistanceController.GetInstance().currentSave.hour;
                 foreach (Tuple<int, int> requirement in choiceHourRequirements[i])
                 {
@@ -203,13 +208,14 @@ public class DialogueManager : MonoBehaviour
             }
             if (alternativeKnot.ContainsKey(i) && text.enabled == false)
             {
-                text.text = originalText;
+                text.text = originalText + " (!)";
                 text.enabled = true;
                 choiceDisabledButHadAlternateRoute[i] = true;
             }
         }
         optionPanel.SetActive(true);
         yield return new WaitUntil(() => { return choiceSelected != null; });
+        Debug.Log("Wybrano opcję " + choiceSelected.index);
         if (choiceDisabledButHadAlternateRoute.ContainsKey(choiceSelected.index)) story.ChoosePathString(alternativeKnot[choiceSelected.index]);
         ExecuteTags(true);
         AdvanceFromDecision();
@@ -238,7 +244,8 @@ public class DialogueManager : MonoBehaviour
     {
         if (!postDecision)
         {
-            choiceGenericRequirements = choiceItemRequirements = new Dictionary<int, List<Tuple<string, int>>>(); //Clean old requirements before parsing
+            choiceGenericRequirements = new Dictionary<int, List<Tuple<string, int>>>();
+            choiceItemRequirements = new Dictionary<int, List<Tuple<string, int>>>(); //Clean old requirements before parsing
             choiceHourRequirements = new Dictionary<int, List<Tuple<int, int>>>();
         }
         foreach (string t in tags)
@@ -251,7 +258,8 @@ public class DialogueManager : MonoBehaviour
                     int wchich_one = int.Parse(words[1]);
                     if (!choiceGenericRequirements.ContainsKey(wchich_one))
                     {
-                        choiceGenericRequirements[wchich_one] = choiceItemRequirements[wchich_one] = new List<Tuple<string, int>>();
+                        choiceGenericRequirements[wchich_one] = new List<Tuple<string, int>>();
+                        choiceItemRequirements[wchich_one] = new List<Tuple<string, int>>();
                         choiceHourRequirements[wchich_one] = new List<Tuple<int, int>>();
                     }
                     switch (words[2])
@@ -274,7 +282,7 @@ public class DialogueManager : MonoBehaviour
                                 }
                             }
                             break;
-                        //# option-1-changesInkKnot-drugSelling  (affects next dialogue chain)
+                        //# option-1-changesInkKnot-powitanie  (affects next dialogue chain)
                         case "changesInkKnot":
                             if (postDecision)
                                 if (choiceSelected.index == wchich_one)
@@ -316,7 +324,7 @@ public class DialogueManager : MonoBehaviour
                                 choiceItemRequirements[wchich_one].Add(new Tuple<string, int>(words[3], int.Parse(words[4])));
                             }
                             break;
-                        //# option-1-changeScene-DomSpokojnejAgonii
+                        //# option-1-changeScene-DomSpokojnejStarosci
                         case "changeScene":
                             if (postDecision)
                             {

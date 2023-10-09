@@ -58,7 +58,8 @@ public class AlchemyController : MonoBehaviour
 
                 for (int a = 0; a < ingredientsPanel.transform.childCount; ++a)
                 {
-                    Destroy(ingredientsPanel.transform.GetChild(a));
+                    Debug.Log("Destroy child cast it into fire!");
+                    Destroy(ingredientsPanel.transform.GetChild(a).gameObject);
                 }
                 for(int a = 0; a< recipe.ingredients.Count; ++a)
                 {
