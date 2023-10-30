@@ -14,8 +14,8 @@ TagManager:
   - background
   - Player
   - Interactable
-  - 
-  - 
+  - HUD
+  - POPUP
   - 
   - 
   - 

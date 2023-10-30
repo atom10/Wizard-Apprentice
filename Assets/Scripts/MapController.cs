@@ -20,6 +20,12 @@ public class MapController : MonoBehaviour, IPointerClickHandler
             case DestinationButton.forest:
                 sceneName = "Forest";
                 break;
+            case DestinationButton.castle:
+                sceneName = "Castle";
+                break;
+            case DestinationButton.village:
+                sceneName = "Village";
+                break;
             default:
                 break;
         }
@@ -30,5 +36,7 @@ public class MapController : MonoBehaviour, IPointerClickHandler
 public enum DestinationButton
 {
     tower,
-    forest
+    forest,
+    village,
+    castle
 }

@@ -44,6 +44,7 @@ public class PauseScreenController : MonoBehaviour
 
             pauseScreenBox.transform.Find("mainMenu").GetComponent<Button>().onClick.AddListener(() =>
             {
+                PersistanceController.GetInstance().currentSave = new SaveFilePacket();
                 SceneManager.LoadScene("MainMenuScene");
                 Destroy(pauseScreenBox);
             });

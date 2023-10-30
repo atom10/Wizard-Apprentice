@@ -16,7 +16,9 @@ public class PlayerController : MonoBehaviour
     public GameObject health_bar_fill;
     public GameObject mapPrefab;
     public Sprite avatar;
+    public Material outlineMaterial;
 
+    Dictionary<Renderer, Material> outlinedObjects = new Dictionary<Renderer, Material>(); // outlined object renderer, original material
     bool can_move = true;
     bool isMoving;
     Vector2 input;
@@ -47,7 +49,7 @@ public class PlayerController : MonoBehaviour
 
     void Update()
     {
-        if (health_bar_fill != null)
+        //if (health_bar_fill != null)
         {
             health_bar_fill.transform.localScale = new Vector3(health / max_health, 1, 1);
         }
@@ -114,6 +116,36 @@ public class PlayerController : MonoBehaviour
                 just_interacted = true;
             }
         }
+
+        Vector3 camera_new_position = Camera.main.transform.position;
+        camera_new_position.x = transform.position.x;
+        camera_new_position.y = transform.position.y;
+        Camera.main.transform.position = camera_new_position; //Instant camera
+        //Camera.main.transform.position = Vector3.MoveTowards(Camera.main.transform.position, camera_new_position, moveSpeed * Time.deltaTime); //Smooth camera
+
+        var ip = transform.position + new Vector3(animator.GetFloat("moveX"), animator.GetFloat("moveY"));
+        Debug.DrawLine(transform.position, ip, Color.yellow, 1f);
+        var cl = Physics2D.OverlapCircle(ip, 0.2f, interactableObjectsLayer);
+        if (cl != null)
+        {
+            Renderer r = cl.GetComponent<SpriteRenderer>();
+            if(!outlinedObjects.ContainsKey(r))
+            {
+                outlinedObjects.Add(r, r.material);
+                r.material = outlineMaterial;
+            }
+        } else
+        {
+            foreach(var materialToRestore in outlinedObjects)
+            {
+                if(materialToRestore.Key != null)
+                {
+                    materialToRestore.Key.material = materialToRestore.Value;
+                }
+                
+            }
+            outlinedObjects.Clear();
+        }
     }
 
     private void Pause()
@@ -135,7 +167,7 @@ public class PlayerController : MonoBehaviour
         inventoryManager.OpenInventory(this);
     }
 
-    public void UseItem(Item item)
+    public bool UseItem(Item item)
     {
         int index = inventory.FindIndex(0, (Item_entry entry) => { return entry.item == item; });
         if (index >= 0)
@@ -160,9 +192,13 @@ public class PlayerController : MonoBehaviour
                             if (health > max_health) health = max_health;
                             Debug.Log("Now health is " + health);
                             break;
+                        case what_is_affected.speed:
+                            moveSpeed += item.effect_amount[a];
+                            break;
                     }
                 }
-                break;
+                return true;
+                //break;
             case Item_types.quest:
                 break;
             case Item_types.material:
@@ -170,6 +206,7 @@ public class PlayerController : MonoBehaviour
             case Item_types.throwable:
                 break;
         }
+        return false;
     }
 
     bool IsWalkable(Vector3 targetPos)

@@ -20,6 +20,7 @@ public class NpcController : MonoBehaviour, Interact
         DialogueManager dialogueManager = managers.GetComponent<DialogueManager>();
         dialogueManager.setup(player.GetComponent<PlayerController>(), this);
         if (!dialogueManager.isTalking()) dialogueManager.Talk();
+        else Debug.Log("Dialogue is already running (is it a bug?)");
     }
 
     public void ChangeScene(string scene)

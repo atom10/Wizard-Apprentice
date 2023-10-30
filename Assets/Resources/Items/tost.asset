@@ -16,7 +16,7 @@ MonoBehaviour:
   icon: {fileID: 0}
   type: 1
   description: 
-  effects: 00000000
+  effects: 01000000
   effect_amount:
   - 10
   effect_duration: 0

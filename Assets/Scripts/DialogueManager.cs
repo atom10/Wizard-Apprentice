@@ -40,7 +40,7 @@ public class DialogueManager : MonoBehaviour
     public void Talk()
     {
         playerController.CanMove(false);
-        runningDialogueBox = Instantiate(dialogueBox, transform);
+        runningDialogueBox = Instantiate(dialogueBox);
         textBox = runningDialogueBox.transform.Find("Text_box").gameObject;
         optionPanel = textBox.transform.Find("Choices").gameObject;
         story = new Story(inkFile.text);
@@ -52,7 +52,7 @@ public class DialogueManager : MonoBehaviour
         is_talking = true;
         runningDialogueBox.transform.Find("speaker_1").gameObject.GetComponent<Image>().sprite = playerController.avatar;
         runningDialogueBox.transform.Find("speaker_2").gameObject.GetComponent<Image>().sprite = npcController.avatar;
-        AdvanceDialogue();
+        //AdvanceDialogue();
     }
     public bool isTalking()
     {
@@ -215,7 +215,7 @@ public class DialogueManager : MonoBehaviour
         }
         optionPanel.SetActive(true);
         yield return new WaitUntil(() => { return choiceSelected != null; });
-        Debug.Log("Wybrano opcję " + choiceSelected.index);
+        //Debug.Log("Wybrano opcję " + choiceSelected.index);
         if (choiceDisabledButHadAlternateRoute.ContainsKey(choiceSelected.index)) story.ChoosePathString(alternativeKnot[choiceSelected.index]);
         ExecuteTags(true);
         AdvanceFromDecision();

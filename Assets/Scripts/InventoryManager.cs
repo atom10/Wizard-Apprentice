@@ -40,16 +40,18 @@ public class InventoryManager : MonoBehaviour
             if (item.item.icon != null) item_entry.transform.Find("icon").GetComponent<SpriteRenderer>().sprite = item.item.icon;
             item_entry.GetComponent<Button>().onClick.AddListener(() =>
             {
-                playerController.UseItem(item.item);
-                int count = int.Parse(item_entry.transform.Find("count").GetComponent<TextMeshProUGUI>().text);
-                count -= 1;
-                if (count <= 0)
+                if (playerController.UseItem(item.item))
                 {
-                    Destroy(item_entry);
-                }
-                else
-                {
-                    item_entry.transform.Find("count").GetComponent<TextMeshProUGUI>().text = count.ToString();
+                    int count = int.Parse(item_entry.transform.Find("count").GetComponent<TextMeshProUGUI>().text);
+                    count -= 1;
+                    if (count <= 0)
+                    {
+                        Destroy(item_entry);
+                    }
+                    else
+                    {
+                        item_entry.transform.Find("count").GetComponent<TextMeshProUGUI>().text = count.ToString();
+                    }
                 }
             });
             if (item.item.type != Item_types.consumable) { item_entry.GetComponent<Button>().enabled = false; }

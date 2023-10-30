@@ -91,6 +91,35 @@ public class PersistanceController
         player_packet.relation_queen = controller.relation_queen;
         player_packet.relation_villagers = controller.relation_villagers;
     }
+    public void RememberMe(ItemOnGround controller, string new_scene_name = "")
+    {
+        ItemOnGroundDataPacket data_packet = currentSave.itemOnGroundDataPackets.Find((ItemOnGroundDataPacket dp) => { return dp.id == controller.id; });
+        if (data_packet == null)
+        {
+            data_packet = new ItemOnGroundDataPacket();
+            currentSave.itemOnGroundDataPackets.Add(data_packet);
+        }
+        data_packet.position = controller.gameObject.transform.position;
+        data_packet.id = controller.id;
+        data_packet.amount = controller.amount;
+        data_packet.item = controller.item;
+        if (new_scene_name == "") data_packet.sceneName = controller.gameObject.scene.name;
+        else data_packet.sceneName = new_scene_name;
+    }
+    public void ForgetMe(ItemOnGround controller)
+    {
+        int index = currentSave.itemOnGroundDataPackets.FindIndex((ItemOnGroundDataPacket dp) => { return dp.id == controller.id; });
+        if (index != -1)
+        {
+            ItemOnGroundDataPacket data_packet = currentSave.itemOnGroundDataPackets[index];
+            data_packet.collected = true;
+            currentSave.itemOnGroundDataPackets[index] = data_packet;
+        } else
+        {
+            RememberMe(controller);
+            ForgetMe(controller);
+        }
+    }
     public void RememberMe(ChestController controller)
     {
         ChestDataPacket chest_packet = currentSave.chestDataPackets.Find((ChestDataPacket cdp) => { return cdp.id == controller.id; });
@@ -111,6 +140,7 @@ public class PersistanceController
         foreach (PlayerController pc in UnityEngine.Object.FindObjectsOfType<PlayerController>()) RememberMe(pc, currentSave.sceneName);
         foreach (NpcController npc in UnityEngine.Object.FindObjectsOfType<NpcController>()) RememberMe(npc, currentSave.sceneName);
         foreach (ChestController cc in UnityEngine.Object.FindObjectsOfType<ChestController>()) RememberMe(cc);
+        foreach (ItemOnGround iog in UnityEngine.Object.FindObjectsOfType<ItemOnGround>()) RememberMe(iog);
 
         string saveFilePath = path + "save_" + id.ToString() + ".bin";
         string save_data = JsonUtility.ToJson(currentSave, true);
@@ -136,6 +166,12 @@ public class PersistanceController
     public bool ShouldIBeHere(NpcController npcController)
     {
         if (currentSave.npcDataPackets.Find((NpcDataPacket ndp) => { return ndp.id == npcController.id && ndp.sceneName != SceneManager.GetActiveScene().name; }) != null)
+            return false;
+        return true;
+    }
+    public bool ShouldIBeHere(ItemOnGround controller)
+    {
+        if (currentSave.itemOnGroundDataPackets.Find((ItemOnGroundDataPacket dp) => { return dp.id == controller.id && dp.collected == true; }) != null)
             return false;
         return true;
     }
@@ -167,8 +203,6 @@ public class PersistanceController
             matchingNpc.firstname = sfcs.firstName;
             matchingNpc.avatar = sfcs.avatar;
         }
-
-        
 
         //Player
         PlayerController[] playerControllers = UnityEngine.Object.FindObjectsByType(typeof(PlayerController), FindObjectsSortMode.None) as PlayerController[];
@@ -203,6 +237,28 @@ public class PersistanceController
                 cc.SetContent(cdp.items, cdp.amount);
             }
         }
+        //ItemOnGround
+        ItemOnGround[] itemsOnGround = UnityEngine.Object.FindObjectsByType(typeof(ItemOnGround), FindObjectsSortMode.None) as ItemOnGround[];
+        foreach (ItemOnGroundDataPacket dp in currentSave.itemOnGroundDataPackets.FindAll(
+            (ItemOnGroundDataPacket dp) =>
+            {
+                return dp.sceneName == SceneManager.GetActiveScene().name;
+            })
+        )
+        {
+            ItemOnGround matchingItem = Array.Find(itemsOnGround, (ItemOnGround iog) => { return iog.id == dp.id; });
+            if (matchingItem == null)
+            {
+                GameObject itemOnGroundInstance = UnityEngine.Object.Instantiate(Resources.Load("Prefabs/ItemOnGroundTemplate")) as GameObject;
+                matchingItem = itemOnGroundInstance.GetComponent<ItemOnGround>();
+                matchingItem.id = dp.id;
+            }
+
+            matchingItem.transform.position = dp.position;
+            matchingItem.item = dp.item;
+            matchingItem.amount = dp.amount;
+
+        }
     }
     public void AdvanceTime(int hours)
     {
@@ -231,7 +287,6 @@ public class PersistanceController
         else temp &= ~((ulong.MinValue + 1) << elementInChunk);
         flags[listIndex] = temp;
     }
-
     public bool CheckEventFlag(int index)
     {
         if (index > 1024) return false;
@@ -284,6 +339,17 @@ public class ChestDataPacket
 }
 
 [Serializable]
+public class ItemOnGroundDataPacket
+{
+    public string id;
+    public Item item;
+    public int amount;
+    public Vector3 position;
+    public string sceneName;
+    public bool collected = false;
+}
+
+[Serializable]
 public class SaveFilePacket
 {
     public int id;
@@ -294,6 +360,7 @@ public class SaveFilePacket
     public int day = 0;
     public int hour = 0;
     public List<ulong> eventFlags = new List<ulong>();
+    public List<ItemOnGroundDataPacket> itemOnGroundDataPackets = new List<ItemOnGroundDataPacket>();
 }
 
 [Serializable]
