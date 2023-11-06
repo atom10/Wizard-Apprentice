@@ -27,7 +27,7 @@ public class InventoryManager : MonoBehaviour
         }
 
         List<Item_entry> player_inventory = playerController.GetInventoryContainer();
-        GameObject item_list = inventoryBox.transform.Find("Item_list").Find("Viewport").Find("Content").gameObject;
+        GameObject item_list = inventoryBox.transform.Find("content_main_container").Find("Item_list").Find("Viewport").Find("Content").gameObject;
         for (int a = 0; a < item_list.transform.childCount; ++a)
         {
             Destroy(item_list.transform.GetChild(a).gameObject);
@@ -37,7 +37,7 @@ public class InventoryManager : MonoBehaviour
             GameObject item_entry = Instantiate(inventoryItemPrefab, item_list.transform);
             item_entry.transform.Find("name").GetComponent<TextMeshProUGUI>().text = item.item.name;
             item_entry.transform.Find("count").GetComponent<TextMeshProUGUI>().text = item.amount.ToString();
-            if (item.item.icon != null) item_entry.transform.Find("icon").GetComponent<SpriteRenderer>().sprite = item.item.icon;
+            if (item.item.icon != null) item_entry.transform.Find("icon").GetComponent<Image>().sprite = item.item.icon;
             item_entry.GetComponent<Button>().onClick.AddListener(() =>
             {
                 if (playerController.UseItem(item.item))
@@ -55,6 +55,18 @@ public class InventoryManager : MonoBehaviour
                 }
             });
             if (item.item.type != Item_types.consumable) { item_entry.GetComponent<Button>().enabled = false; }
+        }
+
+        GameObject quest_list = inventoryBox.transform.Find("content_main_container").Find("journal").Find("Viewport").Find("Content").gameObject;
+        for (int a = 0; a < quest_list.transform.childCount; ++a)
+        {
+            Destroy(quest_list.transform.GetChild(a).gameObject);
+        }
+        List<string> journal = PersistanceController.GetInstance().currentSave.journal;
+        foreach(string element in journal) {
+            GameObject new_entry = Instantiate(new GameObject(), quest_list.transform);
+            TextMeshProUGUI text = new_entry.AddComponent<TextMeshProUGUI>();
+            text.text = element;
         }
     }
 }

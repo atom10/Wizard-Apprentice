@@ -272,6 +272,31 @@ public class DialogueManager : MonoBehaviour
                         case "requiresRelation":
                             if (!postDecision) choiceGenericRequirements[wchich_one].Add(new Tuple<string, int>(words[3], int.Parse(words[4])));
                             break;
+                        //#option-1-changesRelation-Magnus-20-(minus/plus) (Magnus/Queen/Villagers)
+                        case "changesRelation":
+                            if (!postDecision)
+                            {
+                                if (postDecision)
+                                {
+                                    if (choiceSelected.index == wchich_one)
+                                    {
+                                        int relationInfluence = int.Parse(words[4]) * (words[5].Equals("minus") ? -1 : 1);
+                                        switch(words[3])
+                                        {
+                                            case "Magnus":
+                                                playerController.relation_magnus += relationInfluence;
+                                                break;
+                                            case "Queen":
+                                                playerController.relation_queen += relationInfluence;
+                                                break;
+                                            case "Villagers":
+                                                playerController.relation_villagers += relationInfluence;
+                                                break;
+                                        }
+                                    }
+                                }
+                            }
+                            break;
                         //# option-1-changesInkFile-Dialogues/sukmadik  (affects next dialogue chain)
                         case "changesInkFile":
                             if (postDecision)
@@ -395,6 +420,10 @@ public class DialogueManager : MonoBehaviour
                         //# option-1-alternativeKnotName-gtfo (knot to be loaded when requirements are not met)
                         case "alternativeKnotName":
                             alternativeKnot[wchich_one] = words[3];
+                            break;
+                        //# option-1-addJournalEntry-content
+                        case "addJournalEntry":
+                            PersistanceController.GetInstance().currentSave.journal.Add(words[3]);
                             break;
                         default:
                             break;

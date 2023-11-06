@@ -13,7 +13,7 @@ MonoBehaviour:
   m_Name: chleb
   m_EditorClassIdentifier: 
   item_name: chleb
-  icon: {fileID: 0}
+  icon: {fileID: 21300000, guid: 80e932e0ac43b5e48bf05281a313bb07, type: 3}
   type: 5
   description: 
   effects: 

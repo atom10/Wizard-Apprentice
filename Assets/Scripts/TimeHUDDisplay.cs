@@ -9,11 +9,6 @@ public class TimeHUDDisplay : MonoBehaviour
     void Start()
     {
         PersistanceController.GetInstance().timeHUD = GetComponent<TextMeshProUGUI>();
-    }
-
-    // Update is called once per frame
-    void Update()
-    {
-        
+        PersistanceController.GetInstance().AdvanceTime(0);
     }
 }

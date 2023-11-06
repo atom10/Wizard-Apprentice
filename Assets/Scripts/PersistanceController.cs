@@ -263,7 +263,14 @@ public class PersistanceController
     public void AdvanceTime(int hours)
     {
         int days = hours / 24;
-        currentSave.hour += hours % (days * 24);
+        if(days > 0)
+        {
+            currentSave.hour += hours % (days * 24);
+        } else
+        {
+            currentSave.hour += hours;
+        }
+        
         currentSave.day += days;
         if(currentSave.hour >= 24)
         {
@@ -272,7 +279,29 @@ public class PersistanceController
         }
         if(timeHUD != null)
         {
-            timeHUD.text = currentSave.hour + ":00  Day " + (currentSave.day + 1);
+            string timeName = "";
+            switch(currentSave.hour)
+            {
+                case < 4:
+                    timeName = "night";
+                    break;
+                case < 8:
+                    timeName = "early morning";
+                    break;
+                case < 12:
+                    timeName = "morning";
+                    break;
+                case < 16:
+                    timeName = "noon";
+                    break;
+                case < 20:
+                    timeName = "afternoon";
+                    break;
+                case < 24:
+                    timeName = "evening";
+                    break;
+            }
+            timeHUD.text = timeName + ", day " + (currentSave.day + 1);
         }
     }
     public void SetEventFlag(int index, bool flag)
@@ -361,6 +390,7 @@ public class SaveFilePacket
     public int hour = 0;
     public List<ulong> eventFlags = new List<ulong>();
     public List<ItemOnGroundDataPacket> itemOnGroundDataPackets = new List<ItemOnGroundDataPacket>();
+    public List<string> journal = new List<string>();
 }
 
 [Serializable]

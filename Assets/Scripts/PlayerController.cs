@@ -19,7 +19,7 @@ public class PlayerController : MonoBehaviour
     public Material outlineMaterial;
 
     Dictionary<Renderer, Material> outlinedObjects = new Dictionary<Renderer, Material>(); // outlined object renderer, original material
-    bool can_move = true;
+    int cant_move_sources = 0;
     bool isMoving;
     Vector2 input;
     Animator animator;
@@ -49,12 +49,12 @@ public class PlayerController : MonoBehaviour
 
     void Update()
     {
-        //if (health_bar_fill != null)
+        if (health_bar_fill != null)
         {
             health_bar_fill.transform.localScale = new Vector3(health / max_health, 1, 1);
         }
         animator.SetBool("isMoving", isMoving);
-        if (can_move)
+        if (cant_move_sources == 0)
         {
             if (!isMoving)
             {
@@ -237,7 +237,13 @@ public class PlayerController : MonoBehaviour
 
     public void CanMove(bool can_move)
     {
-        this.can_move = can_move;
+        if (can_move && cant_move_sources > 0)
+        {
+            cant_move_sources -= 1;
+        } else if (!can_move)
+        {
+            cant_move_sources++;
+        }
         just_interacted = true;
     }
 
