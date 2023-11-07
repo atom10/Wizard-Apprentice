@@ -1,15 +1,17 @@
 using System.Collections;
 using System.Collections.Generic;
+using UnityEditor.SearchService;
 using UnityEngine;
 using UnityEngine.Assertions;
+using UnityEngine.SceneManagement;
 
 public class ForestQuestManager : MonoBehaviour
 {
-    GameObject ItemOnGroundPrefab;
+    public GameObject ItemOnGroundPrefab;
 
     void Start()
     {
-        GenerateQuestItems();
+        if(SceneManager.GetActiveScene().name.Equals("Forest")) GenerateQuestItems();
     }
 
     // Update is called once per frame
@@ -52,7 +54,7 @@ public class ForestQuestManager : MonoBehaviour
                         default: break;
                     }
                     GameObject spawnedItem = Instantiate(ItemOnGroundPrefab);
-                    spawnedItem.GetComponent<Transform>().position = new Vector3(Mathf.Floor(x), Mathf.Floor(y), 0);
+                    spawnedItem.GetComponent<Transform>().position = new Vector3(Mathf.Floor(x)+(float)0.5, Mathf.Floor(y) + (float)0.5, 0);
                     ItemOnGround itemOnGround = spawnedItem.GetComponent<ItemOnGround>();
                     itemOnGround.item = gatherQuest.item[i];
                     itemOnGround.UpdateSprite();

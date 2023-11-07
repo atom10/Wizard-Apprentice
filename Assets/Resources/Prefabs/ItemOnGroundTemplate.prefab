@@ -32,7 +32,7 @@ Transform:
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 0}
-  m_RootOrder: 8
+  m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!212 &2453979926746573778
 SpriteRenderer:
@@ -100,7 +100,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   id: 
   item: {fileID: 11400000, guid: b998f49bb73f0994d976d283d22162a9, type: 2}
-  amount: 3
+  amount: 1
+  persistable: 1
 --- !u!61 &1356327627246134251
 BoxCollider2D:
   m_ObjectHideFlags: 0

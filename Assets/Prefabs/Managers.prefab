@@ -14,6 +14,8 @@ GameObject:
   - component: {fileID: 1277056676821918384}
   - component: {fileID: 8083889729571861252}
   - component: {fileID: 6445482080963137208}
+  - component: {fileID: 8489228239654783609}
+  - component: {fileID: 2683515316828317218}
   m_Layer: 0
   m_Name: Managers
   m_TagString: Untagged
@@ -34,7 +36,7 @@ Transform:
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 0}
-  m_RootOrder: 6
+  m_RootOrder: 1
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!114 &4851997042680253377
 MonoBehaviour:
@@ -105,3 +107,30 @@ MonoBehaviour:
   alchemyTablePrefab: {fileID: 3706984597640181635, guid: f96dfcd60f76cb74f8b798b14f4c5bf4, type: 3}
   recipePrefab: {fileID: 926744566006125940, guid: fd36ba3599d38a548a6c622a6b7349fa, type: 3}
   ingedientPrefab: {fileID: 3480064862900692135, guid: f114f643cd0563243b5c1579231d7cdf, type: 3}
+--- !u!114 &8489228239654783609
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 246777465830402197}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 701799e0b6867174f97e757e9440cecc, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  DebugMenuPrefab: {fileID: 6657899610228708537, guid: 4e793d99ec27c5b4da0af895f9762478, type: 3}
+  SampleQuest: {fileID: 11400000, guid: 352f166c25a03bb4cbfcc55f577e94b4, type: 2}
+--- !u!114 &2683515316828317218
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 246777465830402197}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 85bdd2be39aefff44868aa0d25628b22, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  ItemOnGroundPrefab: {fileID: 1251235960302984388, guid: d6c822186f094354887ad61ab2332fdf, type: 3}
