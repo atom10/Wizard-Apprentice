@@ -8,6 +8,7 @@ using UnityEngine.TextCore.Text;
 using TextAsset = UnityEngine.TextAsset;
 using Unity.Mathematics;
 using TMPro;
+using System.Linq;
 
 public class PersistanceController
 {
@@ -93,6 +94,7 @@ public class PersistanceController
     }
     public void RememberMe(ItemOnGround controller, string new_scene_name = "")
     {
+        if (controller.id.Equals("0")) return;
         ItemOnGroundDataPacket data_packet = currentSave.itemOnGroundDataPackets.Find((ItemOnGroundDataPacket dp) => { return dp.id == controller.id; });
         if (data_packet == null)
         {
@@ -140,7 +142,7 @@ public class PersistanceController
         foreach (PlayerController pc in UnityEngine.Object.FindObjectsOfType<PlayerController>()) RememberMe(pc, currentSave.sceneName);
         foreach (NpcController npc in UnityEngine.Object.FindObjectsOfType<NpcController>()) RememberMe(npc, currentSave.sceneName);
         foreach (ChestController cc in UnityEngine.Object.FindObjectsOfType<ChestController>()) RememberMe(cc);
-        foreach (ItemOnGround iog in UnityEngine.Object.FindObjectsOfType<ItemOnGround>()) RememberMe(iog);
+        foreach (ItemOnGround iog in UnityEngine.Object.FindObjectsOfType<ItemOnGround>().Where((ItemOnGround filteredElement) => { return filteredElement.persistable; })) RememberMe(iog);
 
         string saveFilePath = path + "save_" + id.ToString() + ".bin";
         string save_data = JsonUtility.ToJson(currentSave, true);
@@ -171,9 +173,14 @@ public class PersistanceController
     }
     public bool ShouldIBeHere(ItemOnGround controller)
     {
-        if (currentSave.itemOnGroundDataPackets.Find((ItemOnGroundDataPacket dp) => { return dp.id == controller.id && dp.collected == true; }) != null)
-            return false;
-        return true;
+        return
+            currentSave.itemOnGroundDataPackets.Find( //Find such item that
+                (ItemOnGroundDataPacket dp) => {
+                    return dp.id == controller.id && //existed in save AND
+                    dp.collected == true; //was collected
+                }
+            ) == null || //if not found/not collected, return true as "you SHOULD be here"
+            controller.id.Equals("0"); //Or return true if id is in default state.
     }
     public void RecreateAllInstancesFromSave()
     {
@@ -391,6 +398,7 @@ public class SaveFilePacket
     public List<ulong> eventFlags = new List<ulong>();
     public List<ItemOnGroundDataPacket> itemOnGroundDataPackets = new List<ItemOnGroundDataPacket>();
     public List<string> journal = new List<string>();
+    public List<GatherQuest> gatherQuests = new List<GatherQuest>();
 }
 
 [Serializable]

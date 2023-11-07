@@ -9,9 +9,10 @@ public class ItemOnGround : MonoBehaviour, Interact
     {
         id = System.Guid.NewGuid().ToString();
     }
-    public string id;
+    public string id = "0";
     public Item item;
     public int amount = 1;
+    public bool persistable = true;
 
     void Start()
     {
@@ -21,8 +22,7 @@ public class ItemOnGround : MonoBehaviour, Interact
             Destroy(gameObject);
             return;
         }
-        SpriteRenderer sr = GetComponent<SpriteRenderer>();
-        if (sr != null && item.icon != null) sr.sprite = item.icon;
+        UpdateSprite();
     }
 
     public void Interact(GameObject player)
@@ -30,5 +30,11 @@ public class ItemOnGround : MonoBehaviour, Interact
         player.GetComponent<PlayerController>().AddItem(item, amount);
         PersistanceController.GetInstance().ForgetMe(this);
         Destroy(this.gameObject);
+    }
+
+    public void UpdateSprite()
+    {
+        SpriteRenderer sr = GetComponent<SpriteRenderer>();
+        if (sr != null && item.icon != null) sr.sprite = item.icon;
     }
 }

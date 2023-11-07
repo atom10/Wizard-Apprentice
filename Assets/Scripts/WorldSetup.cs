@@ -5,8 +5,16 @@ using UnityEngine.SceneManagement;
 
 public class WorldSetup : MonoBehaviour
 {
+    public GameObject HUDPrefab;
+
     void Awake()
     {
+        if (GameObject.Find("HUD") == null && HUDPrefab != null)
+        {
+            GameObject hUDInstance = Instantiate(HUDPrefab);
+            hUDInstance.GetComponent<Canvas>().worldCamera = Camera.main;
+        }
+
         PersistanceController persistanceController = PersistanceController.GetInstance();
         persistanceController.RecreateAllInstancesFromSave();
     }

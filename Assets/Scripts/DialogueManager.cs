@@ -397,7 +397,8 @@ public class DialogueManager : MonoBehaviour
                         //# option-1-setsFlag-124-true (true/false)
                         case "setsFlag":
                             //Może i mało czytelne ale za to podatne na błędy
-                            if (postDecision) PersistanceController.GetInstance().SetEventFlag(wchich_one, words[4] == "true" ? true : false);
+                            if (postDecision)
+                                if (choiceSelected.index == wchich_one) PersistanceController.GetInstance().SetEventFlag(wchich_one, words[4] == "true" ? true : false);
                             break;
                         //# option-1-requiresTime-beforeDay-3 (beforeDay/afterDay)
                         //# option-1-requiresTime-betweenHours-12-16 (can be used multiple times for different ranges eq. 2-5 7-11)
@@ -423,7 +424,24 @@ public class DialogueManager : MonoBehaviour
                             break;
                         //# option-1-addJournalEntry-content
                         case "addJournalEntry":
-                            PersistanceController.GetInstance().currentSave.journal.Add(words[3]);
+                            if(postDecision)
+                                if (choiceSelected.index == wchich_one)
+                                    PersistanceController.GetInstance().currentSave.journal.Add(words[3]);
+                            break;
+                        //# option-1-addGatherQuest-(resource/path)
+                        case "addGatherQuest":
+                            if (postDecision)
+                                if (choiceSelected.index == wchich_one)
+                                    PersistanceController.GetInstance().currentSave.gatherQuests.Add(Resources.Load<GatherQuest>(words[3]));
+                            break;
+                        //# option-1-removeGatherQuest-(resource/path)
+                        case "removeGatherQuest":
+                            if (postDecision)
+                                if (choiceSelected.index == wchich_one)
+                                    if(PersistanceController.GetInstance().currentSave.gatherQuests.Contains(Resources.Load<GatherQuest>(words[3])))
+                                    {
+                                        PersistanceController.GetInstance().currentSave.gatherQuests.Remove(Resources.Load<GatherQuest>(words[3]));
+                                    }
                             break;
                         default:
                             break;
