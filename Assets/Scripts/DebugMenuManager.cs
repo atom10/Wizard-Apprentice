@@ -12,7 +12,7 @@ public class DebugMenuManager : MonoBehaviour
     
     void Update()
     {
-        if (Input.GetKeyDown(KeyCode.Dollar))
+        if (Input.GetKeyDown(KeyCode.O))
         {
             if (debugMenuInstance == null)
             {
@@ -21,8 +21,7 @@ public class DebugMenuManager : MonoBehaviour
                 debugMenuInstance.transform.Find("B1").GetComponent<Button>().onClick.AddListener(() => {
                     PersistanceController persistanceController = PersistanceController.GetInstance();
                     if (!persistanceController.currentSave.gatherQuests.Contains(SampleQuest)) persistanceController.currentSave.gatherQuests.Add(SampleQuest);
-                    ForestQuestManager forestQuestManager = debugMenuInstance.GetComponent<ForestQuestManager>();
-                    if (forestQuestManager == null) { debugMenuInstance.AddComponent<ForestQuestManager>(); }
+                    ForestQuestManager forestQuestManager = GameObject.Find("Managers").GetComponent<ForestQuestManager>();
                     forestQuestManager.GenerateQuestItems();
                     
                 });
