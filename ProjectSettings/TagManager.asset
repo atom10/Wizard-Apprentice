@@ -16,7 +16,7 @@ TagManager:
   - Interactable
   - HUD
   - POPUP
-  - 
+  - Crowns
   - 
   - 
   - 
@@ -43,6 +43,9 @@ TagManager:
     locked: 0
   - name: Player
     uniqueID: 2450127747
+    locked: 0
+  - name: Crowns
+    uniqueID: 2548265819
     locked: 0
   - name: Foreground
     uniqueID: 151335011
