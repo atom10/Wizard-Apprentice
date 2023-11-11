@@ -2,6 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using TMPro;
 using UnityEngine;
+using UnityEngine.Assertions;
 using UnityEngine.UI;
 
 public class ChestController : MonoBehaviour, Interact
@@ -27,6 +28,7 @@ public class ChestController : MonoBehaviour, Interact
     public void Interact(GameObject player)
     {
         PlayerController playerController = player.GetComponent<PlayerController>();
+        Assert.IsNotNull(playerController);
         playerItems = playerController.GetInventoryContainer();
         GameObject chestBox = Instantiate(ChestBoxPrefab);
         chestBox.GetComponent<Canvas>().worldCamera = Camera.main;
@@ -117,8 +119,12 @@ public class ChestController : MonoBehaviour, Interact
         {
             GameObject instance = Instantiate(ChestItemPrefab, chestBox.transform.Find("inventoryPanel").Find("Viewport").Find("Content"));
             instance.GetComponent<SimpleValueStorage>().number = i;
-            if (playerItems[i].item.icon != null) instance.transform.Find("icon").GetComponent<Image>().sprite = playerItems[i].item.icon;
+            if (playerItems[i].item.icon != null)
+            {
+                instance.transform.Find("icon").GetComponent<Image>().sprite = playerItems[i].item.icon;
+            }
             instance.transform.Find("name").GetComponent<TextMeshProUGUI>().text = playerItems[i].item.name;
+            instance.transform.Find("name").GetComponent<TextMeshProUGUI>().fontSize = instance.transform.Find("name").GetComponent<TextMeshProUGUI>().fontSize - 4;
             instance.transform.Find("count").GetComponent<TextMeshProUGUI>().text = playerItems[i].amount.ToString();
 
             instance.GetComponent<Button>().onClick.AddListener(() =>
