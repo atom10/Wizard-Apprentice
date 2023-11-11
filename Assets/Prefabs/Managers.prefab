@@ -30,13 +30,13 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 246777465830402197}
+  serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 1.0855557, y: -0.010287911, z: 0.30893096}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 0}
-  m_RootOrder: 1
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!114 &4851997042680253377
 MonoBehaviour:
@@ -79,6 +79,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   pauseScreenBoxPrefab: {fileID: 9129346971643459133, guid: 3ee15420f22b1654fa8e5c5dbb39bac7, type: 3}
+  emptySaveSprite: {fileID: 21300000, guid: 051e72992025f1c438269ef6a27ce04a, type: 3}
+  existingSaveSprite: {fileID: 21300000, guid: 6fb52503ed1589b46ae3e9b06af90f89, type: 3}
 --- !u!114 &8083889729571861252
 MonoBehaviour:
   m_ObjectHideFlags: 0

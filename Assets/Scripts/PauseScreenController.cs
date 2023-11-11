@@ -9,6 +9,9 @@ public class PauseScreenController : MonoBehaviour
     public GameObject pauseScreenBoxPrefab;
     GameObject pauseScreenBox;
     GameObject saveGameScreen;
+
+    public Sprite emptySaveSprite;
+    public Sprite existingSaveSprite;
     public void ShowPauseScreen(PlayerController playerController)
     {
         if (pauseScreenBox != null)
@@ -35,9 +38,12 @@ public class PauseScreenController : MonoBehaviour
                 for (int slot = 0; slot < panel.transform.childCount; ++slot)
                 {
                     GameObject saveSlot = panel.transform.GetChild(slot).gameObject;
+                    saveSlot.transform.Find("Image").GetComponent<Image>().sprite = activeSlots.Contains(saveSlot.GetComponent<SimpleValueStorage>().number) ? existingSaveSprite : emptySaveSprite;
                     saveSlot.transform.Find("Button").GetComponent<Button>().onClick.AddListener(() =>
                     {
                         PersistanceController.GetInstance().Save(saveSlot.GetComponent<SimpleValueStorage>().number);
+                        playerController.CanMove(true);
+                        Destroy(pauseScreenBox);
                     });
                 }
             });

@@ -1087,7 +1087,7 @@ MonoBehaviour:
   - {fileID: 11400000, guid: 09b78b85e1a319f4bb31a6508eb6e8e6, type: 2}
   amount: 0600000006000000
   ChestBoxPrefab: {fileID: 4253873219978192302, guid: 1aff089736ebb81448356ddf8aa94a45, type: 3}
-  ChestItemPrefab: {fileID: 7483844002981750284, guid: 9aaeb5891fecead459539ded2651ce11, type: 3}
+  ChestItemPrefab: {fileID: 7356020139941159156, guid: 29c9e1318f458c544968735ddde2564b, type: 3}
 --- !u!212 &472567638
 SpriteRenderer:
   m_ObjectHideFlags: 0
@@ -3165,13 +3165,17 @@ PrefabInstance:
       propertyPath: id
       value: 492e8ed5-d88f-4ec1-9919-8a67cea4dade
       objectReference: {fileID: 0}
+    - target: {fileID: 2453979926746573778, guid: d6c822186f094354887ad61ab2332fdf, type: 3}
+      propertyPath: m_Sprite
+      value: 
+      objectReference: {fileID: 21300000, guid: 80e932e0ac43b5e48bf05281a313bb07, type: 3}
     - target: {fileID: 8048555271462685130, guid: d6c822186f094354887ad61ab2332fdf, type: 3}
       propertyPath: m_RootOrder
       value: 9
       objectReference: {fileID: 0}
     - target: {fileID: 8048555271462685130, guid: d6c822186f094354887ad61ab2332fdf, type: 3}
       propertyPath: m_LocalPosition.x
-      value: -4.5
+      value: -3.5
       objectReference: {fileID: 0}
     - target: {fileID: 8048555271462685130, guid: d6c822186f094354887ad61ab2332fdf, type: 3}
       propertyPath: m_LocalPosition.y
@@ -3330,10 +3334,6 @@ PrefabInstance:
     - target: {fileID: 246777465830402197, guid: 61a22d280c5fe184daf1b3f2b999de27, type: 3}
       propertyPath: m_Name
       value: Managers
-      objectReference: {fileID: 0}
-    - target: {fileID: 7808894002910350541, guid: 61a22d280c5fe184daf1b3f2b999de27, type: 3}
-      propertyPath: m_RootOrder
-      value: 6
       objectReference: {fileID: 0}
     - target: {fileID: 7808894002910350541, guid: 61a22d280c5fe184daf1b3f2b999de27, type: 3}
       propertyPath: m_LocalPosition.x
