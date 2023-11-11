@@ -56,5 +56,5 @@
         "temp/": true,
         "Temp/": true
     },
-    "dotnet.defaultSolution": "Inżynierka.sln"
+    "dotnet.defaultSolution": "Wizard-Apprentice.sln"
 }
