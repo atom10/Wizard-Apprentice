@@ -7,6 +7,8 @@ using UnityEngine.SceneManagement;
 [Serializable]
 public class PlayerController : MonoBehaviour
 {
+
+    public List<AudioClip> sounds;
     public float health = 50;
     public float max_health = 100;
 
@@ -28,6 +30,7 @@ public class PlayerController : MonoBehaviour
     [HideInInspector]
     List<Item_entry> inventory = new List<Item_entry>();
     GameObject map;
+    bool playingStepSound = false;
 
     [HideInInspector]
     public int charisma;
@@ -47,8 +50,21 @@ public class PlayerController : MonoBehaviour
         SceneManager.LoadScene(scene);
     }
 
+    IEnumerator Sound(AudioClip sound){
+        playingStepSound = true;
+        AudioSource audioSource = GetComponent<AudioSource>();
+        audioSource.PlayOneShot(sound);
+        yield return new WaitForSeconds(sound.length);
+        playingStepSound = false;
+        yield return null;
+    }
     void Update()
     {
+        
+        if(isMoving && !playingStepSound){
+        AudioClip chosenSound = sounds[UnityEngine.Random.Range(0, sounds.Count-1)];
+        StartCoroutine(Sound(chosenSound));
+        }
         if (health_bar_fill != null)
         {
             health_bar_fill.transform.localScale = new Vector3(health / max_health, 1, 1);

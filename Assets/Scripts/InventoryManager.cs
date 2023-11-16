@@ -1,14 +1,24 @@
+using System.Collections;
 using System.Collections.Generic;
 using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
+using System;
 
 public class InventoryManager : MonoBehaviour
 {
     public GameObject inventoryBoxPrefab;
     public GameObject inventoryItemPrefab;
+    public AudioClip closing;
 
     GameObject inventoryBox;
+
+    IEnumerator Sound(AudioClip sound){
+        AudioSource audioSource = GetComponent<AudioSource>();
+        audioSource.PlayOneShot(sound);
+        yield return null;
+    }
+
     public void OpenInventory(PlayerController playerController)
     {
         playerController.CanMove(false);
@@ -22,6 +32,7 @@ public class InventoryManager : MonoBehaviour
             inventoryBox.GetComponent<Canvas>().worldCamera = Camera.main;
             inventoryBox.transform.Find("Close").GetComponent<Button>().onClick.AddListener(() =>
             {
+                StartCoroutine(Sound(closing));
                 playerController.CanMove(true);
             });
         }
