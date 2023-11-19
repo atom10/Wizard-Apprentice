@@ -2,13 +2,12 @@ Hello there!
 -> main
 
 === main ===
-How are you feeling today? #option-1-requiresSkill-charisma-20 #option-0-changesInkFile-Dialogues/sukmadik #option-2-openAlchemyTable 
+How are you feeling today? #option-1-requiresSkill-charisma-20 #option-0-changesInkFile-Dialogues/ihaveseenyoubefore #option-2-openAlchemyTable 
 + [Happy]
     That makes me feel <color=\#F8FF30>happy</color> as well!
 + [Sad]
     Oh, well that makes me <color=\#5B81FF>sad</color> too.
 + [No matter, give me alchemy table]
-    Yes, sir!
     -> END
 
 - Don't trust him, he's <b><color=\#FF1E35>not</color></b> a real doctor!

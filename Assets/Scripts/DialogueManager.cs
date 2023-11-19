@@ -52,7 +52,7 @@ public class DialogueManager : MonoBehaviour
         is_talking = true;
         runningDialogueBox.transform.Find("speaker_1").gameObject.GetComponent<Image>().sprite = playerController.avatar;
         runningDialogueBox.transform.Find("speaker_2").gameObject.GetComponent<Image>().sprite = npcController.avatar;
-        //AdvanceDialogue();
+        AdvanceDialogue();
     }
     public bool isTalking()
     {
@@ -72,8 +72,7 @@ public class DialogueManager : MonoBehaviour
         is_talking = false;
         playerController.CanMove(true);
     }
-    void AdvanceDialogue()
-    {
+    void AdvanceDialogue() {
         string currentSentence = story.Continue();
         ParseTags();
         StopAllCoroutines();
@@ -84,22 +83,18 @@ public class DialogueManager : MonoBehaviour
         if (story.currentChoices.Count != 0)
             StartCoroutine(ShowChoices());
     }
-    IEnumerator TypeSentence(string sentence)
-    {
+    IEnumerator TypeSentence(string sentence) {
         message.text = "";
-        foreach (char letter in sentence.ToCharArray())
-        {
+        foreach (char letter in sentence.ToCharArray()) {
             message.text += letter;
             yield return null;
         }
         yield return null;
     }
-    IEnumerator ShowChoices()
-    {
+    IEnumerator ShowChoices() {
         List<Choice> _choices = story.currentChoices;
         Dictionary<int, bool> choiceDisabledButHadAlternateRoute = new Dictionary<int, bool>();
-        for (int i = 0; i < _choices.Count; i++)
-        {
+        for (int i = 0; i < _choices.Count; i++) {
             GameObject temp = Instantiate(customButton, optionPanel.transform);
             TextMeshProUGUI text = temp.transform.GetChild(0).GetComponent<TextMeshProUGUI>();
             text.text = _choices[i].text;
@@ -215,7 +210,6 @@ public class DialogueManager : MonoBehaviour
         }
         optionPanel.SetActive(true);
         yield return new WaitUntil(() => { return choiceSelected != null; });
-        //Debug.Log("Wybrano opcję " + choiceSelected.index);
         if (choiceDisabledButHadAlternateRoute.ContainsKey(choiceSelected.index)) story.ChoosePathString(alternativeKnot[choiceSelected.index]);
         ExecuteTags(true);
         AdvanceFromDecision();
@@ -345,6 +339,13 @@ public class DialogueManager : MonoBehaviour
                                     playerController.RemoveItem(removeItem, int.Parse(words[4]));
                                 }
                             } else
+                            {
+                                choiceItemRequirements[wchich_one].Add(new Tuple<string, int>(words[3], int.Parse(words[4])));
+                            }
+                            break;
+                        //# option-1-requireItem-Items/pierogi-20
+                        case "requireItem":
+                            if (!postDecision)
                             {
                                 choiceItemRequirements[wchich_one].Add(new Tuple<string, int>(words[3], int.Parse(words[4])));
                             }
