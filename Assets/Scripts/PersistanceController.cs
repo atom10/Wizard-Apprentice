@@ -108,6 +108,18 @@ public class PersistanceController
         if (new_scene_name == "") data_packet.sceneName = controller.gameObject.scene.name;
         else data_packet.sceneName = new_scene_name;
     }
+    public void RememberMe(ChestController controller)
+    {
+        ChestDataPacket chest_packet = currentSave.chestDataPackets.Find((ChestDataPacket cdp) => { return cdp.id == controller.id; });
+        if (chest_packet == null)
+        {
+            chest_packet = new ChestDataPacket();
+            currentSave.chestDataPackets.Add(chest_packet);
+        }
+        chest_packet.id = controller.id;
+        chest_packet.items = controller.items;
+        chest_packet.amount = controller.amount;
+    }
     public void ForgetMe(ItemOnGround controller)
     {
         int index = currentSave.itemOnGroundDataPackets.FindIndex((ItemOnGroundDataPacket dp) => { return dp.id == controller.id; });
@@ -121,18 +133,6 @@ public class PersistanceController
             RememberMe(controller);
             ForgetMe(controller);
         }
-    }
-    public void RememberMe(ChestController controller)
-    {
-        ChestDataPacket chest_packet = currentSave.chestDataPackets.Find((ChestDataPacket cdp) => { return cdp.id == controller.id; });
-        if (chest_packet == null)
-        {
-            chest_packet = new ChestDataPacket();
-            currentSave.chestDataPackets.Add(chest_packet);
-        }
-        chest_packet.id = controller.id;
-        chest_packet.items = controller.items;
-        chest_packet.amount = controller.amount;
     }
     public void Save(int id)
     {
