@@ -42,10 +42,10 @@ public class DialogueManager : MonoBehaviour
         playerController.CanMove(false);
         runningDialogueBox = Instantiate(dialogueBox);
         textBox = runningDialogueBox.transform.Find("Text_box").gameObject;
-        optionPanel = textBox.transform.Find("Choices").gameObject;
+        optionPanel = textBox.transform.Find("Choices/Viewport/Content").gameObject;
         story = new Story(inkFile.text);
-        nametag = textBox.transform.GetChild(0).GetComponent<TextMeshProUGUI>();
-        message = textBox.transform.GetChild(1).GetComponent<TextMeshProUGUI>();
+        nametag = textBox.transform.Find("npc_name").GetComponent<TextMeshProUGUI>();
+        message = textBox.transform.Find("npc_sentence/Viewport/Content").GetComponent<TextMeshProUGUI>();
         nametag.text = npcController.firstname;
         if (startupKnotName != null && startupKnotName != "") story.ChoosePathString(startupKnotName);
         tags = new List<string>();

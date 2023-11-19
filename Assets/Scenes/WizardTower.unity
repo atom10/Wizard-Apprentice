@@ -7118,6 +7118,10 @@ PrefabInstance:
       value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 7132325033644776150, guid: a7e056107c970d546a18b4a66f7054c3, type: 3}
+      propertyPath: moveSpeed
+      value: 6
+      objectReference: {fileID: 0}
+    - target: {fileID: 7132325033644776150, guid: a7e056107c970d546a18b4a66f7054c3, type: 3}
       propertyPath: health_bar_fill
       value: 
       objectReference: {fileID: 1074842185}
