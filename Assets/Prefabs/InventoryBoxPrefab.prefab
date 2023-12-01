@@ -258,7 +258,7 @@ GameObject:
   - component: {fileID: 4331835691957563829}
   - component: {fileID: 7654451691352514296}
   m_Layer: 5
-  m_Name: queen bar (1)
+  m_Name: queen bar
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -1611,7 +1611,7 @@ GameObject:
   - component: {fileID: 1176424812323154298}
   - component: {fileID: 2823951344961010721}
   m_Layer: 5
-  m_Name: queen bar
+  m_Name: village bar
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0

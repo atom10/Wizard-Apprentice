@@ -247,6 +247,10 @@ public class DialogueManager : MonoBehaviour
             string[] words = t.Split('-');
             switch (words[0])
             {
+				case "changeSpeakerName":
+					if(!postDecision)
+						nametag.text = words[1];
+					break;
                 //Option cases
                 case "option":
                     int wchich_one = int.Parse(words[1]);

@@ -7122,9 +7122,21 @@ PrefabInstance:
       value: 6
       objectReference: {fileID: 0}
     - target: {fileID: 7132325033644776150, guid: a7e056107c970d546a18b4a66f7054c3, type: 3}
+      propertyPath: relation_queen
+      value: 33
+      objectReference: {fileID: 0}
+    - target: {fileID: 7132325033644776150, guid: a7e056107c970d546a18b4a66f7054c3, type: 3}
       propertyPath: health_bar_fill
       value: 
       objectReference: {fileID: 1074842185}
+    - target: {fileID: 7132325033644776150, guid: a7e056107c970d546a18b4a66f7054c3, type: 3}
+      propertyPath: relation_magnus
+      value: -33
+      objectReference: {fileID: 0}
+    - target: {fileID: 7132325033644776150, guid: a7e056107c970d546a18b4a66f7054c3, type: 3}
+      propertyPath: relation_villagers
+      value: 66
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []

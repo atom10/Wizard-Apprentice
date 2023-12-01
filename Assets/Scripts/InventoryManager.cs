@@ -79,5 +79,16 @@ public class InventoryManager : MonoBehaviour
             TextMeshProUGUI text = new_entry.AddComponent<TextMeshProUGUI>();
             text.text = element;
         }
+
+        GameObject relationships = inventoryBox.transform.Find("content_main_container/relationships").gameObject;
+
+        relationships.transform.Find("magnus bar/fill").transform.localScale = new Vector3((float)(playerController.relation_magnus / 100f), 1, 1);
+        if(playerController.relation_magnus < 0) relationships.transform.Find("magnus bar/fill").GetComponent<Image>().color = Color.red;
+
+        relationships.transform.Find("queen bar/fill").transform.localScale = new Vector3((float)(playerController.relation_queen / 100f), 1, 1);
+        if (playerController.relation_queen < 0) relationships.transform.Find("queen bar/fill").GetComponent<Image>().color = Color.red;
+
+        relationships.transform.Find("village bar/fill").transform.localScale = new Vector3((float)(playerController.relation_villagers / 100f), 1, 1);
+        if (playerController.relation_villagers < 0) relationships.transform.Find("village bar/fill").GetComponent<Image>().color = Color.red;
     }
 }
