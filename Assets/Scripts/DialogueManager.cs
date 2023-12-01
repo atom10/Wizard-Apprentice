@@ -247,6 +247,7 @@ public class DialogueManager : MonoBehaviour
             string[] words = t.Split('-');
             switch (words[0])
             {
+				//#changeSpeakerName-Magnus
 				case "changeSpeakerName":
 					if(!postDecision)
 						nametag.text = words[1];
@@ -303,6 +304,13 @@ public class DialogueManager : MonoBehaviour
                                 {
                                     npcController.ink_file = Resources.Load(words[3]) as TextAsset;
                                 }
+                            }
+                            break;
+                        //# option-1-forceCloseDialogue
+                        case "forceCloseDialogue":
+                            if (postDecision)
+                            {
+                                FinishDialogue();
                             }
                             break;
                         //# option-1-changesInkKnot-powitanie  (affects next dialogue chain)
