@@ -4326,6 +4326,63 @@ Tilemap:
     e31: 0
     e32: 0
     e33: 1
+--- !u!1001 &747922803
+PrefabInstance:
+  m_ObjectHideFlags: 0
+  serializedVersion: 2
+  m_Modification:
+    serializedVersion: 3
+    m_TransformParent: {fileID: 0}
+    m_Modifications:
+    - target: {fileID: 4501384500296185604, guid: 7bda3742d79959795a890cd2b976afa8, type: 3}
+      propertyPath: m_Name
+      value: chest
+      objectReference: {fileID: 0}
+    - target: {fileID: 7169446310919077515, guid: 7bda3742d79959795a890cd2b976afa8, type: 3}
+      propertyPath: m_LocalPosition.x
+      value: -0.5
+      objectReference: {fileID: 0}
+    - target: {fileID: 7169446310919077515, guid: 7bda3742d79959795a890cd2b976afa8, type: 3}
+      propertyPath: m_LocalPosition.y
+      value: 2.5
+      objectReference: {fileID: 0}
+    - target: {fileID: 7169446310919077515, guid: 7bda3742d79959795a890cd2b976afa8, type: 3}
+      propertyPath: m_LocalPosition.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 7169446310919077515, guid: 7bda3742d79959795a890cd2b976afa8, type: 3}
+      propertyPath: m_LocalRotation.w
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 7169446310919077515, guid: 7bda3742d79959795a890cd2b976afa8, type: 3}
+      propertyPath: m_LocalRotation.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 7169446310919077515, guid: 7bda3742d79959795a890cd2b976afa8, type: 3}
+      propertyPath: m_LocalRotation.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 7169446310919077515, guid: 7bda3742d79959795a890cd2b976afa8, type: 3}
+      propertyPath: m_LocalRotation.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 7169446310919077515, guid: 7bda3742d79959795a890cd2b976afa8, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 7169446310919077515, guid: 7bda3742d79959795a890cd2b976afa8, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 7169446310919077515, guid: 7bda3742d79959795a890cd2b976afa8, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.z
+      value: 0
+      objectReference: {fileID: 0}
+    m_RemovedComponents: []
+    m_RemovedGameObjects: []
+    m_AddedGameObjects: []
+    m_AddedComponents: []
+  m_SourcePrefab: {fileID: 100100000, guid: 7bda3742d79959795a890cd2b976afa8, type: 3}
 --- !u!1 &797973059
 GameObject:
   m_ObjectHideFlags: 0
@@ -6835,6 +6892,67 @@ Tilemap:
     e31: 0
     e32: 0
     e33: 1
+--- !u!1001 &890884543
+PrefabInstance:
+  m_ObjectHideFlags: 0
+  serializedVersion: 2
+  m_Modification:
+    serializedVersion: 3
+    m_TransformParent: {fileID: 0}
+    m_Modifications:
+    - target: {fileID: 2628447297545211408, guid: fbb1b7b9626b69a4c97ddd5fbf88a624, type: 3}
+      propertyPath: m_LocalPosition.x
+      value: 4.5
+      objectReference: {fileID: 0}
+    - target: {fileID: 2628447297545211408, guid: fbb1b7b9626b69a4c97ddd5fbf88a624, type: 3}
+      propertyPath: m_LocalPosition.y
+      value: 4
+      objectReference: {fileID: 0}
+    - target: {fileID: 2628447297545211408, guid: fbb1b7b9626b69a4c97ddd5fbf88a624, type: 3}
+      propertyPath: m_LocalPosition.z
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 2628447297545211408, guid: fbb1b7b9626b69a4c97ddd5fbf88a624, type: 3}
+      propertyPath: m_LocalRotation.w
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 2628447297545211408, guid: fbb1b7b9626b69a4c97ddd5fbf88a624, type: 3}
+      propertyPath: m_LocalRotation.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 2628447297545211408, guid: fbb1b7b9626b69a4c97ddd5fbf88a624, type: 3}
+      propertyPath: m_LocalRotation.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 2628447297545211408, guid: fbb1b7b9626b69a4c97ddd5fbf88a624, type: 3}
+      propertyPath: m_LocalRotation.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 2628447297545211408, guid: fbb1b7b9626b69a4c97ddd5fbf88a624, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 2628447297545211408, guid: fbb1b7b9626b69a4c97ddd5fbf88a624, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 2628447297545211408, guid: fbb1b7b9626b69a4c97ddd5fbf88a624, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 3472284407428511172, guid: fbb1b7b9626b69a4c97ddd5fbf88a624, type: 3}
+      propertyPath: ink_file
+      value: 
+      objectReference: {fileID: 4900000, guid: 87bb74e0b84c491f8848e1c7886ba4f5, type: 3}
+    - target: {fileID: 8736419979145020312, guid: fbb1b7b9626b69a4c97ddd5fbf88a624, type: 3}
+      propertyPath: m_Name
+      value: Magnus
+      objectReference: {fileID: 0}
+    m_RemovedComponents: []
+    m_RemovedGameObjects: []
+    m_AddedGameObjects: []
+    m_AddedComponents: []
+  m_SourcePrefab: {fileID: 100100000, guid: fbb1b7b9626b69a4c97ddd5fbf88a624, type: 3}
 --- !u!1001 &1001869840
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -6902,7 +7020,7 @@ PrefabInstance:
     - target: {fileID: 3472284407428511172, guid: fbb1b7b9626b69a4c97ddd5fbf88a624, type: 3}
       propertyPath: ink_file
       value: 
-      objectReference: {fileID: 4900000, guid: acc27e8992aec734e88f7231a23a056b, type: 3}
+      objectReference: {fileID: 4900000, guid: d13f3a10f053d7ad89a084c2613a4e64, type: 3}
     - target: {fileID: 3472284407428511172, guid: fbb1b7b9626b69a4c97ddd5fbf88a624, type: 3}
       propertyPath: firstname
       value: Magibara
@@ -6921,7 +7039,7 @@ PrefabInstance:
       objectReference: {fileID: 21300000, guid: bacf4a62789deda49b79cda5088ebe6c, type: 3}
     - target: {fileID: 8736419979145020312, guid: fbb1b7b9626b69a4c97ddd5fbf88a624, type: 3}
       propertyPath: m_Name
-      value: NPCTemplate
+      value: Magibara
       objectReference: {fileID: 0}
     m_RemovedComponents:
     - {fileID: 3756375673401715953, guid: fbb1b7b9626b69a4c97ddd5fbf88a624, type: 3}
@@ -7079,11 +7197,11 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 5730613615098292327, guid: a7e056107c970d546a18b4a66f7054c3, type: 3}
       propertyPath: m_LocalPosition.x
-      value: -3.5
+      value: 2.5
       objectReference: {fileID: 0}
     - target: {fileID: 5730613615098292327, guid: a7e056107c970d546a18b4a66f7054c3, type: 3}
       propertyPath: m_LocalPosition.y
-      value: 0
+      value: 4
       objectReference: {fileID: 0}
     - target: {fileID: 5730613615098292327, guid: a7e056107c970d546a18b4a66f7054c3, type: 3}
       propertyPath: m_LocalPosition.z
@@ -7316,3 +7434,5 @@ SceneRoots:
   - {fileID: 6686974778648120441}
   - {fileID: 2046422473}
   - {fileID: 1001869840}
+  - {fileID: 890884543}
+  - {fileID: 747922803}

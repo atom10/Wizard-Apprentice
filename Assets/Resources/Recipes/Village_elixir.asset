@@ -13,5 +13,9 @@ MonoBehaviour:
   m_Name: Village_elixir
   m_EditorClassIdentifier: 
   result: {fileID: 11400000, guid: e9acf797e39fdd0458843fd164650505, type: 2}
-  ingredients: []
-  amount: 
+  ingredients:
+  - {fileID: 11400000, guid: da0c82129c3b29c408062c1c9d7961d4, type: 2}
+  - {fileID: 11400000, guid: 61904f14270af18498a529032ad71306, type: 2}
+  - {fileID: 11400000, guid: 85112bab1e2d6d540a352d5851199a5c, type: 2}
+  - {fileID: 11400000, guid: 71c7aa0938cce674cb21e9af5c597166, type: 2}
+  amount: 01000000010000000100000001000000

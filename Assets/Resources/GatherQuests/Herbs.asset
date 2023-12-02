@@ -1,0 +1,26 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: de0939281b8bf9b4882efacaa405f4f2, type: 3}
+  m_Name: Herbs
+  m_EditorClassIdentifier: 
+  item:
+  - {fileID: 11400000, guid: 1fe83f2853dd093489b1c7d9ad8e49bf, type: 2}
+  - {fileID: 11400000, guid: bae63d0b2b4f4ea4794d8f6b4e2b4c0c, type: 2}
+  - {fileID: 11400000, guid: dd09b8656164109438f834f4fccb7c7f, type: 2}
+  - {fileID: 11400000, guid: 83ed3dafd6e1b664189bb6a6941a2a7e, type: 2}
+  - {fileID: 11400000, guid: d9779b9e5717cab4db70909d2b4e1327, type: 2}
+  - {fileID: 11400000, guid: 2843cfee3abdc44439f0a7d44e2ce33a, type: 2}
+  amountToSpawn: 020000000200000002000000020000000200000002000000
+  startRadius: 010000000100000001000000010000000100000001000000
+  endRadius: 020000000500000005000000050000000500000005000000
+  spawnStrategy: 000000000000000000000000000000000000000000000000
+  persistent: 0

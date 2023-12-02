@@ -13,5 +13,8 @@ MonoBehaviour:
   m_Name: Magnus_elixir
   m_EditorClassIdentifier: 
   result: {fileID: 11400000, guid: 24b352a18a98c8a41a7c64ddee4b938c, type: 2}
-  ingredients: []
-  amount: 
+  ingredients:
+  - {fileID: 11400000, guid: b4a271c69d5b7ae4d8ead8f9e875f8bf, type: 2}
+  - {fileID: 11400000, guid: d000b17e70f36534e9159b8dc6e55368, type: 2}
+  - {fileID: 11400000, guid: 7687bb149d574f44496e9a2e1aee5aab, type: 2}
+  amount: 030000000100000001000000

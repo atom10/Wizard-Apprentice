@@ -13,5 +13,8 @@ MonoBehaviour:
   m_Name: Poison_elixir
   m_EditorClassIdentifier: 
   result: {fileID: 11400000, guid: 68f4f5848cb1a7b45a52dc47671d9fd1, type: 2}
-  ingredients: []
-  amount: 
+  ingredients:
+  - {fileID: 11400000, guid: b4a271c69d5b7ae4d8ead8f9e875f8bf, type: 2}
+  - {fileID: 11400000, guid: a29de492b047bef409d0ffa7d3226d5e, type: 2}
+  - {fileID: 11400000, guid: 1f8ca9558c293134d8c2d3f350906886, type: 2}
+  amount: 010000000100000001000000

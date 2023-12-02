@@ -273,8 +273,7 @@ public class DialogueManager : MonoBehaviour
                             break;
                         //#option-1-changesRelation-Magnus-20-(minus/plus) (Magnus/Queen/Villagers)
                         case "changesRelation":
-                            if (!postDecision)
-                            {
+                            
                                 if (postDecision)
                                 {
                                     if (choiceSelected.index == wchich_one)
@@ -294,7 +293,7 @@ public class DialogueManager : MonoBehaviour
                                         }
                                     }
                                 }
-                            }
+                            
                             break;
                         //# option-1-changesInkFile-Dialogues/sukmadik  (affects next dialogue chain)
                         case "changesInkFile":
