@@ -6634,6 +6634,10 @@ PrefabInstance:
       propertyPath: firstname
       value: Queen
       objectReference: {fileID: 0}
+    - target: {fileID: 3756375673401715953, guid: fbb1b7b9626b69a4c97ddd5fbf88a624, type: 3}
+      propertyPath: m_SpriteTilingProperty.oldSize.y
+      value: 2
+      objectReference: {fileID: 0}
     - target: {fileID: 6507038015512681153, guid: fbb1b7b9626b69a4c97ddd5fbf88a624, type: 3}
       propertyPath: m_Sprite
       value: 
@@ -11163,7 +11167,7 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: 2628447297545211408, guid: fbb1b7b9626b69a4c97ddd5fbf88a624, type: 3}
       propertyPath: m_LocalPosition.x
-      value: 0.5
+      value: 4.5
       objectReference: {fileID: 0}
     - target: {fileID: 2628447297545211408, guid: fbb1b7b9626b69a4c97ddd5fbf88a624, type: 3}
       propertyPath: m_LocalPosition.y
