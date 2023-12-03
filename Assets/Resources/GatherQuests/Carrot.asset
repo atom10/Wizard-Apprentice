@@ -9,13 +9,13 @@ MonoBehaviour:
   m_GameObject: {fileID: 0}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: d60ad4fdefb12d44e9ab5acfb05c91d1, type: 3}
-  m_Name: Empty_bucket
+  m_Script: {fileID: 11500000, guid: de0939281b8bf9b4882efacaa405f4f2, type: 3}
+  m_Name: Carrot
   m_EditorClassIdentifier: 
-  item_name: Empty bucket
-  icon: {fileID: 21300000, guid: 84d28953c82439147b4c8ea4984e618e, type: 3}
-  type: 5
-  description: 
-  effects: 
-  effect_amount: []
-  effect_duration: 0
+  item:
+  - {fileID: 11400000, guid: 39e6b8f5cba8e6a4da16ee7e5e0fd144, type: 2}
+  amountToSpawn: 01000000
+  startRadius: 05000000
+  endRadius: 07000000
+  spawnStrategy: 00000000
+  persistent: 0

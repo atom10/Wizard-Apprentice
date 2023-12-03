@@ -1,4 +1,4 @@
-"Who wants their hand bitten off? I was asleep!" #changeSpeakerName-Magibara #
+"Who wants their hand bitten off? I was asleep!" #changeSpeakerName-Magibara
 It seemed the books were mistaken. #changeSpeakerName-Freya
 "Magnus informed me that thau be me familiar and would help with alchemy"
 "I will do whatever I want!"#changeSpeakerName-Magibara

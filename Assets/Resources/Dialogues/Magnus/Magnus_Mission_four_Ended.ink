@@ -1,5 +1,5 @@
 ﻿"Greatings Magnus" #changeSpeakerName-Freya
-"Is the potion done brewing?" #changeSpeakerName-Magnus #option-0-removeItem-Items/Magnus_elixir-1
+"Is the potion done brewing?" #changeSpeakerName-Magnus #option-0-removeItem-Items/InvisibilityElixir-1
 + ["Yes. I've created the potion."]
 -> mission
 + ["No."]

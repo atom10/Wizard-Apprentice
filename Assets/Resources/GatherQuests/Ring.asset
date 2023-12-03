@@ -9,13 +9,13 @@ MonoBehaviour:
   m_GameObject: {fileID: 0}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: d60ad4fdefb12d44e9ab5acfb05c91d1, type: 3}
-  m_Name: Milk_jar
+  m_Script: {fileID: 11500000, guid: de0939281b8bf9b4882efacaa405f4f2, type: 3}
+  m_Name: Ring
   m_EditorClassIdentifier: 
-  item_name: Milk jar
-  icon: {fileID: 21300000, guid: f5cfaaea1717f0542b7098430f271ea5, type: 3}
-  type: 5
-  description: 
-  effects: 
-  effect_amount: []
-  effect_duration: 0
+  item:
+  - {fileID: 0}
+  amountToSpawn: 00000000
+  startRadius: 00000000
+  endRadius: 00000000
+  spawnStrategy: 00000000
+  persistent: 0
