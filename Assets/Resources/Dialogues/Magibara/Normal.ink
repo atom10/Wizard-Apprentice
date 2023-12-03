@@ -6,9 +6,10 @@ Watcha be needing? #option-0-openAlchemyTable
 + [Keys.]
     -> keys
 === tips ===
-There are three available routes. 
+There are three available routes.
 Think before starting someone's route, as objects needed for one's route can be also needed for another.
 Using up one thing can lead you to ruining your chances on finishing the route.
+If a character is not available right now, you can spend time sleeping or doing some favours for people.
 If you're lost, check out the journal.
 You can find some stuff in Magnus's chest.
 In order to milk a cow, you need a bucket.

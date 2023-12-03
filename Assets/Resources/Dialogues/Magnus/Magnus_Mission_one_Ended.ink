@@ -1,5 +1,5 @@
 "Greetings, Magnus" #changeSpeakerName-Freya
-"Did you aquired the herbs?" #option-1-forceCloseDialogue #option-0-removeItem-Items/Nettle-1 #option-0-removeItem-Items/Oregano-1 #option-0-removeItem-Items/Basil-1 #option-0-removeItem-Items/Rosemary-1 #option-0-removeItem-Items/Lavender-1 #option-0-removeItem-Items/Thyme-1 #option-0-changesRelation-Magnus-20-plus #option-0-changesInkFile-Dialogues/Magnus/Magnus_Mission_two #changeSpeakerName-Magnus
+"Did you aquired the herbs?" #option-1-forceCloseDialogue #option-0-removeItem-Items/Nettle-1 #option-0-removeItem-Items/Oregano-1 #option-0-removeItem-Items/Basil-1 #option-0-removeItem-Items/Rosemary-1 #option-0-removeItem-Items/Lavender-1 #option-0-removeItem-Items/Thyme-1 #option-0-changesRelation-Magnus-20-plus #option-0-changesInkFile-Dialogues/Magnus/Magnus_Mission_two #changeSpeakerName-Magnus #option-0-advanceTime-4
 + ["I have gathered the herbs you requested."]
     -> missionEnd
 + ["Not yet."]

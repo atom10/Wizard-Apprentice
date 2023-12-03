@@ -1,7 +1,7 @@
 "What seems to be the matter?" #changeSpeakerName-Freya
 I inquired, observing Magnus pacing through the ancient halls of the tower, a determined gleam in his eyes.
-"I find myself in dire need of herbs, my apprentice. It appears my stock has been entirely depleted through my recent experiments," Magnus responded, his voice a blend of urgency and excitement. #changeSpeakerName-Magnus #option-0-changesInkFile-Dialogues/Magnus/Magnus_Mission_one_Ended #option-0-addGatherQuest-GatherQuests/Herbs #option-1-forceCloseDialogue
-+ ["Consider it done. I shall embark on a herbal quest and replenish your precious collection"]
+"I find myself in dire need of herbs, my apprentice. It appears my stock has been entirely depleted through my recent experiments," Magnus responded, his voice a blend of urgency and excitement. #changeSpeakerName-Magnus #option-0-changesInkFile-Dialogues/Magnus/Magnus_Mission_one_Ended #option-0-addGatherQuest-GatherQuests/Herbs #option-1-forceCloseDialogue #option-0-advanceTime-4
++ ["Consider it done. I shall embark on a herbal quest and replenish your precious collection."]
     -> mission1
 + ["I'm not able to help you right now."]
     -> END
