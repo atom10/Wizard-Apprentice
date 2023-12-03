@@ -29,6 +29,7 @@ public class DialogueManager : MonoBehaviour
     Dictionary<int, List<Tuple<string, int>>> choiceItemRequirements = new Dictionary<int, List<Tuple<string, int>>>(); //(resourcePath, amount)
     Dictionary<int, List<Tuple<int, int>>> choiceHourRequirements = new Dictionary<int, List<Tuple<int, int>>>(); //(from, to)
     Dictionary<int, string> alternativeKnot = new Dictionary<int, string>();
+    string locationOnDialogueEnd = "";
 
     public void setup(PlayerController playerController, NpcController npcController)
     {
@@ -71,6 +72,7 @@ public class DialogueManager : MonoBehaviour
         Destroy(runningDialogueBox);
         is_talking = false;
         playerController.CanMove(true);
+        if(locationOnDialogueEnd != "") playerController.ChangeScene(locationOnDialogueEnd);
     }
     void AdvanceDialogue() {
         string currentSentence = story.Continue();
@@ -252,6 +254,10 @@ public class DialogueManager : MonoBehaviour
 					if(!postDecision)
 						nametag.text = words[1];
 					break;
+                //#changeLocationOnDialogueEnd-(scene_name)
+                case "changeLocationOnDialogueEnd":
+                    locationOnDialogueEnd = words[1];
+                    break;
                 //Option cases
                 case "option":
                     int wchich_one = int.Parse(words[1]);
@@ -443,6 +449,11 @@ public class DialogueManager : MonoBehaviour
                             if (postDecision)
                                 if (choiceSelected.index == wchich_one)
                                     PersistanceController.GetInstance().currentSave.gatherQuests.Add(Resources.Load<GatherQuest>(words[3]));
+                            break;
+                        //#option-1-changeLocationOnDialogueEnd-(scene_name)
+                        case "changeLocationOnDialogueEnd":
+                            if (postDecision && choiceSelected.index == wchich_one)
+                                locationOnDialogueEnd = words[4];
                             break;
                         //# option-1-removeGatherQuest-(resource/path)
                         case "removeGatherQuest":
