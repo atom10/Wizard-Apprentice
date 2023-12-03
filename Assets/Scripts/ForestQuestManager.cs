@@ -7,9 +7,9 @@ public class ForestQuestManager : MonoBehaviour
 {
     public GameObject ItemOnGroundPrefab;
 
-    void Start()
+    void Awake()
     {
-        if(SceneManager.GetActiveScene().name.Equals("Forest")) GenerateQuestItems();
+        GenerateQuestItems();
     }
 
     // Update is called once per frame
@@ -24,6 +24,24 @@ public class ForestQuestManager : MonoBehaviour
         List<GatherQuest> gatherQuests = PersistanceController.GetInstance().currentSave.gatherQuests;
         foreach (GatherQuest gatherQuest in gatherQuests)
         {
+            string sceneName = SceneManager.GetActiveScene().name;
+            switch (gatherQuest.destinationName)
+            {
+                case DestinationName.tower:
+                    if (sceneName != "WizardTower") continue;
+                    break;
+                case DestinationName.forest:
+                    if (sceneName != "Forest") continue;
+                    break;
+                case DestinationName.castle:
+                    if (sceneName != "Castle") continue;
+                    break;
+                case DestinationName.village:
+                    if (sceneName != "Village") continue;
+                    break;
+                default:
+                    break;
+            }
             for (int i = 0; i < gatherQuest.amountToSpawn.Count; i++)
             {
                 for (int j = 0; j < gatherQuest.amountToSpawn[i]; j++)

@@ -19,3 +19,4 @@ MonoBehaviour:
   endRadius: 00000000
   spawnStrategy: 00000000
   persistent: 0
+  destinationName: 3

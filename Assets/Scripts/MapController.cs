@@ -7,23 +7,23 @@ using UnityEngine.UI;
 
 public class MapController : MonoBehaviour, IPointerClickHandler
 {
-    public DestinationButton destination;
+    public DestinationName destination;
 
     public void OnPointerClick(PointerEventData eventData)
     {
         string sceneName = "";
         switch (destination)
         {
-            case DestinationButton.tower:
+            case DestinationName.tower:
                 sceneName = "WizardTower";
                 break;
-            case DestinationButton.forest:
+            case DestinationName.forest:
                 sceneName = "Forest";
                 break;
-            case DestinationButton.castle:
+            case DestinationName.castle:
                 sceneName = "Castle";
                 break;
-            case DestinationButton.village:
+            case DestinationName.village:
                 sceneName = "Village";
                 break;
             default:
@@ -33,7 +33,7 @@ public class MapController : MonoBehaviour, IPointerClickHandler
     }
 }
 
-public enum DestinationButton
+public enum DestinationName
 {
     tower,
     forest,

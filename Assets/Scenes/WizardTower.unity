@@ -4335,16 +4335,28 @@ PrefabInstance:
     m_TransformParent: {fileID: 0}
     m_Modifications:
     - target: {fileID: 532573765925722053, guid: 7bda3742d79959795a890cd2b976afa8, type: 3}
+      propertyPath: id
+      value: 69
+      objectReference: {fileID: 0}
+    - target: {fileID: 532573765925722053, guid: 7bda3742d79959795a890cd2b976afa8, type: 3}
       propertyPath: ChestItemPrefab
       value: 
-      objectReference: {fileID: 7483844002981750284, guid: 9aaeb5891fecead459539ded2651ce11, type: 3}
+      objectReference: {fileID: 7356020139941159156, guid: 29c9e1318f458c544968735ddde2564b, type: 3}
     - target: {fileID: 532573765925722053, guid: 7bda3742d79959795a890cd2b976afa8, type: 3}
       propertyPath: items.Array.size
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 532573765925722053, guid: 7bda3742d79959795a890cd2b976afa8, type: 3}
       propertyPath: amount.Array.size
-      value: 0
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 532573765925722053, guid: 7bda3742d79959795a890cd2b976afa8, type: 3}
+      propertyPath: items.Array.data[0]
+      value: 
+      objectReference: {fileID: 11400000, guid: da0c82129c3b29c408062c1c9d7961d4, type: 2}
+    - target: {fileID: 532573765925722053, guid: 7bda3742d79959795a890cd2b976afa8, type: 3}
+      propertyPath: amount.Array.data[0]
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 4501384500296185604, guid: 7bda3742d79959795a890cd2b976afa8, type: 3}
       propertyPath: m_Name

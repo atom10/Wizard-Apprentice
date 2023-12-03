@@ -14,6 +14,7 @@ public class GatherQuest : ScriptableObject
     public List<int> endRadius;
     public List<SpawnStrategy> spawnStrategy;
     public bool persistent; //Not respawnable on level re-enter
+    public DestinationName destinationName = DestinationName.forest;
 }
 
 public enum SpawnStrategy
@@ -21,3 +22,4 @@ public enum SpawnStrategy
     square,
     circle
 }
+
