@@ -6967,7 +6967,7 @@ PrefabInstance:
     - target: {fileID: 3472284407428511172, guid: fbb1b7b9626b69a4c97ddd5fbf88a624, type: 3}
       propertyPath: ink_file
       value: 
-      objectReference: {fileID: 4900000, guid: ebc6f1312a5b56b69b45462a1061a87e, type: 3}
+      objectReference: {fileID: 4900000, guid: 87bb74e0b84c491f8848e1c7886ba4f5, type: 3}
     - target: {fileID: 8736419979145020312, guid: fbb1b7b9626b69a4c97ddd5fbf88a624, type: 3}
       propertyPath: m_Name
       value: Magnus
