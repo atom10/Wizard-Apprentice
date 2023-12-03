@@ -464,10 +464,11 @@ public class DialogueManager : MonoBehaviour
                         case "removeGatherQuest":
                             if (postDecision)
                                 if (choiceSelected.index == wchich_one)
-                                    if(PersistanceController.GetInstance().currentSave.gatherQuests.Contains(Resources.Load<GatherQuest>(words[3])))
+                                    if (PersistanceController.GetInstance().currentSave.gatherQuests.Contains(Resources.Load<GatherQuest>(words[3])))
                                     {
                                         PersistanceController.GetInstance().currentSave.gatherQuests.Remove(Resources.Load<GatherQuest>(words[3]));
                                     }
+                                    else Debug.Log("Requested removal of quest that didnt existed");
                             break;
                         default:
                             break;

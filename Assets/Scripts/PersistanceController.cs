@@ -130,8 +130,8 @@ public class PersistanceController
             currentSave.itemOnGroundDataPackets[index] = data_packet;
         } else
         {
-            RememberMe(controller);
-            ForgetMe(controller);
+            //RememberMe(controller);
+            //ForgetMe(controller);
         }
     }
     public void Save(int id)
@@ -167,48 +167,56 @@ public class PersistanceController
     }
     public bool ShouldIBeHere(NpcController npcController)
     {
-        if (currentSave.npcDataPackets.Find((NpcDataPacket ndp) => { return ndp.id == npcController.id && ndp.sceneName != SceneManager.GetActiveScene().name; }) != null)
+        if (
+            currentSave.npcDataPackets.FindIndex((NpcDataPacket ndp) => { return ndp.id == npcController.id; }) != -1 &&
+            npcController.id != 0
+            )
+        {
+            Debug.Log("Requested removal of default state npc because of saved instance in savefile");
             return false;
+        }
         return true;
     }
     public bool ShouldIBeHere(ItemOnGround controller)
     {
-        return
+        if(
             currentSave.itemOnGroundDataPackets.Find( //Find such item that
                 (ItemOnGroundDataPacket dp) => {
                     return dp.id == controller.id && //existed in save AND
                     dp.collected == true; //was collected
                 }
             ) == null || //if not found/not collected, return true as "you SHOULD be here"
-            controller.id.Equals("0"); //Or return true if id is in default state.
+            controller.id.Equals("0") //Or return true if id is in default state.
+            ) {
+            return true;
+        } else {
+            Debug.Log("Requested item removal of " + controller.item.name + " with id of " + controller.id);
+            return false;
+        }
     }
     public void RecreateAllInstancesFromSave()
     {
         //NPC
-        NpcController[] npcControllers = UnityEngine.Object.FindObjectsByType(typeof(NpcController), FindObjectsSortMode.None) as NpcController[];
-        foreach (NpcDataPacket sfcs in currentSave.npcDataPackets.FindAll(
+        foreach (NpcDataPacket npcSavesFromThisScene in currentSave.npcDataPackets.FindAll(
             (NpcDataPacket ndp) =>
             {
                 return ndp.sceneName == SceneManager.GetActiveScene().name;
             })
         )
         {
-            NpcController matchingNpc = Array.Find(npcControllers, (NpcController nc) => { return nc.id == sfcs.id; });
-            if (matchingNpc == null)
-            {
-                GameObject npc = UnityEngine.Object.Instantiate(Resources.Load("Prefabs/NPCTemplate")) as GameObject;
-                matchingNpc = npc.GetComponent<NpcController>();
-                matchingNpc.id = sfcs.id;
-            }
+            Debug.Log("Recreating npc of id " + npcSavesFromThisScene.id);
+            GameObject newNpc = UnityEngine.Object.Instantiate(Resources.Load("Prefabs/NPCTemplate")) as GameObject;
+            NpcController npcIdentityComponent = newNpc.GetComponent<NpcController>();
+            npcIdentityComponent.id = npcSavesFromThisScene.id;
 
-            matchingNpc.gameObject.transform.GetComponent<SpriteRenderer>().sprite = sfcs.sprite;
-            matchingNpc.transform.position = sfcs.position;
-            matchingNpc.transform.rotation = sfcs.rotation;
-            matchingNpc.transform.localScale = sfcs.scale;
-            matchingNpc.ink_file = sfcs.inkFile;
-            matchingNpc.ink_knot_name = sfcs.knotName;
-            matchingNpc.firstname = sfcs.firstName;
-            matchingNpc.avatar = sfcs.avatar;
+            npcIdentityComponent.gameObject.transform.GetComponent<SpriteRenderer>().sprite = npcSavesFromThisScene.sprite;
+            npcIdentityComponent.transform.position = npcSavesFromThisScene.position;
+            npcIdentityComponent.transform.rotation = npcSavesFromThisScene.rotation;
+            npcIdentityComponent.transform.localScale = npcSavesFromThisScene.scale;
+            npcIdentityComponent.ink_file = npcSavesFromThisScene.inkFile;
+            npcIdentityComponent.ink_knot_name = npcSavesFromThisScene.knotName;
+            npcIdentityComponent.firstname = npcSavesFromThisScene.firstName;
+            npcIdentityComponent.avatar = npcSavesFromThisScene.avatar;
         }
 
         //Player

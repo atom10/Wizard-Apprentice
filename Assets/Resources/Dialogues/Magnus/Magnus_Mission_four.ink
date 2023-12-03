@@ -1,4 +1,4 @@
-﻿"I plan on hiding the presence of the tower." #changeSpeakerName-Magnus
+"I plan on hiding the presence of the tower." #changeSpeakerName-Magnus
 Magnus revealed, his tone carrying a weight of secrecy and intent. The flickering candlelight cast shadows that seemed to dance in conspiratorial agreement with his words. #changeSpeakerName-Freya
 "Invisibility, Magnus?"
 I questioned, the very idea conjuring images of ancient sorceries and hidden realms within the medieval tapestry of magical lore. 

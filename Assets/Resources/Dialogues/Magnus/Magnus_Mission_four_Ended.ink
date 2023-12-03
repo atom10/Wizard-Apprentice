@@ -1,4 +1,4 @@
-﻿"Greatings Magnus" #changeSpeakerName-Freya
+"Greatings Magnus" #changeSpeakerName-Freya
 "Is the potion done brewing?" #changeSpeakerName-Magnus #option-0-removeItem-Items/InvisibilityElixir-1 #option-1-forceCloseDialogue #option-0-advanceTime-4 #option-0-changesInkFile-Dialogues/Other/NoDialogue
 + ["Yes. I've created the potion."]
     -> mission

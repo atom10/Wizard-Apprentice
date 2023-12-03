@@ -35,6 +35,7 @@ public class InventoryManager : MonoBehaviour
             {
                 StartCoroutine(Sound(closing));
                 playerController.CanMove(true);
+                Destroy(inventoryBox);
             });
         }
 

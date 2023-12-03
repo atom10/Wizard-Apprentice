@@ -43,6 +43,20 @@ public class DebugMenuManager : MonoBehaviour
                         Debug.Log("Sample journal entry not set");
                     }
                 });
+
+                debugMenuInstance.transform.Find("B3").GetComponent<Button>().onClick.AddListener(() => {
+                    foreach(GatherQuest gt in PersistanceController.GetInstance().currentSave.gatherQuests)
+                    {
+                        Debug.Log(gt.name);
+                    }
+                });
+
+                debugMenuInstance.transform.Find("B4").GetComponent<Button>().onClick.AddListener(() => {
+                    foreach (NpcDataPacket ndp in PersistanceController.GetInstance().currentSave.npcDataPackets)
+                    {
+                        Debug.Log(ndp.id.ToString() + " " + ndp.firstName );
+                    }
+                });
             }
             debugMenuInstance.SetActive(!debugMenuInstance.activeSelf);
         }

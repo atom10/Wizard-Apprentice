@@ -46,6 +46,11 @@ public class PlayerController : MonoBehaviour
         animator = GetComponent<Animator>();
     }
 
+    private void OnDisable()
+    {
+        PersistanceController.GetInstance().RememberMe(this);
+    }
+
     public void ChangeScene(string scene)
     {
         PersistanceController persistanceController = PersistanceController.GetInstance();

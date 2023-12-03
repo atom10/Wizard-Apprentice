@@ -6372,7 +6372,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 3472284407428511172, guid: fbb1b7b9626b69a4c97ddd5fbf88a624, type: 3}
       propertyPath: id
-      value: 3
+      value: 12
       objectReference: {fileID: 0}
     - target: {fileID: 3472284407428511172, guid: fbb1b7b9626b69a4c97ddd5fbf88a624, type: 3}
       propertyPath: avatar
@@ -6389,6 +6389,10 @@ PrefabInstance:
     - target: {fileID: 3472284407428511172, guid: fbb1b7b9626b69a4c97ddd5fbf88a624, type: 3}
       propertyPath: firstname
       value: Villager
+      objectReference: {fileID: 0}
+    - target: {fileID: 3756375673401715953, guid: fbb1b7b9626b69a4c97ddd5fbf88a624, type: 3}
+      propertyPath: m_SpriteTilingProperty.oldSize.y
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 6507038015512681153, guid: fbb1b7b9626b69a4c97ddd5fbf88a624, type: 3}
       propertyPath: m_Sprite
@@ -6453,7 +6457,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 3472284407428511172, guid: fbb1b7b9626b69a4c97ddd5fbf88a624, type: 3}
       propertyPath: id
-      value: 3
+      value: 13
       objectReference: {fileID: 0}
     - target: {fileID: 3472284407428511172, guid: fbb1b7b9626b69a4c97ddd5fbf88a624, type: 3}
       propertyPath: avatar
@@ -6470,6 +6474,10 @@ PrefabInstance:
     - target: {fileID: 3472284407428511172, guid: fbb1b7b9626b69a4c97ddd5fbf88a624, type: 3}
       propertyPath: firstname
       value: Cow
+      objectReference: {fileID: 0}
+    - target: {fileID: 3756375673401715953, guid: fbb1b7b9626b69a4c97ddd5fbf88a624, type: 3}
+      propertyPath: m_SpriteTilingProperty.oldSize.x
+      value: 2
       objectReference: {fileID: 0}
     - target: {fileID: 3756375673401715953, guid: fbb1b7b9626b69a4c97ddd5fbf88a624, type: 3}
       propertyPath: m_SpriteTilingProperty.oldSize.y
@@ -6538,7 +6546,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 3472284407428511172, guid: fbb1b7b9626b69a4c97ddd5fbf88a624, type: 3}
       propertyPath: id
-      value: 3
+      value: 14
       objectReference: {fileID: 0}
     - target: {fileID: 3472284407428511172, guid: fbb1b7b9626b69a4c97ddd5fbf88a624, type: 3}
       propertyPath: avatar
