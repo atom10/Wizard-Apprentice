@@ -126,6 +126,7 @@ public class PlayerController : MonoBehaviour
             {
                 if (map == null)
                 {
+                    cant_move_sources += 1;
                     map = Instantiate(mapPrefab);
                     Canvas canvas = map.GetComponent<Canvas>();
                     canvas.worldCamera = Camera.main;
@@ -135,6 +136,10 @@ public class PlayerController : MonoBehaviour
                 }
                 just_interacted = true;
             }
+        } else if (map != null && Input.GetKeyDown(KeyCode.M))
+        {
+            cant_move_sources -= 1;
+            Destroy(map);
         }
 
         Vector3 camera_new_position = Camera.main.transform.position;
