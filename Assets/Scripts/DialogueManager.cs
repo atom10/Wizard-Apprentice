@@ -53,7 +53,7 @@ public class DialogueManager : MonoBehaviour
         is_talking = true;
         runningDialogueBox.transform.Find("speaker_1").gameObject.GetComponent<Image>().sprite = playerController.avatar;
         runningDialogueBox.transform.Find("speaker_2").gameObject.GetComponent<Image>().sprite = npcController.avatar;
-        AdvanceDialogue();
+        while(message.text.Equals("blablabla")) AdvanceDialogue();
     }
     public bool isTalking()
     {
