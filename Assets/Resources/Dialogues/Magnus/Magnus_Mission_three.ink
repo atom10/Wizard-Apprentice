@@ -1,5 +1,5 @@
 ﻿"What seems to be the matter?" #changeSpeakerName-Freya
-"I glimpsed an unfamiliar rabbit hopping around the forest. I require a pure animal sacrifice for a potion" #changeSpeakerName-Magnus #option-0-changesInkFile-Dialogues/Magnus/Magnus_Mission_three_ended #option-0-addGatherQuest-GatherQuests/Rabbit
+"I glimpsed an unfamiliar rabbit hopping around the forest. I require a pure animal sacrifice for a potion" #changeSpeakerName-Magnus #option-0-changesInkFile-Dialogues/Magnus/Magnus_Mission_three_ended #option-0-addGatherQuest-GatherQuests/Rabbit #option-1-forceCloseDialogue
 + ["I will, however what if the creature belongs to someone?"]
 	-> mission
 + ["I'm not able to help you right now."]

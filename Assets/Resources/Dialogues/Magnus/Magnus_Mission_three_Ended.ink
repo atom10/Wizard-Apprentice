@@ -1,5 +1,5 @@
 ﻿"Greetings, Magnus" #changeSpeakerName-Freya
-"Did you aquire the rabbit?" #option-0-changesRelation-Magnus-50-plus #option-0-changesInkFile-Dialogues/Magnus/Magnus_Mission_Four #option-0-requireItem-Items/Rabbit-1
+"Did you aquire the rabbit?" #option-0-changesRelation-Magnus-50-plus #option-0-changesInkFile-Dialogues/Magnus/Magnus_Mission_Four #option-0-requireItem-Items/Rabbit-1 #option-1-forceCloseDialogue
 + ["I have acquired the rabbit, though its fur is a bit muddy from traversing the damp forest."]
 	-> mission
 + ["Not yet."]

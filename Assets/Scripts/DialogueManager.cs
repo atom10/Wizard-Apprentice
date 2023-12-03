@@ -309,20 +309,20 @@ public class DialogueManager : MonoBehaviour
                                 }
                             }
                             break;
-                        //# option-1-forceCloseDialogue
+                        //#option-1-forceCloseDialogue
                         case "forceCloseDialogue":
                             if (postDecision && choiceSelected.index == wchich_one)
                             {
                                 FinishDialogue();
                             }
                             break;
-                        //# option-1-changesInkKnot-powitanie  (affects next dialogue chain)
+                        //#option-1-changesInkKnot-powitanie  (affects next dialogue chain)
                         case "changesInkKnot":
                             if (postDecision)
                                 if (choiceSelected.index == wchich_one)
                                     npcController.ink_knot_name = words[3];
                             break;
-                        //# option-1-advanceTime-20
+                        //#option-1-advanceTime-20
                         case "advanceTime":
                             if (postDecision)
                             {
