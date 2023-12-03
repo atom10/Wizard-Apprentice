@@ -9,7 +9,8 @@ public class DebugMenuManager : MonoBehaviour
     GameObject debugMenuInstance;
 
     public GatherQuest SampleQuest;
-    
+    public JournalEntry SampleJournalEntry;
+
     void Update()
     {
         if (Input.GetKeyDown(KeyCode.O))
@@ -28,6 +29,18 @@ public class DebugMenuManager : MonoBehaviour
                     } else
                     {
                         Debug.Log("Sample quest not set");
+                    }
+                });
+
+                debugMenuInstance.transform.Find("B2").GetComponent<Button>().onClick.AddListener(() => {
+                    PersistanceController persistanceController = PersistanceController.GetInstance();
+                    if (SampleJournalEntry != null)
+                    {
+                        persistanceController.currentSave.journal.Add(SampleJournalEntry);
+                    }
+                    else
+                    {
+                        Debug.Log("Sample journal entry not set");
                     }
                 });
             }

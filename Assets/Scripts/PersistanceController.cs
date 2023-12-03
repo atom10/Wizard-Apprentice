@@ -397,7 +397,7 @@ public class SaveFilePacket
     public int hour = 0;
     public List<ulong> eventFlags = new List<ulong>();
     public List<ItemOnGroundDataPacket> itemOnGroundDataPackets = new List<ItemOnGroundDataPacket>();
-    public List<string> journal = new List<string>();
+    public List<JournalEntry> journal = new List<JournalEntry>();
     public List<GatherQuest> gatherQuests = new List<GatherQuest>();
 }
 

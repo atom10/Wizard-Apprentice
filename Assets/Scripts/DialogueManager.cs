@@ -258,6 +258,11 @@ public class DialogueManager : MonoBehaviour
                 case "changeLocationOnDialogueEnd":
                     locationOnDialogueEnd = words[1];
                     break;
+                //#addJournalEntry-(path/to/journalentry)
+                case "addJournalEntry":
+                    if (postDecision)
+                        PersistanceController.GetInstance().currentSave.journal.Add(Resources.Load<JournalEntry>(words[1]));
+                    break;
                 //Option cases
                 case "option":
                     int wchich_one = int.Parse(words[1]);
@@ -438,11 +443,11 @@ public class DialogueManager : MonoBehaviour
                         case "alternativeKnotName":
                             alternativeKnot[wchich_one] = words[3];
                             break;
-                        //# option-1-addJournalEntry-content
+                        //# option-1-addJournalEntry-(path/to/journalentry)
                         case "addJournalEntry":
                             if(postDecision)
                                 if (choiceSelected.index == wchich_one)
-                                    PersistanceController.GetInstance().currentSave.journal.Add(words[3]);
+                                    PersistanceController.GetInstance().currentSave.journal.Add(Resources.Load<JournalEntry>(words[3]));
                             break;
                         //# option-1-addGatherQuest-(resource/path)
                         case "addGatherQuest":

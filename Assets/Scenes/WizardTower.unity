@@ -7292,6 +7292,38 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 4788796117763413861, guid: 9c9307942ca57d04bb4df7d41ba49e2c, type: 3}
+      propertyPath: m_SizeDelta.x
+      value: 17.29
+      objectReference: {fileID: 0}
+    - target: {fileID: 4788796117763413861, guid: 9c9307942ca57d04bb4df7d41ba49e2c, type: 3}
+      propertyPath: m_SizeDelta.y
+      value: 6.48
+      objectReference: {fileID: 0}
+    - target: {fileID: 4788796117763413861, guid: 9c9307942ca57d04bb4df7d41ba49e2c, type: 3}
+      propertyPath: m_AnchoredPosition.x
+      value: -126.829956
+      objectReference: {fileID: 0}
+    - target: {fileID: 5200951848150848025, guid: 9c9307942ca57d04bb4df7d41ba49e2c, type: 3}
+      propertyPath: m_fontSize
+      value: 35.3
+      objectReference: {fileID: 0}
+    - target: {fileID: 5200951848150848025, guid: 9c9307942ca57d04bb4df7d41ba49e2c, type: 3}
+      propertyPath: m_enableAutoSizing
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 6574237518267383743, guid: 9c9307942ca57d04bb4df7d41ba49e2c, type: 3}
+      propertyPath: m_SizeDelta.x
+      value: 236.37
+      objectReference: {fileID: 0}
+    - target: {fileID: 6574237518267383743, guid: 9c9307942ca57d04bb4df7d41ba49e2c, type: 3}
+      propertyPath: m_SizeDelta.y
+      value: 39.47
+      objectReference: {fileID: 0}
+    - target: {fileID: 6574237518267383743, guid: 9c9307942ca57d04bb4df7d41ba49e2c, type: 3}
+      propertyPath: m_AnchoredPosition.y
+      value: -6
+      objectReference: {fileID: 0}
     - target: {fileID: 7292118884563287583, guid: 9c9307942ca57d04bb4df7d41ba49e2c, type: 3}
       propertyPath: m_Camera
       value: 

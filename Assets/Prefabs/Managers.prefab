@@ -68,6 +68,7 @@ MonoBehaviour:
   inventoryBoxPrefab: {fileID: 7511884172673215159, guid: 6e25801a831fd014b91a3bab7e84628d, type: 3}
   inventoryItemPrefab: {fileID: 7356020139941159156, guid: 29c9e1318f458c544968735ddde2564b, type: 3}
   closing: {fileID: 8300000, guid: eafea1232155f6586ae21bfa1ee33714, type: 3}
+  journalEntryPrefab: {fileID: 3070341755795113779, guid: eb5388274bd3d894a8555064704f07e6, type: 3}
 --- !u!114 &1277056676821918384
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -125,6 +126,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   DebugMenuPrefab: {fileID: 6657899610228708537, guid: 4e793d99ec27c5b4da0af895f9762478, type: 3}
   SampleQuest: {fileID: 11400000, guid: a774cbcec021ec5e38f07dd34d38300f, type: 2}
+  SampleJournalEntry: {fileID: 11400000, guid: b4f0051e66d954d4db5efbb8a0566cb8, type: 2}
 --- !u!114 &2683515316828317218
 MonoBehaviour:
   m_ObjectHideFlags: 0

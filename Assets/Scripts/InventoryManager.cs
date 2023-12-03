@@ -10,6 +10,7 @@ public class InventoryManager : MonoBehaviour
     public GameObject inventoryBoxPrefab;
     public GameObject inventoryItemPrefab;
     public AudioClip closing;
+    public GameObject journalEntryPrefab;
 
     GameObject inventoryBox;
 
@@ -73,11 +74,33 @@ public class InventoryManager : MonoBehaviour
         {
             Destroy(quest_list.transform.GetChild(a).gameObject);
         }
-        List<string> journal = PersistanceController.GetInstance().currentSave.journal;
-        foreach(string element in journal) {
-            GameObject new_entry = Instantiate(new GameObject(), quest_list.transform);
-            TextMeshProUGUI text = new_entry.AddComponent<TextMeshProUGUI>();
-            text.text = element;
+        List<JournalEntry> journal = PersistanceController.GetInstance().currentSave.journal;
+        foreach(JournalEntry element in journal) {
+            GameObject new_entry = Instantiate(journalEntryPrefab, quest_list.transform);
+            TextMeshProUGUI giverComponent = new_entry.transform.Find("Giver").GetComponent<TextMeshProUGUI>();
+            switch (element.fraction)
+            {
+                case Fraction.wizard:
+                    giverComponent.text = "Magnus";
+                    break;
+                case Fraction.village:
+                    giverComponent.text = "Village";
+                    break;
+                case Fraction.castle:
+                    giverComponent.text = "Queen";
+                    break;
+            }
+            new_entry.transform.Find("Header").GetComponent<TextMeshProUGUI>().text = element.header;
+            TextMeshProUGUI itemRequiredComponent = new_entry.transform.Find("ItemRequired").GetComponent<TextMeshProUGUI>();
+            itemRequiredComponent.text = "";
+            itemRequiredComponent.fontSize -= 8;
+            for (int a = 0;a < element.itemsRequired.Count; ++a)
+            {
+                itemRequiredComponent.text += element.amountOfItemsRequired[a].ToString() + " x " + element.itemsRequired[a].name + "\n";
+            }
+            new_entry.transform.Find("Content").GetComponent<TextMeshProUGUI>().text = element.content;
+            new_entry.GetComponent<VerticalLayoutGroup>().CalculateLayoutInputVertical();
+            new_entry.GetComponent<VerticalLayoutGroup>().SetLayoutVertical();
         }
 
         GameObject relationships = inventoryBox.transform.Find("content_main_container/relationships").gameObject;
