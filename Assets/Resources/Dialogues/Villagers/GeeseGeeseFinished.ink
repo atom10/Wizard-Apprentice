@@ -1,4 +1,5 @@
-﻿"Top of the morning." #changeSpeakerName-Villager #option-0-changesInkFile-Dialogues/Other/NoDialogue #option-0-changesRelation-Villagers-30-plus #option-0-requireItem-Items/Goose-4
+﻿"Top of the morning." #changeSpeakerName-Freya
+"How you found these geese?" #changeSpeakerName-Villager #option-0-changesInkFile-Dialogues/Other/NoDialogue #option-0-changesRelation-Villagers-30-plus #option-0-requireItem-Items/Goose-4 #option-0-advanceTime-4 #option-1-forceCloseDialogue
 + ["Ye geese had been found."]
     -> mission
 + ["..."]

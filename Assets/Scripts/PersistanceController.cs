@@ -394,7 +394,7 @@ public class SaveFilePacket
     public List<ChestDataPacket> chestDataPackets = new List<ChestDataPacket>();
     public PlayerDataPacket playerDataPacket = new PlayerDataPacket();
     public int day = 0;
-    public int hour = 0;
+    public int hour = 8;
     public List<ulong> eventFlags = new List<ulong>();
     public List<ItemOnGroundDataPacket> itemOnGroundDataPackets = new List<ItemOnGroundDataPacket>();
     public List<JournalEntry> journal = new List<JournalEntry>();

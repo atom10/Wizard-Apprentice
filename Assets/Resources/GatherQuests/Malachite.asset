@@ -10,13 +10,13 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: de0939281b8bf9b4882efacaa405f4f2, type: 3}
-  m_Name: Carrot
+  m_Name: Malachite
   m_EditorClassIdentifier: 
   item:
-  - {fileID: 11400000, guid: 39e6b8f5cba8e6a4da16ee7e5e0fd144, type: 2}
+  - {fileID: 11400000, guid: c27f5e80563f0a142a59a14d12b5fdab, type: 2}
   amountToSpawn: 01000000
-  startRadius: 01000000
-  endRadius: 02000000
+  startRadius: 02000000
+  endRadius: 06000000
   spawnStrategy: 00000000
   persistent: 0
-  destinationName: 2
+  destinationName: 1
