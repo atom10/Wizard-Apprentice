@@ -9,7 +9,7 @@ He declared, the desperation and resolve in his voice palpable. #changeSpeakerNa
 I suggested, attempting to guide them toward a more measured approach.
 "If you haven't lived within the confines of our hamlet, you cannot fathom the agony we endure. Aid us, or refrain from impeding our resolve." #changeSpeakerName-Villager
 He retorted, the raw pain of his people underscoring the urgency of their plea. #changeSpeakerName-Freya
-The conversation unfolded against the backdrop of a hamlet, where the struggle for justice was as timeless as the stones that paved its winding paths. #option-0-changesInkFile-Dialogues/Villagers/RevolutionFinished #option-0-addGatherQuest-GatherQuests/StrenghtAndFire #option-0-advanceTime-4 #option-1-forceCloseDialogue # option-1-requiresTime-betweenHours-0-4
+The conversation unfolded against the backdrop of a hamlet, where the struggle for justice was as timeless as the stones that paved its winding paths. #option-0-changesInkFile-Dialogues/Villagers/RevolutionFinished #option-0-addGatherQuest-GatherQuests/StrenghtAndFire #option-0-advanceTime-4 #option-1-forceCloseDialogue #option-0-requiresTime-betweenHours-0-4 #option-0-requiresRelation-Villagers-100
 + ["I shall help the least fortunate."]
     -> END
 + ["Violence is not the answer."]

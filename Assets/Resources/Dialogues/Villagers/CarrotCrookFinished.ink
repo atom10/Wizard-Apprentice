@@ -1,5 +1,5 @@
 ﻿"Pray, have you laid eyes upon my precious carrot?"
-The villager implored, the lines on his weathered face mirroring the earnestness of his inquiry. #changeSpeakerName-Freya #option-1-forceCloseDialogue #option-0-advanceTime-4 #option-0-changesInkFile-Dialogues/Other/NoDialogue #option-0-removeItem-Items/Carrot-1 #option-0-changesRelation-Villagers-40-plus
+The villager implored, the lines on his weathered face mirroring the earnestness of his inquiry. #changeSpeakerName-Freya #option-1-forceCloseDialogue #option-0-advanceTime-4 #option-0-changesInkFile-Dialogues/Villagers/Revolution #option-0-removeItem-Items/Carrot-1 #option-0-changesRelation-Villagers-40-plus
 + ["Indeed, good sir, fear not!]
     -> mission
 + ["Not yet."]
