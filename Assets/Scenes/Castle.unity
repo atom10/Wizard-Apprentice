@@ -7309,7 +7309,7 @@ PrefabInstance:
     - target: {fileID: 3472284407428511172, guid: fbb1b7b9626b69a4c97ddd5fbf88a624, type: 3}
       propertyPath: ink_file
       value: 
-      objectReference: {fileID: 4900000, guid: d474b14b4852141568eb85b85ff7e647, type: 3}
+      objectReference: {fileID: 4900000, guid: 8e6aa41380cbd64e3ad25173f25c137d, type: 3}
     - target: {fileID: 3472284407428511172, guid: fbb1b7b9626b69a4c97ddd5fbf88a624, type: 3}
       propertyPath: firstname
       value: Queen
