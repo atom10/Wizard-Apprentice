@@ -28,7 +28,7 @@ public class ItemOnGround : MonoBehaviour, Interact
     public void Interact(GameObject player)
     {
         player.GetComponent<PlayerController>().AddItem(item, amount);
-        PersistanceController.GetInstance().ForgetMe(this);
+        if(persistable) PersistanceController.GetInstance().ForgetMe(this);
         Destroy(this.gameObject);
     }
 

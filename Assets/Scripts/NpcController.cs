@@ -28,7 +28,7 @@ public class NpcController : MonoBehaviour, Interact
         target_scene = scene;
         Destroy(gameObject);
     }
-    void Start()
+    void Awake()
     {
         PersistanceController persistanceController = PersistanceController.GetInstance();
         if (!persistanceController.ShouldIBeHere(this))

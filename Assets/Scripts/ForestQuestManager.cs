@@ -1,13 +1,15 @@
+using System;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.Assertions;
 using UnityEngine.SceneManagement;
+using Random = UnityEngine.Random;
 
 public class ForestQuestManager : MonoBehaviour
 {
     public GameObject ItemOnGroundPrefab;
 
-    void Awake()
+    void Start()
     {
         GenerateQuestItems();
     }
@@ -25,23 +27,25 @@ public class ForestQuestManager : MonoBehaviour
         foreach (GatherQuest gatherQuest in gatherQuests)
         {
             string sceneName = SceneManager.GetActiveScene().name;
+            Boolean shallExit = false;
             switch (gatherQuest.destinationName)
             {
                 case DestinationName.tower:
-                    if (sceneName != "WizardTower") continue;
+                    if (sceneName != "WizardTower") shallExit=true;
                     break;
                 case DestinationName.forest:
-                    if (sceneName != "Forest") continue;
+                    if (sceneName != "Forest") shallExit = true;
                     break;
                 case DestinationName.castle:
-                    if (sceneName != "Castle") continue;
+                    if (sceneName != "Castle") shallExit = true;
                     break;
                 case DestinationName.village:
-                    if (sceneName != "Village") continue;
+                    if (sceneName != "Village") shallExit = true;
                     break;
                 default:
                     break;
             }
+            if (shallExit) { continue; }
             for (int i = 0; i < gatherQuest.amountToSpawn.Count; i++)
             {
                 for (int j = 0; j < gatherQuest.amountToSpawn[i]; j++)
@@ -80,7 +84,7 @@ public class ForestQuestManager : MonoBehaviour
             }
             if (gatherQuest.persistent)
             {
-                PersistanceController.GetInstance().currentSave.gatherQuests.Remove(gatherQuest);
+                //PersistanceController.GetInstance().currentSave.gatherQuests.Remove(gatherQuest);
             }
         }
     }

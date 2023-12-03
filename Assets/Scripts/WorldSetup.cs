@@ -7,7 +7,7 @@ public class WorldSetup : MonoBehaviour
 {
     public GameObject HUDPrefab;
 
-    void Awake()
+    void Start()
     {
         if (GameObject.Find("HUD") == null && HUDPrefab != null)
         {

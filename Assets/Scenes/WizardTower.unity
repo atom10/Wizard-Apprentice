@@ -7146,7 +7146,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 3472284407428511172, guid: fbb1b7b9626b69a4c97ddd5fbf88a624, type: 3}
       propertyPath: id
-      value: 1
+      value: 9001
       objectReference: {fileID: 0}
     - target: {fileID: 3472284407428511172, guid: fbb1b7b9626b69a4c97ddd5fbf88a624, type: 3}
       propertyPath: avatar
@@ -7158,7 +7158,7 @@ PrefabInstance:
       objectReference: {fileID: 4900000, guid: ab5799722ff97f3aa9bbd725e1f055b1, type: 3}
     - target: {fileID: 3472284407428511172, guid: fbb1b7b9626b69a4c97ddd5fbf88a624, type: 3}
       propertyPath: firstname
-      value: Bed
+      value: Mr. Bed
       objectReference: {fileID: 0}
     - target: {fileID: 3756375673401715953, guid: fbb1b7b9626b69a4c97ddd5fbf88a624, type: 3}
       propertyPath: m_Enabled
