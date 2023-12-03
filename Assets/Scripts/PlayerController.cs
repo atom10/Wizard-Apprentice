@@ -107,7 +107,8 @@ public class PlayerController : MonoBehaviour
                 var collider = Physics2D.OverlapCircle(interactPos, 0.2f, interactableObjectsLayer);
                 if (collider != null)
                 {
-                    collider.GetComponent<Interact>()?.Interact(gameObject);
+                    Interact interact = collider.GetComponent<Interact>();
+                    if (interact != null) { interact.Interact(gameObject); }
                 }
             }
 

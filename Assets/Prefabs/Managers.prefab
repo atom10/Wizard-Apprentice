@@ -9,7 +9,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 7808894002910350541}
-  - component: {fileID: 4851997042680253377}
+  - component: {fileID: 1551223104137751052}
   - component: {fileID: 4368194982526433808}
   - component: {fileID: 1277056676821918384}
   - component: {fileID: 8083889729571861252}
@@ -39,7 +39,7 @@ Transform:
   m_Children: []
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &4851997042680253377
+--- !u!114 &1551223104137751052
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -48,7 +48,7 @@ MonoBehaviour:
   m_GameObject: {fileID: 246777465830402197}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 15a3b6c11f9dfe84db01c0c0771815d6, type: 3}
+  m_Script: {fileID: 11500000, guid: d8bd6f24d99de9914818225c39a2cb8c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   dialogueBox: {fileID: 1619476325506610274, guid: 932877122d2eb404d91e088cdafa0fac, type: 3}
@@ -124,7 +124,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   DebugMenuPrefab: {fileID: 6657899610228708537, guid: 4e793d99ec27c5b4da0af895f9762478, type: 3}
-  SampleQuest: {fileID: 11400000, guid: 352f166c25a03bb4cbfcc55f577e94b4, type: 2}
+  SampleQuest: {fileID: 11400000, guid: a774cbcec021ec5e38f07dd34d38300f, type: 2}
 --- !u!114 &2683515316828317218
 MonoBehaviour:
   m_ObjectHideFlags: 0
