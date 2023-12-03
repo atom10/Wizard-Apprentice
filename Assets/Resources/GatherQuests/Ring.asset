@@ -13,10 +13,10 @@ MonoBehaviour:
   m_Name: Ring
   m_EditorClassIdentifier: 
   item:
-  - {fileID: 0}
-  amountToSpawn: 00000000
+  - {fileID: 11400000, guid: 23114a1691cd8424789903197b894cd2, type: 2}
+  amountToSpawn: 01000000
   startRadius: 00000000
-  endRadius: 00000000
+  endRadius: 03000000
   spawnStrategy: 00000000
   persistent: 0
   destinationName: 3

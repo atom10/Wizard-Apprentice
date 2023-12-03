@@ -1,5 +1,5 @@
-﻿"Ah, you've returned. Do you have the ring?"
-The queen inquired, her eyes keenly fixed on my presence. #option-1-forceCloseDialogue #option-0-advanceTime-4 #option-0-removeItem-Items/Ring-1 #option-0-requiresTime-betweenHours-8-20
+"Ah, you've returned. Do you have the ring?"
+The queen inquired, her eyes keenly fixed on my presence. #option-1-forceCloseDialogue #option-0-advanceTime-4 #option-1-removeItem-Items/Ring-1 #option-1-requiresTime-betweenHours-8-20
 + ["Not yet."]
     -> END
 + ["Yes, Queen. It wasn't very challenging to locate."]
