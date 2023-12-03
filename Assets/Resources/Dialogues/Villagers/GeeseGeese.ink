@@ -1,5 +1,5 @@
 ﻿"Milady! I beg, help me out here. My grandpa's gonna wallop me good, them geese I'm suposed to watch over done run off!" #changeSpeakerName-Villager
-The distressed peasant pleaded, her words a mix of urgency and rustic charm, the worry etched across her weathered face. #changeSpeakerName-Freya #option-0-changesInkFile-Dialogues/Villagers/GeeseGeeseFinished #option-0-addGatherQuest-GatherQuests/Geese
+The distressed peasant pleaded, her words a mix of urgency and rustic charm, the worry etched across her weathered face. #changeSpeakerName-Freya #option-0-changesInkFile-Dialogues/Villagers/GeeseGeeseFinished #option-0-addGatherQuest-GatherQuests/Geese #option-0-advanceTime-4 #option-1-forceCloseDialogue # option-1-requiresTime-betweenHours-4-16 
 + ["Fear not, for I shall endeavor to bring back the wayward geese."]
     -> mission
 + ["Ye shall wait."]

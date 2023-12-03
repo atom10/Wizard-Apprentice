@@ -10,7 +10,7 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: d60ad4fdefb12d44e9ab5acfb05c91d1, type: 3}
-  m_Name: Poison_elixir
+  m_Name: Poison
   m_EditorClassIdentifier: 
   item_name: Poison elixir
   icon: {fileID: 21300000, guid: 99460e424a43de9488d2e3b05be5be15, type: 3}
