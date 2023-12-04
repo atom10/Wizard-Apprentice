@@ -1,6 +1,6 @@
 "What seems to be the matter?" #changeSpeakerName-Freya
 "I need you to bring me ingredients for a soup" #changeSpeakerName-Magnus
-Magnus declared, his presence commanding attention in the ancient chamber of the tower. The flickering candlelight danced upon the array of potion bottles and mystical apparatus surrounding him. #changeSpeakerName-Freya #option-0-changesInkFile-Dialogues/Magnus/MagnusMissionTwoEnded #option-0-addGatherQuest-GatherQuests/Shrooms #option-1-forceCloseDialogue #option-0-advanceTime-4
+Magnus declared, his presence commanding attention in the ancient chamber of the tower. The flickering candlelight danced upon the array of potion bottles and mystical apparatus surrounding him. #changeSpeakerName-Freya #option-0-changesInkFile-Dialogues/Magnus/MagnusMissionTwoEnded #option-0-addGatherQuest-GatherQuests/Shrooms #option-1-forceCloseDialogue #option-0-advanceTime-4 #option-0-addJournalEntry-Plot/wizard/mushroomSoup
 + ["Consider it done, Magnus"]
     -> mission
 + ["I'm not able to help you right now."]

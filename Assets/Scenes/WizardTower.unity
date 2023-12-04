@@ -6974,6 +6974,10 @@ PrefabInstance:
       value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 3472284407428511172, guid: fbb1b7b9626b69a4c97ddd5fbf88a624, type: 3}
+      propertyPath: id
+      value: 666
+      objectReference: {fileID: 0}
+    - target: {fileID: 3472284407428511172, guid: fbb1b7b9626b69a4c97ddd5fbf88a624, type: 3}
       propertyPath: ink_file
       value: 
       objectReference: {fileID: 4900000, guid: ebc6f1312a5b56b69b45462a1061a87e, type: 3}

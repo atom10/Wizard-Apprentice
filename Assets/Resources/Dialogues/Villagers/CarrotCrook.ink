@@ -3,7 +3,7 @@ The distressed villager exclaimed, his voice carrying a sense of urgency that re
 "How did you obtained that knowlage?"
 I inquired, my curiosity piqued by the unfolding mystery.
 "That old hag always watched me grow the biggest plants, and she's getting too close all the time! It's her, I'm sure!" #changeSpeakerName-Villager
-He accused, suspicion tainting his words. #option-1-forceCloseDialogue #option-0-advanceTime-4 #option-0-changesInkFile-Dialogues/Villagers/CarrotCrookFinished #changeSpeakerName-Freya
+He accused, suspicion tainting his words. #option-1-forceCloseDialogue #option-0-advanceTime-4 #option-0-changesInkFile-Dialogues/Villagers/CarrotCrookFinished #changeSpeakerName-Freya #option-0-addJournalEntry-Plot/village/carrotCrook
 + ["I will undertake an investigation and retrieve your stolen carrot."]
     -> mission
 + ["You shall find it thyself"]

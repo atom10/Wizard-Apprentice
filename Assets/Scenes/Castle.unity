@@ -718,7 +718,7 @@ PrefabInstance:
     - target: {fileID: 3472284407428511172, guid: fbb1b7b9626b69a4c97ddd5fbf88a624, type: 3}
       propertyPath: ink_file
       value: 
-      objectReference: {fileID: 4900000, guid: d474b14b4852141568eb85b85ff7e647, type: 3}
+      objectReference: {fileID: 4900000, guid: 508d77cacb64b3442ab1b27047ba85cb, type: 3}
     - target: {fileID: 3472284407428511172, guid: fbb1b7b9626b69a4c97ddd5fbf88a624, type: 3}
       propertyPath: firstname
       value: Maid
@@ -7656,7 +7656,7 @@ GameObject:
   - component: {fileID: 1485125637}
   - component: {fileID: 1485125636}
   - component: {fileID: 1485125635}
-  m_Layer: 6
+  m_Layer: 3
   m_Name: Throne
   m_TagString: Untagged
   m_Icon: {fileID: 0}

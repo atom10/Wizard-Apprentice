@@ -14,7 +14,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   item:
   - {fileID: 11400000, guid: 4b92b3e91d645699d8cbaf839af2a491, type: 2}
-  amountToSpawn: 07000000
+  amountToSpawn: 01000000
   startRadius: 00000000
   endRadius: 09000000
   spawnStrategy: 01000000

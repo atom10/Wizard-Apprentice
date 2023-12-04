@@ -1,5 +1,5 @@
 "Greetings, Magnus" #changeSpeakerName-Freya
-"Did you aquired the mashrooms?" #option-0-removeItem-Items/Bolete-1 #option-0-removeItem-Items/Boletus-1 #option-0-removeItem-Items/Chanterelle-1 #option-0-changesRelation-Magnus-30-plus #option-0-changesInkFile-Dialogues/Magnus/Magnus_Mission_three #option-1-forceCloseDialogue #option-0-advanceTime-4
+"Did you aquired the mashrooms?" #option-0-removeItem-Items/Bolete-1 #option-0-removeItem-Items/Boletus-1 #option-0-removeItem-Items/Chanterelle-1 #option-0-changesRelation-Magnus-30-plus #option-0-changesInkFile-Dialogues/Magnus/Magnus_Mission_three #option-1-forceCloseDialogue #option-0-advanceTime-4 #option-0-removeGatherQuest-GatherQuests/Shrooms
 + ["I've procured the mushrooms you requested."]
     -> mission
 + ["Not yet."]

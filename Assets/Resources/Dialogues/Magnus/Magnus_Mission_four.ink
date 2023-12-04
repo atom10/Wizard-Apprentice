@@ -3,7 +3,7 @@ Magnus revealed, his tone carrying a weight of secrecy and intent. The flickerin
 "Invisibility, Magnus?"
 I questioned, the very idea conjuring images of ancient sorceries and hidden realms within the medieval tapestry of magical lore. 
 "Indeed, Freya. I seek to veil the tower from prying eyes and wandering souls. It shall remain a sanctuary, concealed from the gaze of the outside world." #changeSpeakerName-Magnus
-Magnus explained, his eyes reflecting the gravity of his magical endeavor. #changeSpeakerName-Freya #option-0-changesInkFile-Dialogues/Magnus/Magnus_Mission_four_Ended #option-0-addGatherQuest-GatherQuests/Invisibility #option-1-forceCloseDialogue #option-0-advanceTime-4
+Magnus explained, his eyes reflecting the gravity of his magical endeavor. #changeSpeakerName-Freya #option-0-changesInkFile-Dialogues/Magnus/Magnus_Mission_four_Ended #option-0-addGatherQuest-GatherQuests/Invisibility #option-1-forceCloseDialogue #option-0-advanceTime-4 #option-0-addJournalEntry-Plot/wizard/potionOfInvisibility
 + ["Very well, Magnus. I shall collect the ingredients needed for this mystical veil."]
     -> mission
 + ["Let me think about it."]
